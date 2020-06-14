@@ -1,12 +1,14 @@
 package ru.springbootapp.onlinejournal.repository;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.springbootapp.onlinejournal.entity.Student;
+
+import ru.springbootapp.onlinejournal.entity.Teacher;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Long> {
+public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    Student findStudentByEmail(String email);
+    Teacher findTeacherByEmail(String email);
 
 }

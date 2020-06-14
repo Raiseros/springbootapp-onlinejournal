@@ -1,20 +1,68 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Hello!</title>
 </head>
 <body>
 
-
+<div sec:authorize="isAnonymous()">
 <form action="1" th:action="@{/showMyLoginPage}">
     <input type="submit" class="btn btn-success" value="LOGIN FOR STUDENTS AND PARENTS ">
 </form>
 <p></p><p></p>
-<form action="2" th:action="@{/registry-teacher}">
+<form action="2" th:action="@{/showTeacherLoginPage}">
     <input type="submit" class="btn btn-warning" value="LOGIN FOR TEACHEARS">
 </form>
+</div>
+
+<div sec:authorize="hasRole('student')">
+    <p>Welcome to online journal!</p>
+    <div class="user">
+        User: <span sec:authentication="principal.username"></span>
+    </div>
+    </br>
+
+    <br>
+    <div class="role">
+        Role: <span sec:authentication="principal.authorities"></span>
+    </div>
+
+    <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
+          method="POST">
+
+<div class="col-md-12">
+    <button type="submit" class="btn btn-success">Logout</button>
+</div>
+</form>
+
+
+</div>
+
+
+<div sec:authorize="hasRole('teacher')">
+    <p>Welcome to online journal!</p>
+    <div class="user">
+        User: <span sec:authentication="principal.username"></span>
+    </div>
+    </br>
+
+    <br>
+    <div class="role">
+        Role: <span sec:authentication="principal.authorities"></span>
+    </div>
+
+    <form role="form" class="form-horizontal" action="#" th:action="@{/showTeacherLoginPage/logout}"
+          method="POST">
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-success">Logout</button>
+        </div>
+    </form>
+
+
+</div>
 
 </body>
 </html>

@@ -15,4 +15,10 @@ public class StudentServiceImpl implements StudentService {
     public void saveStudent(Student theStudent) {
         studentRepository.save(theStudent);
     }
+
+    @Override
+    public Student findByEmail(String email) {
+        return studentRepository.findStudentByEmail(email);
+    }
+
 }

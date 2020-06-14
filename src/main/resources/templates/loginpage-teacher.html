@@ -3,18 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login page Student</title>
+    <title>Login page Teacher</title>
 </head>
 <body>
 
-<form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/login}"
+<form role="form" class="form-horizontal" action="#" th:action="@{/showTeacherLoginPage/login}"
       method="POST">
 
-    <div id="errors" th:if="${#request.getParameter('error')}">
+    <div id="errors_teacher" th:if="${#request.getParameter('error')}">
         Sorry! You entered invalid username/password
     </div>
 
-    <div id="logged_out" th:if="${#request.getParameter('logout')}">
+    <div id="logged_out_teacher" th:if="${#request.getParameter('logout')}">
         You have been logged out
     </div>
 
@@ -42,7 +42,7 @@
 
 <div class="col-md-12">
     <div class="col-md-12">
-        <p>You don't have an account?</p> <a class="text-danger col-md-12" th:href="@{/showMyLoginPage/registry-student}">Sign Up</a>
+        <p>You don't have an account?</p> <a class="text-danger col-md-12" th:href="@{/showTeacherLoginPage/registry-teacher}">Sign Up</a>
     </div>
 </div>
 

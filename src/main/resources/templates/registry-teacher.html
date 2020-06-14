@@ -7,12 +7,12 @@
 </head>
 
 <body>
-<form role="form" class="form-horizontal" action="#" th:action="@{/saveStudent}"
+<form role="form" class="form-horizontal" action="#" th:action="@{/showTeacherLoginPage/saveTeacher}"
       th:object="${teacher}" method="POST">
 
 
     <input type="hidden" th:field="*{id}"/>
-    <input type="hidden" name="teacher" th:field="*{role}"/>
+    <input type="hidden" th:name="role" th:value="teacher"/>
 
     <div class="form-group">
         <label for="lastName" class="control-label col-md-7 text-danger">Last name :</label>
