@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Save Lesson</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="card">
+                <div class="card-body">
+                    <form role="form" class="form-horizontal" action="#" th:action="@{/saveLesson}"
+                          th:object="${journal}" method="POST">
+
+
+                        <input type="hidden" th:field="*{id}"/>
+
+                        <div class="form-group">
+                            <label for="dateLesson" class="control-label col-md-7 text-danger">Date lesson :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="dateLesson"
+                                       th:field="*{dateLesson}"
+                                       placeholder="Date lesson">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="numberLesson" class="control-label col-md-7 text-danger">Number lesson :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="numberLesson"
+                                       th:field="*{numberLesson}"
+                                       placeholder="Number lesson">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeLesson" class="control-label col-md-7 text-danger">Time lesson :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="timeLesson"
+                                       th:field="*{timeLesson}"
+                                       placeholder="Time lesson">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fullnameCourse" class="control-label col-md-7
+                             text-danger">Full name course :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="fullnameCourse"
+                                       th:field="*{fullnameCourse}"
+                                       placeholder="Full name course">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shortnameCourse" class="control-label col-md-7
+                             text-danger">Short name course :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="shortnameCourse"
+                                       th:field="*{shortnameCourse}"
+                                       placeholder="Short name course">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="className" class="control-label col-md-7 text-danger">Class name :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="className"
+                                       th:field="*{className}"
+                                       placeholder="Class name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="schoolBuilding" class="control-label col-md-7 text-danger">School building :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="schoolBuilding"
+                                       th:field="*{schoolBuilding}"
+                                       placeholder="School building">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="homework" class="control-label col-md-7 text-danger">Homework :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="homework"
+                                       th:field="*{homework}"
+                                       placeholder="Homework">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="classnameStudent" class="control-label col-md-7
+                             text-danger">Class name Student :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="classnameStudent"
+                                       th:field="*{classnameStudent}"
+                                       placeholder="Class name Student">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeBreak" class="control-label col-md-7 text-danger">Time break :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="timeBreak"
+                                       th:field="*{timeBreak}"
+                                       placeholder="Time break">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success">Save Lesson</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -7,10 +7,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.springbootapp.onlinejournal.entity.Journal;
 import ru.springbootapp.onlinejournal.entity.Student;
 import ru.springbootapp.onlinejournal.entity.Teacher;
+import ru.springbootapp.onlinejournal.service.JournalService;
 import ru.springbootapp.onlinejournal.service.StudentService;
 import ru.springbootapp.onlinejournal.service.TeacherService;
+
+import java.util.List;
 
 @Controller
 public class HelloController {
@@ -20,6 +24,9 @@ public class HelloController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private JournalService journalService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHelloPage() {
@@ -64,5 +71,28 @@ public class HelloController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "journal", method = RequestMethod.GET)
+     public String getJournal(Model model){
+        List<Journal> theJournals = journalService.getJournals();
+        model.addAttribute("journals", theJournals);
+        return "journal";
+     }
 
+     @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)
+     public String registryLesson(Model model){
+        Journal theJournal = new Journal();
+        model.addAttribute("journal", theJournal);
+        return "registry-lesson";
+     }
+
+     @PostMapping("saveLesson")
+     public String addJournal(@ModelAttribute("journal") Journal theJournal){
+        if(null!= theJournal && theJournal.getId() > 0){
+            journalService.updateJournal(theJournal);
+        } else{
+            journalService.saveJournal(theJournal);
+        }
+
+        return "redirect:/journal";
+     }
 }

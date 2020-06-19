@@ -60,7 +60,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
             <button type="submit" class="btn btn-success">Logout</button>
         </div>
     </form>
+    <div class="table-warning text-center col-4">
 
+        <a th:href="@{/journal}" class="btn btn-primary btn-sm"
+           role="button">Journal</a>
+
+
+        <a th:href="@{/grades}" class="btn btn-danger btn-sm"
+           role="button">Grades</a>
+
+    </div>
 
 </div>
 
