@@ -8,4 +8,6 @@ public interface JournalService {
     public List<Journal> getJournals();
     public void saveJournal(Journal theJournal);
     public void updateJournal(Journal theJournal);
+    public List<String> getListClassnameStudent();
+    public List<Journal> getJournalClassNameStudentList(String classNameStudent);
 }

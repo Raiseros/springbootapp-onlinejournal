@@ -3,10 +3,7 @@ package ru.springbootapp.onlinejournal.contoller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.springbootapp.onlinejournal.entity.Journal;
 import ru.springbootapp.onlinejournal.entity.Student;
 import ru.springbootapp.onlinejournal.entity.Teacher;
@@ -53,7 +50,7 @@ public class HelloController {
         return "registry-teacher";
     }
 
-   @PostMapping("/showMyLoginPage/saveStudent")
+    @PostMapping("/showMyLoginPage/saveStudent")
     public String addStudent(@ModelAttribute("student") Student theStudent) {
         studentService.saveStudent(theStudent);
         return "redirect:/";
@@ -72,27 +69,40 @@ public class HelloController {
     }
 
     @RequestMapping(value = "journal", method = RequestMethod.GET)
-     public String getJournal(Model model){
-        List<Journal> theJournals = journalService.getJournals();
-        model.addAttribute("journals", theJournals);
-        return "journal";
-     }
+    public String getJournal(@RequestParam(required = false) String className, Model model) {
+        if (null != className && "" != className) {
+            model.addAttribute("classNameStudent", className);
+            model.addAttribute("journals", journalService.getJournalClassNameStudentList(className));
+        } else {
+            List<Journal> theJournals = journalService.getJournals();
+            model.addAttribute("journals", theJournals);
+        }
 
-     @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)
-     public String registryLesson(Model model){
+        return "journal";
+    }
+
+
+    @ModelAttribute("classnameStudentList")
+    public List<String> getclassnameStudentList() {
+        return journalService.getListClassnameStudent();
+    }
+
+    @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)
+    public String registryLesson(Model model) {
         Journal theJournal = new Journal();
         model.addAttribute("journal", theJournal);
         return "registry-lesson";
-     }
+    }
 
-     @PostMapping("saveLesson")
-     public String addJournal(@ModelAttribute("journal") Journal theJournal){
-        if(null!= theJournal && theJournal.getId() > 0){
+    @PostMapping("saveLesson")
+    public String addJournal(@ModelAttribute("journal") Journal theJournal) {
+        if (null != theJournal && theJournal.getId() > 0) {
             journalService.updateJournal(theJournal);
-        } else{
+        } else {
             journalService.saveJournal(theJournal);
         }
 
         return "redirect:/journal";
-     }
+    }
+
 }

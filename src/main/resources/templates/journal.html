@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
@@ -51,6 +54,28 @@
         <input type="submit" class="btn btn-success" value="New lesson">
     </form>
     <p></p>
+
+<div style="text-align: center; padding-bottom: 20px;">
+
+    <select id="id_instId"  onchange="classname()">
+
+        <option value="">-- select student class --</option>
+       <option th:each="className : ${classnameStudentList}" th:value="${className}"
+                th:text="${className}" th:selected="${className.equals(classNameStudent)}">
+
+        </option>
+    </select>
+
+    <script>
+        function classname() {
+           var classNameStudent = document.getElementById("id_instId").value;
+            window.location = 'journal?className=' + classNameStudent;
+        }
+
+    </script>
+
+</div>
+<p></p>
 <div class="table-responsive">
     <table border="1" class="table table-striped table-hover table-bordered">
 
@@ -58,27 +83,27 @@
 
         <tr class="d-flex" th:each="tempJournal : ${journals}">
 
-            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-3"
-                th:text="${tempJournal.dateLesson}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-3"
+            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
+                th:text="${#dates.format(tempJournal.dateLesson, 'EE, dd')}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
                 th:text="${tempJournal.numberLesson}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
                 th:text="${tempJournal.timeLesson}"/>
-            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-3"
+            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
                 th:text="${tempJournal.fullnameCourse}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-3"
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
                 th:text="${tempJournal.shortnameCourse}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
                 th:text="${tempJournal.className}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
                 th:text="${tempJournal.schoolBuilding}"/>
-            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-3"
+            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
                 th:text="${tempJournal.homework}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-3"
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
                 th:text="${tempJournal.classnameStudent}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
                 th:text="${tempJournal.timeBreak}"/>
-            <td class="table-warning text-center col-4">
+            <td class="table-warning text-center col-1">
 
                 <a th:href="@{/formForUpdate(journalId=${tempJournal.id})}" class="btn btn-primary btn-sm"
                    role="button">Update</a>
@@ -96,5 +121,16 @@
     </table>
 </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

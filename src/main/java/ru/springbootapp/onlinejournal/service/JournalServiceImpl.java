@@ -1,6 +1,7 @@
 package ru.springbootapp.onlinejournal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.springbootapp.onlinejournal.entity.Journal;
 import ru.springbootapp.onlinejournal.repository.JournalRepository;
@@ -15,7 +16,7 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     public List<Journal> getJournals() {
-        return journalRepository.findAll();
+        return journalRepository.findAll(Sort.by(Sort.Direction.ASC, "dateLesson","numberLesson"));
     }
 
     @Override
@@ -29,5 +30,15 @@ public class JournalServiceImpl implements JournalService {
                 theJournal.getTimeLesson(), theJournal.getFullnameCourse(), theJournal.getShortnameCourse(),
                 theJournal.getClassName(), theJournal.getSchoolBuilding(), theJournal.getHomework(),
                 theJournal.getClassnameStudent(), theJournal.getTimeBreak(), theJournal.getId());
+    }
+
+    @Override
+    public List<String> getListClassnameStudent() {
+        return journalRepository.getListClassnameStudent();
+    }
+
+    @Override
+    public List<Journal> getJournalClassNameStudentList(String classNameStudent) {
+        return journalRepository.findAllByClassnameStudent(classNameStudent);
     }
 }

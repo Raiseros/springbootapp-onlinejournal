@@ -1,6 +1,11 @@
 package ru.springbootapp.onlinejournal.entity;
 
+
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -13,14 +18,15 @@ public class Journal {
     @Column(name = "id")
     private long id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd" )
     @Column(name = "date_lesson")
-    private String dateLesson;
+    private java.util.Date dateLesson;
 
     @Column(name = "number_lesson")
     private long numberLesson;
 
     @Column(name = "time_lesson")
-    private long timeLesson;
+    private String timeLesson;
 
     @Column(name = "fullname_course")
     private String fullnameCourse;
@@ -41,7 +47,7 @@ public class Journal {
     private String classnameStudent;
 
     @Column(name = "time_break")
-    private long timeBreak;
+    private String timeBreak;
 
     @ManyToMany
     @JoinTable(name = "course_scores", joinColumns = @JoinColumn(name = "course_id"),
@@ -56,11 +62,11 @@ public class Journal {
         this.id = id;
     }
 
-    public String getDateLesson() {
+    public java.util.Date getDateLesson() {
         return dateLesson;
     }
 
-    public void setDateLesson(String dateLesson) {
+    public void setDateLesson(java.util.Date dateLesson) {
         this.dateLesson = dateLesson;
     }
 
@@ -72,11 +78,11 @@ public class Journal {
         this.numberLesson = numberLesson;
     }
 
-    public long getTimeLesson() {
+    public String getTimeLesson() {
         return timeLesson;
     }
 
-    public void setTimeLesson(long timeLesson) {
+    public void setTimeLesson(String timeLesson) {
         this.timeLesson = timeLesson;
     }
 
@@ -128,11 +134,11 @@ public class Journal {
         this.classnameStudent = classnameStudent;
     }
 
-    public long getTimeBreak() {
+    public String getTimeBreak() {
         return timeBreak;
     }
 
-    public void setTimeBreak(long timeBreak) {
+    public void setTimeBreak(String timeBreak) {
         this.timeBreak = timeBreak;
     }
 
@@ -144,9 +150,9 @@ public class Journal {
         this.scores = scores;
     }
 
-    public Journal(String dateLesson, long numberLesson, long timeLesson, String fullnameCourse, String shortnameCourse,
+    public Journal(Date dateLesson, long numberLesson, String timeLesson, String fullnameCourse, String shortnameCourse,
                    String className, String schoolBuilding, String homework, String classnameStudent,
-                   long timeBreak, Set<Score> scores) {
+                   String timeBreak, Set<Score> scores) {
         this.dateLesson = dateLesson;
         this.numberLesson = numberLesson;
         this.timeLesson = timeLesson;

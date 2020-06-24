@@ -3,7 +3,12 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Save Lesson</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
 </head>
 <body>
 
@@ -21,7 +26,7 @@
                         <div class="form-group">
                             <label for="dateLesson" class="control-label col-md-7 text-danger">Date lesson :</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control-md input-md" id="dateLesson"
+                                <input type="date" class="form-control-md input-md" id="dateLesson"
                                        th:field="*{dateLesson}"
                                        placeholder="Date lesson">
                             </div>
@@ -31,25 +36,76 @@
                             <label for="numberLesson" class="control-label col-md-7 text-danger">Number lesson :</label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control-md input-md" id="numberLesson"
-                                       th:field="*{numberLesson}"
-                                       placeholder="Number lesson">
+                                       th:field="*{numberLesson}" placeholder="Number lesson" readonly/>
+
+                                </select>
+                                <script type="text/javascript">
+                                    function numberlesson() {
+                                        var timeles = document.getElementById("timeLesson").value;
+                                        if(timeles == '09:00 - 09:45') {
+                                            document.getElementById("numberLesson").value = 1;
+                                        }
+                                        if(timeles == '09:55 - 10:40') {
+                                            document.getElementById("numberLesson").value = 2;
+                                        }
+                                        if(timeles == '10:50 - 11:35') {
+                                            document.getElementById("numberLesson").value = 3;
+                                        }
+                                        if(timeles == '11:50 - 12:35') {
+                                            document.getElementById("numberLesson").value = 4;
+                                        }
+                                        if(timeles == '12:45 - 13:30') {
+                                            document.getElementById("numberLesson").value = 5;
+                                        }
+                                        if(timeles == '13:35 - 14:15') {
+                                            document.getElementById("numberLesson").value = 6;
+                                        }
+                                        if(timeles == '14:30 - 15:10') {
+                                            document.getElementById("numberLesson").value = 7;
+                                        }
+                                        if(timeles == '15:15 - 15:55') {
+                                            document.getElementById("numberLesson").value = 8;
+                                        }
+                                    };
+                                </script>
+
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="timeLesson" class="control-label col-md-7 text-danger">Time lesson :</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control-md input-md" id="timeLesson"
-                                       th:field="*{timeLesson}"
-                                       placeholder="Time lesson">
+
+                                <select class="form-control-md input-md" id="timeLesson" name="timeLesson"
+                                        onchange="numberlesson();timebreak();"
+                                        placeholder="Time lesson">
+                                    <option th:disabled th:selected value> -- select an option -- </option>
+                                    <option th:value="'09:00 - 09:45'" th:text="'09:00 - 09:45'"></option>
+                                    <option th:value="'09:55 - 10:40'" th:text="'09:55 - 10:40'"></option>
+                                    <option th:value="'10:50 - 11:35'" th:text="'10:50 - 11:35'"></option>
+                                    <option th:value="'11:50 - 12:35'" th:text="'11:50 - 12:35'"></option>
+                                    <option th:value="'12:45 - 13:30'" th:text="'12:45 - 13:30'"></option>
+                                    <option th:value="'13:35 - 14:15'" th:text="'13:35 - 14:15'"></option>
+                                    <option th:value="'14:30 - 15:10'" th:text="'14:30 - 15:10'"></option>
+                                    <option th:value="'15:15 - 15:55'" th:text="'15:15 - 15:55'"></option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="fullnameCourse" class="control-label col-md-7
                              text-danger">Full name course :</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control-md input-md" id="fullnameCourse"
-                                       th:field="*{fullnameCourse}"
-                                       placeholder="Full name course">
+                                <select class="form-control-md input-md" id="fullnameCourse"
+                                        name="fullnameCourse"
+                                        onchange="classname(); shortnamecours();"
+                                        placeholder="Full name course">
+                                    <option th:disabled th:selected value> -- select an option -- </option>
+                                    <option th:value="'English language'" th:text="'English language'"></option>
+                                    <option th:value="'Literature'" th:text="'Literature'"></option>
+                                    <option th:value="'Сomputer science'" th:text="'Сomputer science'"></option>
+                                    <option th:value="'Physics'" th:text="'Physics'"></option>
+                                    <option th:value="'Algebra'" th:text="'Algebra'"></option>
+
+                                </select>
                             </div>
                         </div>
 
@@ -59,23 +115,71 @@
                             <div class="col-md-5">
                                 <input type="text" class="form-control-md input-md" id="shortnameCourse"
                                        th:field="*{shortnameCourse}"
-                                       placeholder="Short name course">
+                                       placeholder="Short name course" readonly>
+                                <script type="text/javascript">
+                                    function shortnamecours() {
+                                        var shortnamecs = document.getElementById("fullnameCourse").value;
+                                        if(shortnamecs == 'English language') {
+                                            document.getElementById("shortnameCourse").value = "English";
+                                        }
+                                        if(shortnamecs == 'Literature') {
+                                            document.getElementById("shortnameCourse").value = "Literature";
+                                        }
+                                        if(shortnamecs == 'Сomputer science') {
+                                            document.getElementById("shortnameCourse").value = "Сomputer science";
+                                        }
+                                        if(shortnamecs == 'Physics') {
+                                            document.getElementById("shortnameCourse").value = "Physics";
+                                        }
+                                        if(shortnamecs == 'Algebra') {
+                                            document.getElementById("shortnameCourse").value = "Algebra";
+                                        }
+                                    };
+                                </script>
+
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="className" class="control-label col-md-7 text-danger">Class name :</label>
+                            <label for="className" class="control-label col-md-7 text-danger">Room :</label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control-md input-md" id="className"
                                        th:field="*{className}"
-                                       placeholder="Class name">
+                                       placeholder="Room" readonly>
+
+                                <script type="text/javascript">
+                                    function classname() {
+                                        var classnam = document.getElementById("fullnameCourse").value;
+                                        if(classnam == 'English language') {
+                                            document.getElementById("className").value = "room 115";
+                                        }
+                                        if(classnam == 'Literature') {
+                                            document.getElementById("className").value = "room 201";
+                                        }
+                                        if(classnam == 'Сomputer science') {
+                                            document.getElementById("className").value = "room 221";
+                                        }
+                                        if(classnam == 'Physics') {
+                                            document.getElementById("className").value = "room 305";
+                                        }
+                                        if(classnam == 'Algebra') {
+                                            document.getElementById("className").value = "room 315";
+                                        }
+                                    };
+                                </script>
+
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="schoolBuilding" class="control-label col-md-7 text-danger">School building :</label>
+                            <label for="schoolBuilding" class="control-label col-md-7 text-danger">School building
+                                :</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control-md input-md" id="schoolBuilding"
-                                       th:field="*{schoolBuilding}"
-                                       placeholder="School building">
+                                <select class="form-control-md input-md" id="schoolBuilding"
+                                        th:field="*{schoolBuilding}"
+                                        placeholder="School Building">
+                                    <option th:value="'Building №1'" th:text="1"></option>
+                                    <option th:value="'Building №2'" th:text="2"></option>
+
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -90,17 +194,39 @@
                             <label for="classnameStudent" class="control-label col-md-7
                              text-danger">Class name Student :</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control-md input-md" id="classnameStudent"
-                                       th:field="*{classnameStudent}"
-                                       placeholder="Class name Student">
+                                <select class="form-control-md input-md" id="classnameStudent"
+                                        th:field="*{classnameStudent}"
+                                        placeholder="Class name Student">
+                                    <option th:value="'11A'" th:text="'11A'"></option>
+                                    <option th:value="'11B'" th:text="'11B'"></option>
+                                    <option th:value="'11E'" th:text="'11E'"></option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="timeBreak" class="control-label col-md-7 text-danger">Time break :</label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control-md input-md" id="timeBreak"
-                                       th:field="*{timeBreak}"
-                                       placeholder="Time break">
+                                       th:field="*{timeBreak}" placeholder="Time break" readonly/>
+
+                                <script type="text/javascript">
+                                    function timebreak() {
+                                        var joinedvalues = document.getElementById("timeLesson").value;
+                                        if(joinedvalues == '12:45 - 13:30' || joinedvalues == '14:30 - 15:10') {
+                                            document.getElementById("timeBreak").value = "Break 5 min";
+                                        }
+                                        if(joinedvalues == '09:00 - 09:45' || joinedvalues == '09:55 - 10:40'
+                                            || joinedvalues == '11:50 - 12:35') {
+                                            document.getElementById("timeBreak").value = "Break 10 min";
+                                        }
+                                        if(joinedvalues == '10:50 - 11:35' || joinedvalues == '13:35 - 14:15') {
+                                            document.getElementById("timeBreak").value = "Break 15 min";
+                                        }
+                                        if(joinedvalues == '15:15 - 15:55') {
+                                            document.getElementById("timeBreak").value = "";
+                                        }
+                                    };
+                                </script>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -114,5 +240,16 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
