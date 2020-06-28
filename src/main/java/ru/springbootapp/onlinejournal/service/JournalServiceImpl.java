@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.springbootapp.onlinejournal.entity.Journal;
 import ru.springbootapp.onlinejournal.repository.JournalRepository;
 
+
 import java.util.List;
 
 @Service
@@ -40,5 +41,20 @@ public class JournalServiceImpl implements JournalService {
     @Override
     public List<Journal> getJournalClassNameStudentList(String classNameStudent) {
         return journalRepository.findAllByClassnameStudent(classNameStudent);
+    }
+
+    @Override
+    public List<String> getListDateLesson() {
+        return journalRepository.getListDateLesson();
+    }
+
+    @Override
+    public List<Journal> getListByDateLesson(String dateLesson) {
+        return journalRepository.getListByDateLesson(dateLesson);
+    }
+
+    @Override
+    public List<Journal> getListByClassnameStudentAndByDateLesson(String classNameStudent, String dateLesson) {
+        return journalRepository.getListByClassnameStudentAndByDateLesson(classNameStudent, dateLesson);
     }
 }

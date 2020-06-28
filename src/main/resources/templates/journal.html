@@ -50,32 +50,70 @@
 </div>
 
 
-    <form action="#" th:action="@{/registry-lesson}">
-        <input type="submit" class="btn btn-success" value="New lesson">
-    </form>
-    <p></p>
+<form action="#" th:action="@{/registry-lesson}">
+    <input type="submit" class="btn btn-success" value="New lesson">
+</form>
+<p></p>
+
+<form action="#" th:action="@{/registry-student}">
+    <input type="submit" class="btn btn-success" value="New Student">
+</form>
+<p></p>
+
 
 <div style="text-align: center; padding-bottom: 20px;">
 
-    <select id="id_instId"  onchange="classname()">
+    <select id="id_dateId" onchange="datelesson_classname()">
 
-        <option value="">-- select student class --</option>
-       <option th:each="className : ${classnameStudentList}" th:value="${className}"
-                th:text="${className}" th:selected="${className.equals(classNameStudent)}">
+        <option value="">-- select date --</option>
+        <option th:each="date : ${dateLessonList}" th:value="${date}"
+                th:text="${date}" th:selected="${date.equals(dateLesson)}">
 
         </option>
     </select>
 
     <script>
-        function classname() {
-           var classNameStudent = document.getElementById("id_instId").value;
-            window.location = 'journal?className=' + classNameStudent;
+        function datelesson_classname() {
+            var date = document.getElementById("id_dateId").value;
+            var classNameStudent = document.getElementById("id_instId").value;
+            window.location = 'journal?dateLesson=' + date + '&className=' + classNameStudent;
         }
-
     </script>
 
 </div>
 <p></p>
+
+<div style="text-align: center; padding-bottom: 20px;">
+
+    <select id="id_instId" onchange="datelesson_classname()">
+
+        <option value="">-- select student class --</option>
+        <option th:each="className : ${classnameStudentList}" th:value="${className}"
+                th:text="${className}" th:selected="${className.equals(classNameStudent)}">
+
+        </option>
+    </select>
+
+
+</div>
+<p></p>
+
+
+<div style="text-align: center; padding-bottom: 20px;">
+
+    <select id="id_studentName" onchange="datelesson_classname()">
+
+        <option value="">---------- select student ----------</option>
+        <option th:each="tempStudent : ${studentList}" th:value="${tempStudent.id}"
+                th:text="${tempStudent.lastName} + ' ' + ${tempStudent.firstName}  + ' ' + ${tempStudent.middleName}">
+
+        </option>
+    </select>
+
+
+
+</div>
+
 <div class="table-responsive">
     <table border="1" class="table table-striped table-hover table-bordered">
 

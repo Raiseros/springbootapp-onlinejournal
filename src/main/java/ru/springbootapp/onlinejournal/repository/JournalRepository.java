@@ -1,6 +1,7 @@
 package ru.springbootapp.onlinejournal.repository;
 
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,5 +31,31 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
 
 
     public List<Journal> findAllByClassnameStudent(String classNameStudent);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT DISTINCT concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson) - MOD(TO_DAYS(date_lesson) -2, 7)))," +
+            " '%d %b'), ' - ', DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson) - MOD(TO_DAYS(date_lesson) -2, 7) + 4 ))," +
+            "'%d %b'))  FROM journal ORDER BY date_lesson , number_lesson", nativeQuery=true)
+    public List<String> getListDateLesson();
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT * FROM journal WHERE concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7))), '%d %b'), ' - ', DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b')) = :dateLesson " +
+            " ORDER BY date_lesson , number_lesson", nativeQuery=true)
+    public List<Journal> getListByDateLesson(String dateLesson);
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT * FROM journal WHERE (concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson) " +
+            "- MOD(TO_DAYS(date_lesson) -2, 7))), '%d %b'), ' - ', DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b'))) = :dateLesson AND " +
+            "classname_student = :classNameStudent ORDER BY date_lesson , number_lesson", nativeQuery=true)
+    public List<Journal> getListByClassnameStudentAndByDateLesson(String classNameStudent, String dateLesson);
+
 }
 

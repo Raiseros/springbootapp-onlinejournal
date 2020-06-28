@@ -11,6 +11,7 @@ import ru.springbootapp.onlinejournal.service.JournalService;
 import ru.springbootapp.onlinejournal.service.StudentService;
 import ru.springbootapp.onlinejournal.service.TeacherService;
 
+
 import java.util.List;
 
 @Controller
@@ -68,23 +69,44 @@ public class HelloController {
         return "redirect:/";
     }
 
+
     @RequestMapping(value = "journal", method = RequestMethod.GET)
-    public String getJournal(@RequestParam(required = false) String className, Model model) {
-        if (null != className && "" != className) {
+    public String getJournal(@RequestParam(required = false) String className,
+                             @RequestParam(required = false) String dateLesson, Model model) {
+        if ((null != className && "" != className) && (null == dateLesson || "" == dateLesson)) {
             model.addAttribute("classNameStudent", className);
             model.addAttribute("journals", journalService.getJournalClassNameStudentList(className));
-        } else {
+        }
+         else if ((null != dateLesson && "" != dateLesson) && (null == className || "" == className)) {
+            model.addAttribute("dateLesson", dateLesson);
+            model.addAttribute("journals", journalService.getListByDateLesson(dateLesson));
+        }
+
+         else if ((null != className && "" != className) && (null != dateLesson && "" != dateLesson)){
+            model.addAttribute("classNameStudent", className);
+            model.addAttribute("dateLesson", dateLesson);
+            model.addAttribute("journals", journalService.getListByClassnameStudentAndByDateLesson(className, dateLesson));
+        }  else {
             List<Journal> theJournals = journalService.getJournals();
             model.addAttribute("journals", theJournals);
         }
-
         return "journal";
     }
 
 
     @ModelAttribute("classnameStudentList")
-    public List<String> getclassnameStudentList() {
+    public List<String> getClassnameStudentList() {
         return journalService.getListClassnameStudent();
+    }
+
+    @ModelAttribute("dateLessonList")
+    public List<String> getDateLessonList() {
+        return journalService.getListDateLesson();
+    }
+
+    @ModelAttribute("studentList")
+    public List<Student> getStudentList() {
+        return studentService.getListStudent();
     }
 
     @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)

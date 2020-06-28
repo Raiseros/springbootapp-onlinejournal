@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.springbootapp.onlinejournal.entity.Student;
 import ru.springbootapp.onlinejournal.repository.StudentRepository;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -21,4 +23,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findStudentByEmail(email);
     }
 
+    public List<Student> getListStudent() {
+        return studentRepository.getListStudent();
+    }
 }
