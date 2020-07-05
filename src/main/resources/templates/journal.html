@@ -117,30 +117,30 @@
 
         <tbody>
 
-        <tr class="d-flex" th:each="tempJournal : ${journals}">
+        <tr class="d-flex" th:each="tempJournal : ${journal}">
 
             <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
-                th:text="${#dates.format(tempJournal.dateLesson, 'EE, dd')}"/>
+                th:text="${#dates.format(tempJournal.date_lesson, 'EE, dd')}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                th:text="${tempJournal.numberLesson}"/>
+                th:text="${tempJournal.number_lesson}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.timeLesson}"/>
+                th:text="${tempJournal.time_lesson}"/>
             <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
-                th:text="${tempJournal.fullnameCourse}"/>
+                th:text="${tempJournal.fullname_course}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                th:text="${tempJournal.shortnameCourse}"/>
+                th:text="${tempJournal.shortname_course}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.className}"/>
+                th:text="${tempJournal.class_name}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.schoolBuilding}"/>
+                th:text="${tempJournal.school_building}"/>
             <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
                 th:text="${tempJournal.homework}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                th:text="${tempJournal.classnameStudent}"/>
+                th:text="${tempJournal.classname_student}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.timeBreak}"/>
-           <!--<td class="table-warning  d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.scores}"/>-->
+                th:text="${tempJournal.time_break}"/>
+            <td class="table-warning  d-inline-flex justify-content-center align-items-center col-1"
+                 th:if="${tempStudentName} != null"  th:text="${tempJournal.overall_score}"/>-->
             <td class="table-warning text-center col-1">
 
 

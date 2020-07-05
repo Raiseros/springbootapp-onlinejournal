@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Hello!</title>
@@ -12,9 +12,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <input type="submit" class="btn btn-success" value="LOGIN FOR STUDENTS AND PARENTS ">
 </form>
 <p></p><p></p>
-<form action="2" th:action="@{/showTeacherLoginPage}">
-    <input type="submit" class="btn btn-warning" value="LOGIN FOR TEACHEARS">
-</form>
+    <form action="2" th:action="@{/showTeacherLoginPage}">
+        <input type="submit" class="btn btn-warning" value="LOGIN FOR TEACHEARS">
+    </form>
 </div>
 
 <div sec:authorize="hasRole('student')">

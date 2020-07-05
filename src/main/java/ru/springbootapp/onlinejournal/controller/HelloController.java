@@ -4,17 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.springbootapp.onlinejournal.dto.JournalDto;
 import ru.springbootapp.onlinejournal.entity.Journal;
 import ru.springbootapp.onlinejournal.entity.Score;
 import ru.springbootapp.onlinejournal.entity.Student;
 import ru.springbootapp.onlinejournal.entity.Teacher;
-import ru.springbootapp.onlinejournal.service.JournalService;
-import ru.springbootapp.onlinejournal.service.ScoreService;
-import ru.springbootapp.onlinejournal.service.StudentService;
-import ru.springbootapp.onlinejournal.service.TeacherService;
+import ru.springbootapp.onlinejournal.service.*;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Controller
@@ -31,6 +29,11 @@ public class HelloController {
 
     @Autowired
     private ScoreService scoreService;
+
+    @Autowired
+    private JournalDtoService journalDtoService;
+
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHelloPage() {
@@ -92,7 +95,8 @@ public class HelloController {
             model.addAttribute("journals", journalService.getListByClassnameStudentAndByDateLesson(className, dateLesson));
         } else if ((null != studentName) && (null == dateLesson || "" == dateLesson)) {
             model.addAttribute("tempStudentName", studentName);
-            model.addAttribute("journals", journalService.getJournalListByStudent(studentName));
+            model.addAttribute("journal", journalDtoService.getListJournalDto(studentName));
+           /* model.addAttribute("journals", journalService.getJournalListByStudent(studentName));*/
 
         } else if ((null != studentName) && (null != dateLesson && "" != dateLesson)) {
             model.addAttribute("tempStudentName", studentName);
@@ -132,10 +136,12 @@ public class HelloController {
     public String update(@RequestParam("journalId") long theId, @RequestParam(required = false)
             Long studName, Model model) {
         Journal theJournal = journalService.getJournal(theId);
+ /*       JournalDto theJournalDto = journalDtoService.getJournalDto(theId);*/
         Score theScore = new Score();
         model.addAttribute("tempStudentName", studName);
         model.addAttribute("journal", theJournal);
         model.addAttribute("score", theScore);
+       /* model.addAttribute("journalDto", theJournalDto);*/
         return "registry-lesson";
     }
 

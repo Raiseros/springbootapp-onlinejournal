@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.springbootapp.onlinejournal.dto.JournalDto;
 import ru.springbootapp.onlinejournal.entity.Journal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -65,7 +67,6 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
             " AND student.id = :studentName ORDER BY date_lesson, number_lesson", nativeQuery=true)
     public List<Journal> getJournalListByStudent(long studentName);
 
-
     @Transactional
     @Modifying
     @Query(value = "SELECT journal.* FROM journal, student, journal_students" +
@@ -83,5 +84,22 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
     public Set<Journal> listJournalById(long theId);
 
 
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, overall_score FROM journal, student, journal_students, scores, journal_scores   " +
+            "WHERE journal.id=journal_students.journal_id AND student.id=journal_students.student_id" +
+            " AND journal.id=journal_scores.journal_id AND scores.id=journal_scores.score_id" +
+            " AND student.id = :theId ORDER BY date_lesson, number_lesson", nativeQuery=true)
+    public List<JournalDto> getListJournalDto(long theId);
+
+
+
+ /*   @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, overall_score FROM journal, scores, journal_scores  " +
+            "WHERE journal.id=journal_scores.journal_id AND scores.id=journal_scores.score_id" +
+            " AND journal.id = :theId ORDER BY date_lesson, number_lesson", nativeQuery=true)
+    Optional<JournalDto>  getJournalDto(long theId);*/
 }
 
