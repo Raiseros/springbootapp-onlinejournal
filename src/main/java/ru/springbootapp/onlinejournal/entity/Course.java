@@ -2,6 +2,7 @@ package ru.springbootapp.onlinejournal.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Course {
     @ManyToMany
     @JoinTable(name="course_scores", joinColumns=@JoinColumn(name="course_id"),
             inverseJoinColumns = @JoinColumn(name="score_id"))
-    private Set<Score> scores;
+    private List<Score> scores;
 
     public long getId() {
         return id;
@@ -59,18 +60,19 @@ public class Course {
         this.schoolBuilding = schoolBuilding;
     }
 
-    public Set<Score> getScores() {
+    public List<Score> getScores() {
         return scores;
     }
 
-    public void setScores(Set<Score> scores) {
+    public void setScores(List<Score> scores) {
         this.scores = scores;
     }
 
-    public Course(String courseName, String className, String schoolBuilding) {
+    public Course(String courseName, String className, String schoolBuilding, List<Score> scores) {
         this.courseName = courseName;
         this.className = className;
         this.schoolBuilding = schoolBuilding;
+        this.scores = scores;
     }
 
     public Course() {

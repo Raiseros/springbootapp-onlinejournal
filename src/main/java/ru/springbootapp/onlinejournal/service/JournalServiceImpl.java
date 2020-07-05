@@ -8,6 +8,7 @@ import ru.springbootapp.onlinejournal.repository.JournalRepository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JournalServiceImpl implements JournalService {
@@ -56,5 +57,32 @@ public class JournalServiceImpl implements JournalService {
     @Override
     public List<Journal> getListByClassnameStudentAndByDateLesson(String classNameStudent, String dateLesson) {
         return journalRepository.getListByClassnameStudentAndByDateLesson(classNameStudent, dateLesson);
+    }
+
+    @Override
+    public List<Journal> getJournalListByStudent(long studentName) {
+        return journalRepository.getJournalListByStudent(studentName);
+    }
+
+    @Override
+    public List<Journal> getListByStudentNameAndByDateLesson(long studentName, String dateLesson) {
+        return journalRepository.getListByStudentNameAndByDateLesson(studentName, dateLesson);
+    }
+
+    @Override
+    public Journal getJournal(long theId) {
+        Optional<Journal> result = journalRepository.findById(theId);
+
+        Journal theJournal = null;
+
+        if(result.isPresent()){
+            theJournal = result.get();
+
+        } else{
+            throw new RuntimeException("Did not find student id - " + theId);
+        }
+
+        return theJournal;
+
     }
 }

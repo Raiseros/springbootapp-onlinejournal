@@ -1,17 +1,20 @@
-package ru.springbootapp.onlinejournal.contoller;
+package ru.springbootapp.onlinejournal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.springbootapp.onlinejournal.entity.Journal;
+import ru.springbootapp.onlinejournal.entity.Score;
 import ru.springbootapp.onlinejournal.entity.Student;
 import ru.springbootapp.onlinejournal.entity.Teacher;
 import ru.springbootapp.onlinejournal.service.JournalService;
+import ru.springbootapp.onlinejournal.service.ScoreService;
 import ru.springbootapp.onlinejournal.service.StudentService;
 import ru.springbootapp.onlinejournal.service.TeacherService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,6 +28,9 @@ public class HelloController {
 
     @Autowired
     private JournalService journalService;
+
+    @Autowired
+    private ScoreService scoreService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHelloPage() {
@@ -72,21 +78,27 @@ public class HelloController {
 
     @RequestMapping(value = "journal", method = RequestMethod.GET)
     public String getJournal(@RequestParam(required = false) String className,
-                             @RequestParam(required = false) String dateLesson, Model model) {
-        if ((null != className && "" != className) && (null == dateLesson || "" == dateLesson)) {
+                             @RequestParam(required = false) String dateLesson, @RequestParam(required = false)
+                                     Long studentName, Model model) {
+        if ((null != className && "" != className) && ((null == dateLesson || "" == dateLesson) && (null == studentName))) {
             model.addAttribute("classNameStudent", className);
             model.addAttribute("journals", journalService.getJournalClassNameStudentList(className));
-        }
-         else if ((null != dateLesson && "" != dateLesson) && (null == className || "" == className)) {
+        } else if ((null != dateLesson && "" != dateLesson) && ((null == className || "" == className) && (null == studentName))) {
             model.addAttribute("dateLesson", dateLesson);
             model.addAttribute("journals", journalService.getListByDateLesson(dateLesson));
-        }
-
-         else if ((null != className && "" != className) && (null != dateLesson && "" != dateLesson)){
+        } else if ((null != className && "" != className) && ((null != dateLesson && "" != dateLesson) && (null == studentName))) {
             model.addAttribute("classNameStudent", className);
             model.addAttribute("dateLesson", dateLesson);
             model.addAttribute("journals", journalService.getListByClassnameStudentAndByDateLesson(className, dateLesson));
-        }  else {
+        } else if ((null != studentName) && (null == dateLesson || "" == dateLesson)) {
+            model.addAttribute("tempStudentName", studentName);
+            model.addAttribute("journals", journalService.getJournalListByStudent(studentName));
+
+        } else if ((null != studentName) && (null != dateLesson && "" != dateLesson)) {
+            model.addAttribute("tempStudentName", studentName);
+            model.addAttribute("dateLesson", dateLesson);
+            model.addAttribute("journals", journalService.getListByStudentNameAndByDateLesson(studentName, dateLesson));
+        } else {
             List<Journal> theJournals = journalService.getJournals();
             model.addAttribute("journals", theJournals);
         }
@@ -116,13 +128,33 @@ public class HelloController {
         return "registry-lesson";
     }
 
+    @RequestMapping(value = "formForUpdate", method = RequestMethod.GET)
+    public String update(@RequestParam("journalId") long theId, @RequestParam(required = false)
+            Long studName, Model model) {
+        Journal theJournal = journalService.getJournal(theId);
+        Score theScore = new Score();
+        model.addAttribute("tempStudentName", studName);
+        model.addAttribute("journal", theJournal);
+        model.addAttribute("score", theScore);
+        return "registry-lesson";
+    }
+
+
     @PostMapping("saveLesson")
-    public String addJournal(@ModelAttribute("journal") Journal theJournal) {
+    public String addJournal(@ModelAttribute("journal") Journal theJournal, @ModelAttribute("score") Score theScore ) {
         if (null != theJournal && theJournal.getId() > 0) {
             journalService.updateJournal(theJournal);
         } else {
             journalService.saveJournal(theJournal);
         }
+
+        if (null != theScore && theScore.getId() > 0) {
+            scoreService.saveScore(theScore, theJournal);
+          //  scoreService.updateScore(theScore);
+        } else {
+            scoreService.saveScore(theScore, theJournal);
+        }
+
 
         return "redirect:/journal";
     }

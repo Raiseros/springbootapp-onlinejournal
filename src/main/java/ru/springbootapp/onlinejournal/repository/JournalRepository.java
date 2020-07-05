@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.springbootapp.onlinejournal.entity.Journal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 @Repository
@@ -56,6 +57,31 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
             " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b'))) = :dateLesson AND " +
             "classname_student = :classNameStudent ORDER BY date_lesson , number_lesson", nativeQuery=true)
     public List<Journal> getListByClassnameStudentAndByDateLesson(String classNameStudent, String dateLesson);
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.* FROM journal, student, journal_students  WHERE" +
+            " journal.id=journal_students.journal_id AND student.id=journal_students.student_id" +
+            " AND student.id = :studentName ORDER BY date_lesson, number_lesson", nativeQuery=true)
+    public List<Journal> getJournalListByStudent(long studentName);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.* FROM journal, student, journal_students" +
+            " WHERE (concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson) " +
+            "- MOD(TO_DAYS(date_lesson) -2, 7))), '%d %b'), ' - ', DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b'))) = :dateLesson AND journal.id=journal_students.journal_id  AND" +
+            " student.id=journal_students.student_id AND student.id = :studentName" +
+            " ORDER BY date_lesson , number_lesson", nativeQuery=true)
+    public List<Journal> getListByStudentNameAndByDateLesson(long studentName, String dateLesson);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.* FROM journal WHERE id = :theId ORDER BY date_lesson, number_lesson", nativeQuery=true)
+    public Set<Journal> listJournalById(long theId);
+
 
 }
 

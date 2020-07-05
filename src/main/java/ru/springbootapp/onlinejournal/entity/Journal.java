@@ -5,12 +5,15 @@ package ru.springbootapp.onlinejournal.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "journal")
-public class Journal {
+public class Journal implements Serializable {
 
 
     @Id
@@ -49,10 +52,16 @@ public class Journal {
     @Column(name = "time_break")
     private String timeBreak;
 
-    @ManyToMany
-    @JoinTable(name = "course_scores", joinColumns = @JoinColumn(name = "course_id"),
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "journal_students", joinColumns = @JoinColumn(name = "journal_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private Set<Student> students = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "journal_scores", joinColumns = @JoinColumn(name = "journal_id"),
             inverseJoinColumns = @JoinColumn(name = "score_id"))
     private Set<Score> scores;
+
 
     public long getId() {
         return id;
@@ -150,9 +159,17 @@ public class Journal {
         this.scores = scores;
     }
 
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
     public Journal(Date dateLesson, long numberLesson, String timeLesson, String fullnameCourse, String shortnameCourse,
-                   String className, String schoolBuilding, String homework, String classnameStudent,
-                   String timeBreak, Set<Score> scores) {
+                   String className, String schoolBuilding, String homework, String classnameStudent, String timeBreak,
+                   Set<Student> students, Set<Score> scores) {
         this.dateLesson = dateLesson;
         this.numberLesson = numberLesson;
         this.timeLesson = timeLesson;
@@ -163,6 +180,7 @@ public class Journal {
         this.homework = homework;
         this.classnameStudent = classnameStudent;
         this.timeBreak = timeBreak;
+        this.students = students;
         this.scores = scores;
     }
 
