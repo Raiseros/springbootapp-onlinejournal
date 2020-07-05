@@ -49,7 +49,6 @@
 
 </div>
 
-
 <form action="#" th:action="@{/registry-lesson}">
     <input type="submit" class="btn btn-success" value="New lesson">
 </form>
@@ -63,7 +62,7 @@
 
 <div style="text-align: center; padding-bottom: 20px;">
 
-    <select id="id_dateId" onchange="datelesson_classname()">
+    <select id="id_dateId" onchange="date_class_student()">
 
         <option value="">-- select date --</option>
         <option th:each="date : ${dateLessonList}" th:value="${date}"
@@ -73,10 +72,12 @@
     </select>
 
     <script>
-        function datelesson_classname() {
+        function date_class_student() {
             var date = document.getElementById("id_dateId").value;
             var classNameStudent = document.getElementById("id_instId").value;
-            window.location = 'journal?dateLesson=' + date + '&className=' + classNameStudent;
+            var studentName = document.getElementById("id_studentName").value;
+            window.location = 'journal?dateLesson=' + date + '&className=' + classNameStudent + '&studentName='
+                + studentName;
         }
     </script>
 
@@ -85,8 +86,7 @@
 
 <div style="text-align: center; padding-bottom: 20px;">
 
-    <select id="id_instId" onchange="datelesson_classname()">
-
+       <select id="id_instId" onchange="date_class_student()">
         <option value="">-- select student class --</option>
         <option th:each="className : ${classnameStudentList}" th:value="${className}"
                 th:text="${className}" th:selected="${className.equals(classNameStudent)}">
@@ -94,22 +94,20 @@
         </option>
     </select>
 
-
 </div>
 <p></p>
 
 
 <div style="text-align: center; padding-bottom: 20px;">
 
-    <select id="id_studentName" onchange="datelesson_classname()">
+    <select id="id_studentName" onchange="date_class_student()">
 
         <option value="">---------- select student ----------</option>
         <option th:each="tempStudent : ${studentList}" th:value="${tempStudent.id}"
-                th:text="${tempStudent.lastName} + ' ' + ${tempStudent.firstName}  + ' ' + ${tempStudent.middleName}">
-
+                th:text="${tempStudent.lastName} + ' ' + ${tempStudent.firstName}  + ' ' + ${tempStudent.middleName}"
+                th:selected="${tempStudent.id.equals(tempStudentName)}" >
         </option>
     </select>
-
 
 
 </div>
@@ -141,9 +139,14 @@
                 th:text="${tempJournal.classnameStudent}"/>
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
                 th:text="${tempJournal.timeBreak}"/>
+           <!--<td class="table-warning  d-inline-flex justify-content-center align-items-center col-1"
+                th:text="${tempJournal.scores}"/>-->
             <td class="table-warning text-center col-1">
 
-                <a th:href="@{/formForUpdate(journalId=${tempJournal.id})}" class="btn btn-primary btn-sm"
+
+
+                <a th:href="@{/formForUpdate(journalId=${tempJournal.id}, studName=${tempStudentName})}"
+                   class="btn btn-primary btn-sm"
                    role="button">Update</a>
 
 

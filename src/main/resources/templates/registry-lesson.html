@@ -229,12 +229,26 @@
                                 </script>
                             </div>
                         </div>
+                        <div class="form-group" th:object="${score}"
+                             th:name="${tempStudentName}"
+                             th:if="${tempStudentName} != null">
+
+                            <input type="hidden" th:field="*{id}"/>
+                            <label for="overallScore" class="control-label col-md-7 text-danger" >Score :</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control-md input-md" id="overallScore"
+                                       th:field="*{overallScore}" placeholder="Score" />
+
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success">Save Lesson</button>
                         </div>
 
 
                     </form>
+
                 </div>
             </div>
         </div>
