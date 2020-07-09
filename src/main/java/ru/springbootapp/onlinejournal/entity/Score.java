@@ -11,32 +11,32 @@ public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private long id_sc;
 
     @Column(name="overall_score")
     private long overallScore;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "journal_scores", joinColumns = @JoinColumn(name = "score_id"),
             inverseJoinColumns = @JoinColumn(name = "journal_id"))
     private Set<Journal> journals;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "student_scores", joinColumns = @JoinColumn(name = "score_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<Student> students;
+    private Set<Student> students;
 
     @ManyToMany
     @JoinTable(name="course_scores", joinColumns=@JoinColumn(name="score_id"),
             inverseJoinColumns = @JoinColumn(name="course_id"))
     private List<Course> courses;
 
-    public long getId() {
-        return id;
+    public long getId_sc() {
+        return id_sc;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId_sc(long id_sc) {
+        this.id_sc = id_sc;
     }
 
     public long getOverallScore() {
@@ -63,15 +63,15 @@ public class Score {
         this.journals = journals;
     }
 
-    public List<Student> getStudents() {
+    public Set<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 
-    public Score(long overallScore, Set<Journal> journals, List<Student> students, List<Course> courses) {
+    public Score(long overallScore, Set<Journal> journals, Set<Student> students, List<Course> courses) {
         this.overallScore = overallScore;
         this.journals = journals;
         this.students = students;

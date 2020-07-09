@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.springbootapp.onlinejournal.entity.Score;
 
-import java.util.Date;
+import java.util.List;
 
 
 @Repository
@@ -17,5 +17,11 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Modifying
     @Query("UPDATE Score SET overall_score = :overallScore  WHERE id = :id")
     void updateJournal(long overallScore, long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT scores.* FROM scores, journal_scores WHERE journal_scores.journal_id = :theId" +
+            " AND journal_scores.score_id=scores.id", nativeQuery=true)
+    List<Score> getScore(long theId);
 
 }

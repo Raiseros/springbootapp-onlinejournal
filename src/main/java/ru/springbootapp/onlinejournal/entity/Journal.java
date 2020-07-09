@@ -52,12 +52,12 @@ public class Journal implements Serializable {
     @Column(name = "time_break")
     private String timeBreak;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "journal_students", joinColumns = @JoinColumn(name = "journal_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> students = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "journal_scores", joinColumns = @JoinColumn(name = "journal_id"),
             inverseJoinColumns = @JoinColumn(name = "score_id"))
     private Set<Score> scores;

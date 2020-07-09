@@ -39,7 +39,7 @@ public class Student {
     @Transient
     private String confirmPassword;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "journal_students", joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "journal_id"))
     private Set<Journal> journals = new HashSet<>();

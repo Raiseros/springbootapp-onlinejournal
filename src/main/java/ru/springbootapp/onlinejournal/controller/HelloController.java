@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.springbootapp.onlinejournal.dto.JournalDto;
 import ru.springbootapp.onlinejournal.entity.Journal;
 import ru.springbootapp.onlinejournal.entity.Score;
 import ru.springbootapp.onlinejournal.entity.Student;
@@ -96,12 +95,11 @@ public class HelloController {
         } else if ((null != studentName) && (null == dateLesson || "" == dateLesson)) {
             model.addAttribute("tempStudentName", studentName);
             model.addAttribute("journal", journalDtoService.getListJournalDto(studentName));
-           /* model.addAttribute("journals", journalService.getJournalListByStudent(studentName));*/
 
         } else if ((null != studentName) && (null != dateLesson && "" != dateLesson)) {
             model.addAttribute("tempStudentName", studentName);
             model.addAttribute("dateLesson", dateLesson);
-            model.addAttribute("journals", journalService.getListByStudentNameAndByDateLesson(studentName, dateLesson));
+            model.addAttribute("journal", journalDtoService.getListJournalDtoStudentNameAndDateLesson(studentName, dateLesson));
         } else {
             List<Journal> theJournals = journalService.getJournals();
             model.addAttribute("journals", theJournals);
@@ -134,31 +132,38 @@ public class HelloController {
 
     @RequestMapping(value = "formForUpdate", method = RequestMethod.GET)
     public String update(@RequestParam("journalId") long theId, @RequestParam(required = false)
-            Long studName, Model model) {
+            Long studName, @RequestParam(required = false)
+            Long overallScore, Model model) {
         Journal theJournal = journalService.getJournal(theId);
- /*       JournalDto theJournalDto = journalDtoService.getJournalDto(theId);*/
-        Score theScore = new Score();
+        if(overallScore == null){
+            Score newScore = new Score();
+            model.addAttribute("score", newScore);
+        } else{
+            Score theScore = scoreService.getScore(theId);
+            model.addAttribute("score", theScore);
+        }
+
         model.addAttribute("tempStudentName", studName);
         model.addAttribute("journal", theJournal);
-        model.addAttribute("score", theScore);
-       /* model.addAttribute("journalDto", theJournalDto);*/
+
         return "registry-lesson";
     }
 
 
     @PostMapping("saveLesson")
-    public String addJournal(@ModelAttribute("journal") Journal theJournal, @ModelAttribute("score") Score theScore ) {
+    public String addJournal(@ModelAttribute("journal") Journal theJournal, @ModelAttribute("score") Score theScore,
+                             @RequestParam(required = false) Long studentId) {
+
         if (null != theJournal && theJournal.getId() > 0) {
             journalService.updateJournal(theJournal);
         } else {
             journalService.saveJournal(theJournal);
         }
 
-        if (null != theScore && theScore.getId() > 0) {
-            scoreService.saveScore(theScore, theJournal);
-          //  scoreService.updateScore(theScore);
+        if (null != theScore && theScore.getId_sc() > 0) {
+            scoreService.updateScore(theScore);
         } else {
-            scoreService.saveScore(theScore, theJournal);
+            scoreService.saveScore(theScore, theJournal, studentId);
         }
 
 

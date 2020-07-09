@@ -23,7 +23,12 @@ public class JournalDtoServiceImpl implements JournalDtoService {
         return journalRepository.getListJournalDto(theId);
     }
 
-   /* @Override
+    @Override
+    public List<JournalDto> getListJournalDtoStudentNameAndDateLesson(long studentName, String dateLesson) {
+        return journalRepository.getListJournalDtoStudentNameAndDateLesson(studentName, dateLesson);
+    }
+
+    /* @Override
     public JournalDto getJournalDto(long theId) {
         Optional<JournalDto> result = journalRepository.getJournalDto(theId);
 
