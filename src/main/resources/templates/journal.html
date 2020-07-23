@@ -54,7 +54,7 @@
 </form>
 <p></p>
 
-<form action="#" th:action="@{/registry-student}">
+<form action="#" th:action="@{/showMyLoginPage/registry-student}">
     <input type="submit" class="btn btn-success" value="New Student">
 </form>
 <p></p>
@@ -117,7 +117,8 @@
 
         <tbody>
 
-        <tr class="d-flex" th:each="tempJournal : ${journal}">
+        <tr  th:name="${tempStudentName}"
+             th:if="${tempStudentName} != null" class="d-flex" th:each="tempJournal : ${journal}">
 
             <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
                 th:text="${#dates.format(tempJournal.date_lesson, 'EE, dd')}"/>
@@ -140,17 +141,57 @@
             <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
                 th:text="${tempJournal.time_break}"/>
             <td class="table-warning  d-inline-flex justify-content-center align-items-center col-1"
-                 th:if="${tempStudentName} != null"  th:text="${tempJournal.overall_score}"/>-->
+                th:text="${tempJournal.overall_score}"/>
             <td class="table-warning text-center col-1">
 
 
 
-                <a th:href="@{/formForUpdate(journalId=${tempJournal.id}, studName=${tempStudentName})}"
+                <a th:href="@{/formForUpdate(journalId=${tempJournal.id}, studName=${tempStudentName},
+                   idScore=${tempJournal.getId_sc()})}"
                    class="btn btn-primary btn-sm"
                    role="button">Update</a>
 
 
                 <a th:href="@{/delete(journalId=${tempJournal.id})}" class="btn btn-danger btn-sm"
+                   role="button">Delete</a>
+
+            </td>
+
+        </tr>
+
+        <tr th:name="${tempStudentName}"
+            th:if="${tempStudentName} == null" class="d-flex" th:each="tempJournals : ${journals}">
+
+            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
+                th:text="${#dates.format(tempJournals.dateLesson, 'EE, dd')}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
+                th:text="${tempJournals.numberLesson}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
+                th:text="${tempJournals.timeLesson}"/>
+            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
+                th:text="${tempJournals.fullnameCourse}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
+                th:text="${tempJournals.shortnameCourse}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
+                th:text="${tempJournals.className}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
+                th:text="${tempJournals.schoolBuilding}"/>
+            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
+                th:text="${tempJournals.homework}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
+                th:text="${tempJournals.classnameStudent}"/>
+            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
+                th:text="${tempJournals.timeBreak}"/>
+            <td class="table-warning text-center col-1">
+
+
+
+                <a th:href="@{/formForUpdate(journalId=${tempJournals.id})}"
+                   class="btn btn-primary btn-sm"
+                   role="button">Update</a>
+
+
+                <a th:href="@{/delete(journalId=${tempJournals.id})}" class="btn btn-danger btn-sm"
                    role="button">Delete</a>
 
             </td>

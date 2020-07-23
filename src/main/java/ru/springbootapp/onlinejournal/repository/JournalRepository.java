@@ -87,32 +87,36 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "SELECT journal.*, null as overall_score  FROM journal, student, journal_students WHERE" +
+    @Query(value = "SELECT journal.*, null as overall_score, null as id_sc FROM journal, student, journal_students WHERE" +
             " journal.id=journal_students.journal_id AND student.id=journal_students.student_id AND" +
-            " student.id = :theId AND journal.id not in(select journal.id from journal, scores, journal_scores WHERE" +
-            " journal.id=journal_scores.journal_id AND scores.id=journal_scores.score_id) UNION SELECT" +
-            " journal.*, overall_score FROM journal, student, journal_students, scores, journal_scores WHERE" +
-            " journal.id=journal_students.journal_id AND student.id=journal_students.student_id AND" +
-            " journal.id=journal_scores.journal_id AND scores.id=journal_scores.score_id AND student.id = :theId" +
-            " ORDER BY date_lesson, number_lesson", nativeQuery=true)
+            " student.id = :theId AND journal.id not in(select journal.id FROM" +
+            " journal, student, scores, journal_student_score WHERE student.id=journal_student_score.student_id AND" +
+            " scores.id= journal_student_score.score_id AND journal.id=journal_student_score.journal_id AND" +
+            " student.id = :theId ORDER BY date_lesson, number_lesson) UNION SELECT journal.*, overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE student.id=journal_student_score.student_id AND" +
+            " scores.id= journal_student_score.score_id AND journal.id=journal_student_score.journal_id AND" +
+            " student.id = :theId ORDER BY date_lesson, number_lesson", nativeQuery=true)
     public List<JournalDto> getListJournalDto(long theId);
 
 
     @Transactional
     @Modifying
-    @Query(value = "SELECT journal.*, null as overall_score FROM journal, student, journal_students WHERE" +
-            " (concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson) " +
-            "- MOD(TO_DAYS(date_lesson) -2, 7))), '%d %b'), ' - ', DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
-            " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b'))) = :dateLesson AND " +
-            "journal.id=journal_students.journal_id  AND student.id=journal_students.student_id AND" +
-            " student.id = :studentName AND journal.id not in(select journal.id from journal, scores, journal_scores WHERE" +
-            " journal.id=journal_scores.journal_id AND scores.id=journal_scores.score_id) UNION SELECT journal.*, overall_score FROM" +
-            " journal, student, journal_students, scores, journal_scores WHERE" +
-            " (concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson) - MOD(TO_DAYS(date_lesson) -2, 7))), '%d %b'), ' - '," +
-            " DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson) - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b'))) = :dateLesson" +
-            " AND journal.id=journal_students.journal_id AND student.id=journal_students.student_id AND" +
-            " journal.id=journal_scores.journal_id AND scores.id=journal_scores.score_id AND student.id = :studentName" +
-            " ORDER BY date_lesson, number_lesson", nativeQuery=true)
+    @Query(value = "SELECT journal.*, null as overall_score, null as id_sc  FROM journal, student, journal_students WHERE" +
+            "(concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7))), '%d %b'), ' - ', DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b'))) = :dateLesson AND" +
+            " journal.id=journal_students.journal_id AND student.id=journal_students.student_id AND" +
+            " student.id = :studentName AND journal.id not in(select journal.id FROM" +
+            " journal, student, scores, journal_student_score WHERE student.id=journal_student_score.student_id AND" +
+            " scores.id= journal_student_score.score_id AND journal.id=journal_student_score.journal_id AND" +
+            " student.id = :studentName ORDER BY date_lesson, number_lesson) UNION SELECT" +
+            " journal.*, overall_score, scores.id as id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " (concat(DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7))), '%d %b'), ' - ', DATE_FORMAT((FROM_DAYS(TO_DAYS(date_lesson)" +
+            " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b'))) = :dateLesson AND" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND student.id = :studentName ORDER BY" +
+            " date_lesson, number_lesson", nativeQuery=true)
     public List<JournalDto> getListJournalDtoStudentNameAndDateLesson(long studentName, String dateLesson);
 
 

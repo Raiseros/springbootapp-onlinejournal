@@ -27,4 +27,6 @@ public interface JournalDto {
     String getTime_break();
 
     Long getOverall_score();
+
+    Long getId_sc();
 }

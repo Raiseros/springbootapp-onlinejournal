@@ -28,29 +28,44 @@ public class ScoreServiceImpl implements  ScoreService {
 
 
     @Override
-    public void saveScore(Score theScore, Journal theJournal, long studentId) {
+    public void saveScore(long scoreId, Journal theJournal, long studentId) {
         Set<Journal> journal = new HashSet<>();
         journal.add(theJournal);
-        theScore.setJournals(journal);
         Optional<Student> result = studentRepository.findById(studentId);
         Student theStudent = result.get();
         Set<Student> student = new HashSet<>();
         student.add(theStudent);
-        theScore.setStudents(student);
-        scoreRepository.save(theScore);
+
+         /*theStudent.getJournalStudentScore().put(theJournal, theScore);*/
+       scoreRepository.updateJournalStudentScore(theJournal.getId(), theStudent.getId(), scoreId);
+
     }
 
     @Override
-    public void updateScore(Score theScore) {
-        scoreRepository.updateJournal(theScore.getOverallScore(), theScore.getId_sc());
+    public void updateScore(Journal theJournal, long scoreId, long studentId) {
+        /*Optional<Score> resultScore = scoreRepository.findById(scoreId);
+        Score theScore = resultScore.get();
+
+        Optional<Student> resultStudent = studentRepository.findById(studentId);
+        Student theStudent = resultStudent.get();
+
+        theStudent.getJournalStudentScore().put(theJournal, theScore);*/
+
+         scoreRepository.updateJournal(theJournal.getId(), scoreId, studentId );
     }
 
     @Override
-    public Score getScore(long theId) {
+    public Score getScore(long theId, long studName) {
 
-        List<Score> theScore = scoreRepository.getScore(theId);
+        List<Score> theScore = scoreRepository.getScore(theId, studName);
 
         Score score = theScore.get(0);
         return score;
+    }
+
+    @Override
+    public List<Score> getScoreList() {
+
+        return scoreRepository.getScoreList();
     }
 }

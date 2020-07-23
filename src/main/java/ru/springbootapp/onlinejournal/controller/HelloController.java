@@ -1,5 +1,6 @@
 package ru.springbootapp.onlinejournal.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +52,7 @@ public class HelloController {
         model.addAttribute("student", theStudent);
         return "registry-student";
     }
+
 
     @RequestMapping(value = "/showTeacherLoginPage/registry-teacher", method = RequestMethod.GET)
     public String registryTeacher(Model model) {
@@ -113,6 +115,11 @@ public class HelloController {
         return journalService.getListClassnameStudent();
     }
 
+    @ModelAttribute("scoreList")
+    public List<Score> getscoreList() {
+        return scoreService.getScoreList();
+    }
+
     @ModelAttribute("dateLessonList")
     public List<String> getDateLessonList() {
         return journalService.getListDateLesson();
@@ -126,20 +133,22 @@ public class HelloController {
     @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)
     public String registryLesson(Model model) {
         Journal theJournal = new Journal();
+        Score theScore = new Score();
         model.addAttribute("journal", theJournal);
+        model.addAttribute("score", theScore);
         return "registry-lesson";
     }
 
     @RequestMapping(value = "formForUpdate", method = RequestMethod.GET)
     public String update(@RequestParam("journalId") long theId, @RequestParam(required = false)
             Long studName, @RequestParam(required = false)
-            Long overallScore, Model model) {
+            Long idScore, Model model) {
         Journal theJournal = journalService.getJournal(theId);
-        if(overallScore == null){
+        if(idScore == null){
             Score newScore = new Score();
             model.addAttribute("score", newScore);
         } else{
-            Score theScore = scoreService.getScore(theId);
+            Score theScore = scoreService.getScore(theId, studName);
             model.addAttribute("score", theScore);
         }
 
@@ -151,8 +160,9 @@ public class HelloController {
 
 
     @PostMapping("saveLesson")
-    public String addJournal(@ModelAttribute("journal") Journal theJournal, @ModelAttribute("score") Score theScore,
-                             @RequestParam(required = false) Long studentId) {
+    public String addJournal(@ModelAttribute("journal") Journal theJournal,
+                             @RequestParam(required = false) Long studentId, @RequestParam(required = false) Long overallScore,
+                             @RequestParam(required = false, name = "id_sc") Long scoreId) {
 
         if (null != theJournal && theJournal.getId() > 0) {
             journalService.updateJournal(theJournal);
@@ -160,13 +170,24 @@ public class HelloController {
             journalService.saveJournal(theJournal);
         }
 
-        if (null != theScore && theScore.getId_sc() > 0) {
-            scoreService.updateScore(theScore);
-        } else {
-            scoreService.saveScore(theScore, theJournal, studentId);
+
+         if (null != scoreId && overallScore > 0) {
+           scoreService.updateScore(theJournal, scoreId, studentId);
+
         }
 
 
+        else if(studentId != null){
+            scoreService.saveScore(scoreId, theJournal, studentId);
+        }
+
+
+        return "redirect:/journal";
+    }
+
+    @RequestMapping(value ="delete", method = RequestMethod.GET)
+    public String delete(@RequestParam("journalId") long theId) {
+        journalService.deleteJournal(theId);
         return "redirect:/journal";
     }
 

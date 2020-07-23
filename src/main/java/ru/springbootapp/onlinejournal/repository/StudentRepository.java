@@ -20,4 +20,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "SELECT * FROM student GROUP BY last_name, first_name, middle_name ORDER BY last_name, first_name ",
             nativeQuery=true)
     public List<Student> getListStudent();
+
+    public List<Student> findAllByClassName(String className);
 }

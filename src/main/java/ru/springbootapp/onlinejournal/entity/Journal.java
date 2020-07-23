@@ -1,15 +1,11 @@
 package ru.springbootapp.onlinejournal.entity;
 
 
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "journal")
@@ -21,7 +17,7 @@ public class Journal implements Serializable {
     @Column(name = "id")
     private long id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd" )
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_lesson")
     private java.util.Date dateLesson;
 
@@ -57,10 +53,6 @@ public class Journal implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> students = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "journal_scores", joinColumns = @JoinColumn(name = "journal_id"),
-            inverseJoinColumns = @JoinColumn(name = "score_id"))
-    private Set<Score> scores;
 
 
     public long getId() {
@@ -71,11 +63,11 @@ public class Journal implements Serializable {
         this.id = id;
     }
 
-    public java.util.Date getDateLesson() {
+    public Date getDateLesson() {
         return dateLesson;
     }
 
-    public void setDateLesson(java.util.Date dateLesson) {
+    public void setDateLesson(Date dateLesson) {
         this.dateLesson = dateLesson;
     }
 
@@ -151,14 +143,6 @@ public class Journal implements Serializable {
         this.timeBreak = timeBreak;
     }
 
-    public Set<Score> getScores() {
-        return scores;
-    }
-
-    public void setScores(Set<Score> scores) {
-        this.scores = scores;
-    }
-
     public Set<Student> getStudents() {
         return students;
     }
@@ -167,9 +151,14 @@ public class Journal implements Serializable {
         this.students = students;
     }
 
-    public Journal(Date dateLesson, long numberLesson, String timeLesson, String fullnameCourse, String shortnameCourse,
-                   String className, String schoolBuilding, String homework, String classnameStudent, String timeBreak,
-                   Set<Student> students, Set<Score> scores) {
+
+
+    public Journal() {
+    }
+
+    public Journal(Date dateLesson, long numberLesson, String timeLesson, String fullnameCourse,
+                   String shortnameCourse, String className, String schoolBuilding, String homework,
+                   String classnameStudent, String timeBreak, Set<Student> students ) {
         this.dateLesson = dateLesson;
         this.numberLesson = numberLesson;
         this.timeLesson = timeLesson;
@@ -181,10 +170,6 @@ public class Journal implements Serializable {
         this.classnameStudent = classnameStudent;
         this.timeBreak = timeBreak;
         this.students = students;
-        this.scores = scores;
-    }
-
-    public Journal() {
     }
 }
 

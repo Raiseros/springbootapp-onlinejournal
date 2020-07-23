@@ -1,10 +1,15 @@
 package ru.springbootapp.onlinejournal.entity;
 
 
+
+
+
+import org.hibernate.annotations.SQLInsert;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+
 
 @Entity
 @Table(name="student")
@@ -39,15 +44,21 @@ public class Student {
     @Transient
     private String confirmPassword;
 
+
+
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "journal_students", joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "journal_id"))
     private Set<Journal> journals = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "student_scores", joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "score_id"))
-    private List<Score> scores;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "journal_student_score", joinColumns = {
+
+            @JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "score_id")})
+            @MapKeyJoinColumn(name = "journal_id")
+    private Map<Journal, Score> journalStudentScore = new HashMap<>();
 
     public long getId() {
         return id;
@@ -89,6 +100,14 @@ public class Student {
         this.middleName = middleName;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -113,17 +132,6 @@ public class Student {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public Student() {
-    }
-
     public Set<Journal> getJournals() {
         return journals;
     }
@@ -132,16 +140,21 @@ public class Student {
         this.journals = journals;
     }
 
-    public List<Score> getScores() {
-        return scores;
+
+    public Map<Journal, Score> getJournalStudentScore() {
+        return journalStudentScore;
     }
 
-    public void setScores(List<Score> scores) {
-        this.scores = scores;
+    public void setJournalStudentScore(Map<Journal, Score> journalStudentScore) {
+        this.journalStudentScore = journalStudentScore;
     }
 
-    public Student(String role, String lastName, String firstName, String middleName, String className, String email,
-                   String password, String confirmPassword, Set<Journal> journals, List<Score> scores) {
+    public Student() {
+    }
+
+    public Student(String role, String lastName, String firstName, String middleName, String className,
+                   String email, String password, String confirmPassword, Set<Journal> journals,
+                   Map<Journal, Score> journalStudentScore) {
         this.role = role;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -151,6 +164,6 @@ public class Student {
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.journals = journals;
-        this.scores = scores;
+        this.journalStudentScore = journalStudentScore;
     }
 }

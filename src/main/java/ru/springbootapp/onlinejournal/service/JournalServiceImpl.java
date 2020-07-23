@@ -4,17 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.springbootapp.onlinejournal.entity.Journal;
+import ru.springbootapp.onlinejournal.entity.Student;
 import ru.springbootapp.onlinejournal.repository.JournalRepository;
+import ru.springbootapp.onlinejournal.repository.StudentRepository;
 
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class JournalServiceImpl implements JournalService {
 
     @Autowired
     private JournalRepository journalRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Override
     public List<Journal> getJournals() {
@@ -23,6 +30,10 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     public void saveJournal(Journal theJournal) {
+        Set<Student> theStudent = new HashSet<>();
+        theStudent.addAll(studentRepository.findAllByClassName(theJournal.getClassnameStudent()));
+        theJournal.getStudents().addAll(theStudent);
+
       journalRepository.save(theJournal);
     }
 
@@ -85,4 +96,11 @@ public class JournalServiceImpl implements JournalService {
         return theJournal;
 
     }
+
+    @Override
+    public void deleteJournal(long theId) {
+
+        journalRepository.deleteById(theId);
+    }
+
 }

@@ -15,13 +15,25 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Score SET overall_score = :overallScore  WHERE id = :id")
-    void updateJournal(long overallScore, long id);
+    @Query(value = "UPDATE journal_student_score SET score_id = :scoreId  WHERE student_id = :studentId AND" +
+            " journal_id=:journalId", nativeQuery=true)
+    void updateJournal(long journalId, long scoreId, long studentId);
 
     @Transactional
     @Modifying
-    @Query(value = "SELECT scores.* FROM scores, journal_scores WHERE journal_scores.journal_id = :theId" +
-            " AND journal_scores.score_id=scores.id", nativeQuery=true)
-    List<Score> getScore(long theId);
+    @Query(value = "SELECT scores.* FROM scores, journal_student_score WHERE journal_student_score.journal_id = :theId" +
+            " AND journal_student_score.student_id = :studName AND journal_student_score.score_id=scores.id", nativeQuery=true)
+    List<Score> getScore(long theId, long studName);
+
+    @Transactional
+    @Modifying
+    @Query(value="INSERT INTO journal_student_score   (journal_id, student_id, score_id) VALUES" +
+            " (:journal_id, :id, :id_sc);", nativeQuery=true)
+    void updateJournalStudentScore(long journal_id, long id, long id_sc);
+
+    @Transactional
+    @Modifying
+    @Query(value="SELECT DISTINCT scores.* FROM scores", nativeQuery=true)
+    public List<Score> getScoreList();
 
 }

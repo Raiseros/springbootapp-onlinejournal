@@ -17,8 +17,11 @@
         <div class="col-xs-4">
             <div class="card">
                 <div class="card-body">
-                    <form role="form" class="form-horizontal" action="#" th:action="@{/saveLesson}"
-                          th:object="${journal}" method="POST">
+
+                        <form role="form" class="form-horizontal" action="#"
+                              th:action="@{/saveLesson(studentId=${tempStudentName}, overallScore=${score.overallScore})}"
+                              th:object="${journal}"  method="POST">
+
 
 
                         <input type="hidden" th:field="*{id}"/>
@@ -78,34 +81,54 @@
                                 <select class="form-control-md input-md" id="timeLesson" name="timeLesson"
                                         onchange="numberlesson();timebreak();"
                                         placeholder="Time lesson">
-                                    <option th:disabled th:selected value> -- select an option -- </option>
-                                    <option th:value="'09:00 - 09:45'" th:text="'09:00 - 09:45'"></option>
-                                    <option th:value="'09:55 - 10:40'" th:text="'09:55 - 10:40'"></option>
-                                    <option th:value="'10:50 - 11:35'" th:text="'10:50 - 11:35'"></option>
-                                    <option th:value="'11:50 - 12:35'" th:text="'11:50 - 12:35'"></option>
-                                    <option th:value="'12:45 - 13:30'" th:text="'12:45 - 13:30'"></option>
-                                    <option th:value="'13:35 - 14:15'" th:text="'13:35 - 14:15'"></option>
-                                    <option th:value="'14:30 - 15:10'" th:text="'14:30 - 15:10'"></option>
-                                    <option th:value="'15:15 - 15:55'" th:text="'15:15 - 15:55'"></option>
+                                    <option th:if="${journal.timeLesson} == null"
+                                            th:disabled th:selected value> &#45;&#45; select an option &#45;&#45; </option>
+                                    <option th:if="${journal.timeLesson} != null" th:text="${journal.timeLesson}"/>
+                                    <option th:if="${journal.timeLesson} != '09:00 - 09:45'"
+                                            th:value="'09:00 - 09:45'" th:text="'09:00 - 09:45'"></option>
+                                    <option th:if="${journal.timeLesson} != '09:55 - 10:40'"
+                                            th:value="'09:55 - 10:40'" th:text="'09:55 - 10:40'"></option>
+                                    <option th:if="${journal.timeLesson} != '10:50 - 11:35'"
+                                            th:value="'10:50 - 11:35'" th:text="'10:50 - 11:35'"></option>
+                                    <option th:if="${journal.timeLesson} != '11:50 - 12:35'"
+                                            th:value="'11:50 - 12:35'" th:text="'11:50 - 12:35'"></option>
+                                    <option th:if="${journal.timeLesson} != '12:45 - 13:30'"
+                                            th:value="'12:45 - 13:30'" th:text="'12:45 - 13:30'"></option>
+                                    <option th:if="${journal.timeLesson} != '13:35 - 14:15'"
+                                            th:value="'13:35 - 14:15'" th:text="'13:35 - 14:15'"></option>
+                                    <option th:if="${journal.timeLesson} != '14:30 - 15:10'"
+                                            th:value="'14:30 - 15:10'" th:text="'14:30 - 15:10'"></option>
+                                    <option th:if="${journal.timeLesson} != '15:15 - 15:55'"
+                                            th:value="'15:15 - 15:55'" th:text="'15:15 - 15:55'"></option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="fullnameCourse" class="control-label col-md-7
                              text-danger">Full name course :</label>
-                            <div class="col-md-5">
+                            <div  class="col-md-5">
+
                                 <select class="form-control-md input-md" id="fullnameCourse"
                                         name="fullnameCourse"
                                         onchange="classname(); shortnamecours();"
                                         placeholder="Full name course">
-                                    <option th:disabled th:selected value> -- select an option -- </option>
-                                    <option th:value="'English language'" th:text="'English language'"></option>
-                                    <option th:value="'Literature'" th:text="'Literature'"></option>
-                                    <option th:value="'Сomputer science'" th:text="'Сomputer science'"></option>
-                                    <option th:value="'Physics'" th:text="'Physics'"></option>
-                                    <option th:value="'Algebra'" th:text="'Algebra'"></option>
+                                    <option th:if="${journal.fullnameCourse} == null"
+                                            th:disabled th:selected value> -- select an option -- </option>
+                                    <option th:if="${journal.fullnameCourse} != null" th:text="${journal.fullnameCourse}"/>
+                                    <option th:if="${journal.fullnameCourse} != 'English language'"
+                                            th:value="'English language'" th:text="'English language'"></option>
+                                    <option th:if="${journal.fullnameCourse} != 'Literature'"
+                                            th:value="'Literature'" th:text="'Literature'"></option>
+                                    <option th:if="${journal.fullnameCourse} != 'Сomputer science'"
+                                            th:value="'Сomputer science'" th:text="'Сomputer science'"></option>
+                                    <option th:if="${journal.fullnameCourse} != 'Physics'"
+                                            th:value="'Physics'" th:text="'Physics'"></option>
+                                    <option th:if="${journal.fullnameCourse} != 'Algebra'"
+                                            th:value="'Algebra'" th:text="'Algebra'"></option>
 
                                 </select>
+
+
                             </div>
                         </div>
 
@@ -229,17 +252,21 @@
                                 </script>
                             </div>
                         </div>
-                        <div class="form-group" th:object="${score}"
-                             th:name="${tempStudentName}"
-                             th:if="${tempStudentName} != null">
 
-                            <input type="hidden" th:field="*{id}"/>
-                            <label for="overallScore" class="control-label col-md-7 text-danger" >Score :</label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control-md input-md" id="overallScore"
-                                       th:field="*{overallScore}" placeholder="Score" />
 
-                            </div>
+                        <div class="form-group" th:name="${tempStudentName}" th:if="${tempStudentName} != null">
+                        <select th:id="id_sc"  th:name="id_sc">
+
+
+                            <option  value="">-- select score --</option>
+
+                            <option  th:each="tempScore : ${scoreList}" th:attr="value = ${tempScore.id_sc}"
+                                     th:text="${tempScore.overallScore}"
+                                    th:selected="${tempScore.overallScore.equals(score.overallScore)}">
+                            </option>
+
+                            </select>
+
                         </div>
 
                         <div class="col-md-12">
@@ -264,6 +291,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<!--klkl-->
+<!--kkk-->
 </body>
 </html>
