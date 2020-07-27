@@ -31,4 +31,10 @@ public interface JournalService {
 
     public void deleteJournal(long theId);
 
+    public void deleteJournalScore(long theId, long idStudName);
+
+    public void deleteJournalScoreByJournalId( long theId);
+
+
+    /*bbnj*/
 }

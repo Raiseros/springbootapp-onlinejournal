@@ -51,4 +51,5 @@ public class SecurityConfigStudent extends WebSecurityConfigurerAdapter {
 
 
     }
+    /*cvc*/
 }

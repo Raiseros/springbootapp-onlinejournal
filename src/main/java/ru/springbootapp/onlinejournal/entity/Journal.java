@@ -171,5 +171,7 @@ public class Journal implements Serializable {
         this.timeBreak = timeBreak;
         this.students = students;
     }
+
+   /* bn*/
 }
 

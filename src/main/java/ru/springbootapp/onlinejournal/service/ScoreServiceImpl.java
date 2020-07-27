@@ -68,4 +68,7 @@ public class ScoreServiceImpl implements  ScoreService {
 
         return scoreRepository.getScoreList();
     }
+
+
+    /*bnnj*/
 }

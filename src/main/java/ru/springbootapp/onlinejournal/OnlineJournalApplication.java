@@ -11,4 +11,6 @@ public class OnlineJournalApplication {
 		SpringApplication.run(OnlineJournalApplication.class, args);
 	}
 
+	/*bnj*/
+
 }

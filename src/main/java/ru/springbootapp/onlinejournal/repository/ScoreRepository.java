@@ -36,4 +36,7 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Query(value="SELECT DISTINCT scores.* FROM scores", nativeQuery=true)
     public List<Score> getScoreList();
 
+
+  /*  bnn*/
+
 }

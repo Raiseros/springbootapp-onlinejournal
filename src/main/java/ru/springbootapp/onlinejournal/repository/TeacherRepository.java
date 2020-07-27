@@ -11,4 +11,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     Teacher findTeacherByEmail(String email);
 
+
+  /*  bnn*/
+
 }

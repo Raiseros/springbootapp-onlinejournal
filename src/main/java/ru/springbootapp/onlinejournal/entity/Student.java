@@ -4,6 +4,7 @@ package ru.springbootapp.onlinejournal.entity;
 
 
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.SQLInsert;
 
 import javax.persistence.*;
@@ -46,19 +47,22 @@ public class Student {
 
 
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(name = "journal_students", joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "journal_id"))
     private Set<Journal> journals = new HashSet<>();
 
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(name = "journal_student_score", joinColumns = {
 
             @JoinColumn(name = "student_id")},
             inverseJoinColumns = {@JoinColumn(name = "score_id")})
             @MapKeyJoinColumn(name = "journal_id")
     private Map<Journal, Score> journalStudentScore = new HashMap<>();
+
+
+
 
     public long getId() {
         return id;
@@ -166,4 +170,6 @@ public class Student {
         this.journals = journals;
         this.journalStudentScore = journalStudentScore;
     }
+
+    /*bnn*/
 }

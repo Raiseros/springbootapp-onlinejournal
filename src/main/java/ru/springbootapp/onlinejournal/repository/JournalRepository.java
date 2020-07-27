@@ -119,6 +119,18 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
             " date_lesson, number_lesson", nativeQuery=true)
     public List<JournalDto> getListJournalDtoStudentNameAndDateLesson(long studentName, String dateLesson);
 
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE journal_student_score FROM journal_student_score WHERE journal_id = :theId AND" +
+            " student_id = :idStudName ", nativeQuery=true)
+    public void deleteJournalScore(long theId, long idStudName);
 
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE journal_student_score FROM journal_student_score WHERE journal_id = :theId", nativeQuery=true)
+    public void deleteJournalScoreByJournalId(long theId);
+
+/*bbm*/
 }
 

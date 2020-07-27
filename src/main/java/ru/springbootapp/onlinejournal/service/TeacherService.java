@@ -7,4 +7,6 @@ public interface TeacherService {
     public void saveTeacher(Teacher theTeacher);
 
     public Teacher findByEmail(String email);
+
+    /*vbh*/
 }

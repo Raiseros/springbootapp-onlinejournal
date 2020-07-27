@@ -46,4 +46,5 @@ public class SecurityConfigTeacher extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
     }
+    /*xcxc*/
 }

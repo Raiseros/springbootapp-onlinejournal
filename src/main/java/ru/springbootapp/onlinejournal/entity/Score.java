@@ -1,6 +1,7 @@
 package ru.springbootapp.onlinejournal.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,8 @@ public class Score {
     @JoinTable(name="course_scores", joinColumns=@JoinColumn(name="score_id"),
             inverseJoinColumns = @JoinColumn(name="course_id"))
     private List<Course> courses;
+
+
 
 
 
@@ -59,4 +62,6 @@ public class Score {
         this.courses = courses;
 
     }
+
+    /*nm*/
 }

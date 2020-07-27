@@ -47,4 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     passwordEncoder.encode(student.getPassword()), grantedAuthorities);}
 
     }
+
+
+    /*cvbh*/
 }

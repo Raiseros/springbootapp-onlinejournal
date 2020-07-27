@@ -13,4 +13,7 @@ public interface ScoreService {
     public void updateScore(Journal theJournal, long scoreId, long studentId);
     public Score getScore(long theId, long studName);
     public List<Score> getScoreList();
+
+
+    /*cbbh*/
 }

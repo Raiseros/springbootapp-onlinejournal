@@ -103,4 +103,18 @@ public class JournalServiceImpl implements JournalService {
         journalRepository.deleteById(theId);
     }
 
+    @Override
+    public void deleteJournalScore(long theId, long idStudName) {
+
+        journalRepository.deleteJournalScore(theId, idStudName);
+
+    }
+
+    @Override
+    public void deleteJournalScoreByJournalId(long theId) {
+        journalRepository.deleteJournalScoreByJournalId(theId);
+    }
+
+    /* vbh*/
+
 }

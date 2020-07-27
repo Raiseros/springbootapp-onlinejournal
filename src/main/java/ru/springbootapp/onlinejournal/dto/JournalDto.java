@@ -29,4 +29,6 @@ public interface JournalDto {
     Long getOverall_score();
 
     Long getId_sc();
+
+    /*bn*/
 }

@@ -5,23 +5,19 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.springbootapp.onlinejournal.entity.Student;
+import ru.springbootapp.onlinejournal.entity.Course;
 
 import java.util.List;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Long> {
-
-    Student findStudentByEmail(String email);
+public interface CourseRepository  extends JpaRepository<Course, Long> {
 
 
     @Transactional
     @Modifying
-    @Query(value = "SELECT * FROM student GROUP BY last_name, first_name, middle_name ORDER BY last_name, first_name ",
+    @Query(value = "SELECT * FROM study_course",
             nativeQuery=true)
-    public List<Student> getListStudent();
+    public List<Course> getcourseList();
 
-    public List<Student> findAllByClassName(String className);
-
-   /* bbn*/
+    /*bnn*/
 }

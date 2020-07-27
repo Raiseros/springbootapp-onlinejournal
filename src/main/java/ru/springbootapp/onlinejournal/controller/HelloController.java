@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.springbootapp.onlinejournal.entity.Journal;
-import ru.springbootapp.onlinejournal.entity.Score;
-import ru.springbootapp.onlinejournal.entity.Student;
-import ru.springbootapp.onlinejournal.entity.Teacher;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.springbootapp.onlinejournal.entity.*;
 import ru.springbootapp.onlinejournal.service.*;
 
 
@@ -32,6 +30,13 @@ public class HelloController {
 
     @Autowired
     private JournalDtoService journalDtoService;
+
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private ClassScheduleService classScheduleService;
+
 
 
 
@@ -81,27 +86,27 @@ public class HelloController {
 
 
     @RequestMapping(value = "journal", method = RequestMethod.GET)
-    public String getJournal(@RequestParam(required = false) String className,
-                             @RequestParam(required = false) String dateLesson, @RequestParam(required = false)
+    public String getJournal(@RequestParam(required = false) String clName,
+                             @RequestParam(required = false) String datLesson, @RequestParam(required = false)
                                      Long studentName, Model model) {
-        if ((null != className && "" != className) && ((null == dateLesson || "" == dateLesson) && (null == studentName))) {
-            model.addAttribute("classNameStudent", className);
-            model.addAttribute("journals", journalService.getJournalClassNameStudentList(className));
-        } else if ((null != dateLesson && "" != dateLesson) && ((null == className || "" == className) && (null == studentName))) {
-            model.addAttribute("dateLesson", dateLesson);
-            model.addAttribute("journals", journalService.getListByDateLesson(dateLesson));
-        } else if ((null != className && "" != className) && ((null != dateLesson && "" != dateLesson) && (null == studentName))) {
-            model.addAttribute("classNameStudent", className);
-            model.addAttribute("dateLesson", dateLesson);
-            model.addAttribute("journals", journalService.getListByClassnameStudentAndByDateLesson(className, dateLesson));
-        } else if ((null != studentName) && (null == dateLesson || "" == dateLesson)) {
+        if ((null != clName && "" != clName) && ((null == datLesson || "" == datLesson) && (null == studentName))) {
+            model.addAttribute("classNameStudent", clName);
+            model.addAttribute("journals", journalService.getJournalClassNameStudentList(clName));
+        } else if ((null != datLesson && "" != datLesson) && ((null == clName || "" == clName) && (null == studentName))) {
+            model.addAttribute("datLesson", datLesson);
+            model.addAttribute("journals", journalService.getListByDateLesson(datLesson));
+        } else if ((null != clName && "" != clName) && ((null != datLesson && "" != datLesson) && (null == studentName))) {
+            model.addAttribute("classNameStudent", clName);
+            model.addAttribute("datLesson", datLesson);
+            model.addAttribute("journals", journalService.getListByClassnameStudentAndByDateLesson(clName, datLesson));
+        } else if ((null != studentName) && (null == datLesson || "" == datLesson)) {
             model.addAttribute("tempStudentName", studentName);
             model.addAttribute("journal", journalDtoService.getListJournalDto(studentName));
 
-        } else if ((null != studentName) && (null != dateLesson && "" != dateLesson)) {
+        } else if ((null != studentName) && (null != datLesson && "" != datLesson)) {
             model.addAttribute("tempStudentName", studentName);
-            model.addAttribute("dateLesson", dateLesson);
-            model.addAttribute("journal", journalDtoService.getListJournalDtoStudentNameAndDateLesson(studentName, dateLesson));
+            model.addAttribute("datLesson", datLesson);
+            model.addAttribute("journal", journalDtoService.getListJournalDtoStudentNameAndDateLesson(studentName, datLesson));
         } else {
             List<Journal> theJournals = journalService.getJournals();
             model.addAttribute("journals", theJournals);
@@ -130,6 +135,17 @@ public class HelloController {
         return studentService.getListStudent();
     }
 
+
+    @ModelAttribute("courseList")
+    public List<Course> getcourseList() {
+        return courseService.getcourseList();
+    }
+
+    @ModelAttribute("ClassScheduleList")
+    public List<ClassSchedule> getClassScheduleList() {
+        return classScheduleService.getClassScheduleList();
+    }
+
     @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)
     public String registryLesson(Model model) {
         Journal theJournal = new Journal();
@@ -142,7 +158,7 @@ public class HelloController {
     @RequestMapping(value = "formForUpdate", method = RequestMethod.GET)
     public String update(@RequestParam("journalId") long theId, @RequestParam(required = false)
             Long studName, @RequestParam(required = false)
-            Long idScore, Model model) {
+            Long idScore, @RequestParam(required = false) String datLesson, @RequestParam(required = false) String clName,  Model model) {
         Journal theJournal = journalService.getJournal(theId);
         if(idScore == null){
             Score newScore = new Score();
@@ -153,6 +169,8 @@ public class HelloController {
         }
 
         model.addAttribute("tempStudentName", studName);
+        model.addAttribute("datLesson", datLesson);
+        model.addAttribute("clName", clName);
         model.addAttribute("journal", theJournal);
 
         return "registry-lesson";
@@ -162,7 +180,9 @@ public class HelloController {
     @PostMapping("saveLesson")
     public String addJournal(@ModelAttribute("journal") Journal theJournal,
                              @RequestParam(required = false) Long studentId, @RequestParam(required = false) Long overallScore,
-                             @RequestParam(required = false, name = "id_sc") Long scoreId) {
+                             @RequestParam(required = false, name = "id_sc") Long scoreId,
+                             @RequestParam(required = false) String datLesson, @RequestParam(required = false) String clName,
+                             RedirectAttributes redirectAttrs) {
 
         if (null != theJournal && theJournal.getId() > 0) {
             journalService.updateJournal(theJournal);
@@ -182,13 +202,37 @@ public class HelloController {
         }
 
 
+        redirectAttrs.addAttribute("studentName", studentId);
+        redirectAttrs.addAttribute("datLesson", datLesson);
+        redirectAttrs.addAttribute("clName", clName);
+
         return "redirect:/journal";
     }
 
     @RequestMapping(value ="delete", method = RequestMethod.GET)
-    public String delete(@RequestParam("journalId") long theId) {
+    public String delete(@RequestParam("journalId") long theId,@RequestParam(required = false) String datLesson,
+                         @RequestParam(required = false) String clName,
+                         RedirectAttributes redirectAttrs) {
+        journalService.deleteJournalScoreByJournalId(theId);
         journalService.deleteJournal(theId);
+        redirectAttrs.addAttribute("datLesson", datLesson);
+        redirectAttrs.addAttribute("clName", clName);
         return "redirect:/journal";
     }
+
+
+    @RequestMapping(value ="deleteScore", method = RequestMethod.GET)
+    public String deleteScore(@RequestParam("journalId") long theId, @RequestParam Long idStudName,
+                              @RequestParam(required = false) String datLesson, RedirectAttributes redirectAttrs) {
+        journalService.deleteJournalScore(theId, idStudName);
+
+        redirectAttrs.addAttribute("studentName", idStudName);
+        redirectAttrs.addAttribute("datLesson", datLesson);
+
+        return "redirect:/journal";
+    }
+
+
+    /*nnm*/
 
 }

@@ -12,10 +12,13 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private long id_course;
 
     @Column(name="course_name")
     private String courseName;
+
+    @Column(name="course_short_name")
+    private String courseShortName;
 
     @Column(name="class_name")
     private String className;
@@ -28,12 +31,12 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name="score_id"))
     private List<Score> scores;
 
-    public long getId() {
-        return id;
+    public long getId_course() {
+        return id_course;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId_course(long id_course) {
+        this.id_course = id_course;
     }
 
     public String getCourseName() {
@@ -68,8 +71,18 @@ public class Course {
         this.scores = scores;
     }
 
-    public Course(String courseName, String className, String schoolBuilding, List<Score> scores) {
+    public String getCourseShortName() {
+        return courseShortName;
+    }
+
+    public void setCourseShortName(String courseShortName) {
+        this.courseShortName = courseShortName;
+    }
+
+    public Course(String courseName, String courseShortName, String className, String schoolBuilding,
+                  List<Score> scores) {
         this.courseName = courseName;
+        this.courseShortName = courseShortName;
         this.className = className;
         this.schoolBuilding = schoolBuilding;
         this.scores = scores;
@@ -77,4 +90,6 @@ public class Course {
 
     public Course() {
     }
+
+    /*bnn*/
 }

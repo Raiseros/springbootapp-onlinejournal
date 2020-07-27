@@ -43,4 +43,6 @@ public class JournalDtoServiceImpl implements JournalDtoService {
 
         return theJournalDto;
     }*/
+
+    /*bnj*/
 }
