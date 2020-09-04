@@ -14,6 +14,7 @@ import ru.springbootapp.onlinejournal.service.*;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/")
 public class HelloController {
 
     @Autowired
@@ -145,6 +146,7 @@ public class HelloController {
     public List<ClassSchedule> getClassScheduleList() {
         return classScheduleService.getClassScheduleList();
     }
+
 
     @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)
     public String registryLesson(Model model) {

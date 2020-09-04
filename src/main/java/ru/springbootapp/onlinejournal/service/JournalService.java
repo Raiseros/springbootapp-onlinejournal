@@ -19,6 +19,10 @@ public interface JournalService {
 
     public List<String> getListDateLesson();
 
+    public List<String> getDateLessonMonthList();
+
+    public List<Journal> getListFullFormatDateLesson();
+
     public List<Journal> getListByDateLesson(String dateLesson);
 
     public List<Journal> getListByClassnameStudentAndByDateLesson(String classNameStudent, String dateLesson);

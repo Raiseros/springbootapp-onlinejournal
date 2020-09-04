@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.springbootapp.onlinejournal.dto.GradesDto;
 import ru.springbootapp.onlinejournal.entity.Score;
 
 import java.util.List;
@@ -35,6 +36,137 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Modifying
     @Query(value="SELECT DISTINCT scores.* FROM scores", nativeQuery=true)
     public List<Score> getScoreList();
+
+    @Transactional
+    @Modifying
+    @Query(value="SELECT journal.*, student.id as id_st, student.class_name as cl_student," +
+            " student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as id_sc FROM" +
+            " journal, student, scores, journal_student_score WHERE student.id=journal_student_score.student_id AND" +
+            " scores.id= journal_student_score.score_id AND journal.id=journal_student_score.journal_id ORDER BY date_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDto();
+
+
+    @Transactional
+    @Modifying
+    @Query(value="SELECT journal.*, student.id as id_st, student.class_name as cl_student," +
+            " student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as id_sc FROM" +
+            " journal, student, scores, journal_student_score WHERE student.id=journal_student_score.student_id AND" +
+            " scores.id= journal_student_score.score_id AND journal.id=journal_student_score.journal_id AND journal.classname_student = :classNameStudent ORDER BY date_lesson", nativeQuery=true)
+    public List<GradesDto> getGradesDtoByClassnameStudent(String classNameStudent);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND DATE_FORMAT(date_lesson,'%M') = :dateLesson ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListByDateMonthLesson(String dateLesson);
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND DATE_FORMAT(date_lesson,'%M') = :dateLesson AND" +
+            " journal.classname_student = :classNameStudent ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListByClassnameStudentAndByDateMonthLesson(String classNameStudent, String dateLesson);
+
+
+
+    @Transactional
+    @Modifying
+    @Query(value="SELECT journal.*, student.id as id_st, student.class_name as cl_student," +
+            " student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as id_sc FROM" +
+            " journal, student, scores, journal_student_score WHERE student.id=journal_student_score.student_id AND" +
+            " scores.id= journal_student_score.score_id AND journal.id=journal_student_score.journal_id AND" +
+            " student.id = :theId ORDER BY date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDtoByStudName(long theId);
+
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND DATE_FORMAT(date_lesson,'%M') = :dateLesson AND" +
+            " student.id = :studentName ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDtoStudentNameAndDateMonthLesson(long studentName, String dateLesson);
+
+
+    @Transactional
+    @Modifying
+    @Query(value="SELECT journal.*, student.id as id_st, student.class_name as cl_student," +
+            " student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as id_sc FROM" +
+            " journal, student, scores, journal_student_score WHERE student.id=journal_student_score.student_id AND" +
+            " scores.id= journal_student_score.score_id AND journal.id=journal_student_score.journal_id AND" +
+            " journal.shortname_course = :courseName ORDER BY date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListByCourseName(String courseName);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND DATE_FORMAT(date_lesson,'%M') = :dateLesson AND" +
+            " journal.shortname_course = :courseName ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDtoCourseNameAndDateMonthLesson(String courseName, String dateLesson);
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND journal.classname_student = :classNameStudent AND" +
+            " journal.shortname_course = :courseName ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDtoCourseNameAndClassNameStudent(String courseName, String classNameStudent);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND student.id = :studentName AND" +
+            " journal.shortname_course = :courseName ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDtoCourseNameAndStudName(String courseName, long studentName);
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND DATE_FORMAT(date_lesson,'%M') = :dateLesson AND" +
+            " journal.classname_student = :classNameStudent AND journal.shortname_course = :courseName ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDtoCourseNameAndDateAndClNameStud(String courseName, String dateLesson, String classNameStudent);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.*, student.id as id_st, student.class_name as" +
+            " cl_student, student.first_name, student.last_name, student.middle_name,  overall_score, scores.id as" +
+            " id_sc FROM journal, student, scores, journal_student_score WHERE" +
+            " student.id=journal_student_score.student_id AND scores.id= journal_student_score.score_id AND" +
+            " journal.id=journal_student_score.journal_id AND DATE_FORMAT(date_lesson,'%M') = :dateLesson AND" +
+            " student.id = :studentName AND journal.shortname_course = :courseName ORDER BY" +
+            " date_lesson , number_lesson", nativeQuery=true)
+    public List<GradesDto> getListGradesDtoCourseNameAndDateAndStudName(String courseName, String dateLesson, long studentName);
 
 
   /*  bnn*/

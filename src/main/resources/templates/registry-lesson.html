@@ -18,10 +18,9 @@
             <div class="card">
                 <div class="card-body">
 
-                        <form role="form" class="form-horizontal" action="#"
-                              th:action="@{/saveLesson(studentId=${tempStudentName}, overallScore=${score.overallScore})}"
-                              th:object="${journal}"  method="POST">
-
+                    <form role="form" class="form-horizontal" action="#"
+                          th:action="@{/saveLesson(studentId=${tempStudentName}, overallScore=${score.overallScore}, datLesson=${datLesson}, clName=${clName})}"
+                          th:object="${journal}" method="POST">
 
 
                         <input type="hidden" th:field="*{id}"/>
@@ -41,36 +40,36 @@
                                 <input type="text" class="form-control-md input-md" id="numberLesson"
                                        th:field="*{numberLesson}" placeholder="Number lesson" readonly/>
 
-                                </select>
-                                <script type="text/javascript">
-                                    function numberlesson() {
-                                        var timeles = document.getElementById("timeLesson").value;
-                                        if(timeles == '09:00 - 09:45') {
-                                            document.getElementById("numberLesson").value = 1;
+                                <script th:inline="javascript">
+                                    /*<![CDATA[*/
+                                    function numberlesson_timebreak() {
+                                        var temp_timelesson = document.getElementById("timeLesson").value;
+
+                                        /*[# th:each="ClassSchedule : ${ClassScheduleList}"]*/
+                                        var temp_timeles =  [[${ClassSchedule.timeLessonClShedule}]];
+
+                                        if(temp_timelesson == temp_timeles){
+                                            var number_lesson = [[${ClassSchedule.numberLessonClShedule}]];
+                                            var time_break = [[${ClassSchedule.timeBreakClShedule}]];
+
+                                            document.getElementById('numberLesson').value = number_lesson;
+                                            document.getElementById('timeBreak').value = time_break;
+
                                         }
-                                        if(timeles == '09:55 - 10:40') {
-                                            document.getElementById("numberLesson").value = 2;
+                                        if(temp_timelesson == ""){
+                                            var number_lesson = "";
+                                            var time_break = "";
+
+                                            document.getElementById('numberLesson').value = number_lesson;
+                                            document.getElementById('timeBreak').value = time_break;
+
                                         }
-                                        if(timeles == '10:50 - 11:35') {
-                                            document.getElementById("numberLesson").value = 3;
-                                        }
-                                        if(timeles == '11:50 - 12:35') {
-                                            document.getElementById("numberLesson").value = 4;
-                                        }
-                                        if(timeles == '12:45 - 13:30') {
-                                            document.getElementById("numberLesson").value = 5;
-                                        }
-                                        if(timeles == '13:35 - 14:15') {
-                                            document.getElementById("numberLesson").value = 6;
-                                        }
-                                        if(timeles == '14:30 - 15:10') {
-                                            document.getElementById("numberLesson").value = 7;
-                                        }
-                                        if(timeles == '15:15 - 15:55') {
-                                            document.getElementById("numberLesson").value = 8;
-                                        }
+
+                                        /*[/]*/
+                                        /*]]>*/
                                     };
                                 </script>
+
 
                             </div>
                         </div>
@@ -79,89 +78,87 @@
                             <div class="col-md-5">
 
                                 <select class="form-control-md input-md" id="timeLesson" name="timeLesson"
-                                        onchange="numberlesson();timebreak();"
+                                        onchange="numberlesson_timebreak();"
                                         placeholder="Time lesson">
-                                    <option th:if="${journal.timeLesson} == null"
-                                            th:disabled th:selected value> &#45;&#45; select an option &#45;&#45; </option>
-                                    <option th:if="${journal.timeLesson} != null" th:text="${journal.timeLesson}"/>
-                                    <option th:if="${journal.timeLesson} != '09:00 - 09:45'"
-                                            th:value="'09:00 - 09:45'" th:text="'09:00 - 09:45'"></option>
-                                    <option th:if="${journal.timeLesson} != '09:55 - 10:40'"
-                                            th:value="'09:55 - 10:40'" th:text="'09:55 - 10:40'"></option>
-                                    <option th:if="${journal.timeLesson} != '10:50 - 11:35'"
-                                            th:value="'10:50 - 11:35'" th:text="'10:50 - 11:35'"></option>
-                                    <option th:if="${journal.timeLesson} != '11:50 - 12:35'"
-                                            th:value="'11:50 - 12:35'" th:text="'11:50 - 12:35'"></option>
-                                    <option th:if="${journal.timeLesson} != '12:45 - 13:30'"
-                                            th:value="'12:45 - 13:30'" th:text="'12:45 - 13:30'"></option>
-                                    <option th:if="${journal.timeLesson} != '13:35 - 14:15'"
-                                            th:value="'13:35 - 14:15'" th:text="'13:35 - 14:15'"></option>
-                                    <option th:if="${journal.timeLesson} != '14:30 - 15:10'"
-                                            th:value="'14:30 - 15:10'" th:text="'14:30 - 15:10'"></option>
-                                    <option th:if="${journal.timeLesson} != '15:15 - 15:55'"
-                                            th:value="'15:15 - 15:55'" th:text="'15:15 - 15:55'"></option>
+
+                                    <option value=""> -- select an option --</option>
+
+                                    <option th:each="ClassSchedule : ${ClassScheduleList}"
+                                            th:attr="value = ${ClassSchedule.timeLessonClShedule}"
+                                            th:text="${ClassSchedule.timeLessonClShedule}"
+                                            th:selected="${ClassSchedule.timeLessonClShedule.equals(journal.timeLesson)}">
+                                    </option>
+
                                 </select>
+
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="fullnameCourse" class="control-label col-md-7
                              text-danger">Full name course :</label>
-                            <div  class="col-md-5">
+                            <div class="col-md-5">
 
                                 <select class="form-control-md input-md" id="fullnameCourse"
                                         name="fullnameCourse"
-                                        onchange="classname(); shortnamecours();"
-                                        placeholder="Full name course">
-                                    <option th:if="${journal.fullnameCourse} == null"
-                                            th:disabled th:selected value> -- select an option -- </option>
-                                    <option th:if="${journal.fullnameCourse} != null" th:text="${journal.fullnameCourse}"/>
-                                    <option th:if="${journal.fullnameCourse} != 'English language'"
-                                            th:value="'English language'" th:text="'English language'"></option>
-                                    <option th:if="${journal.fullnameCourse} != 'Literature'"
-                                            th:value="'Literature'" th:text="'Literature'"></option>
-                                    <option th:if="${journal.fullnameCourse} != 'Сomputer science'"
-                                            th:value="'Сomputer science'" th:text="'Сomputer science'"></option>
-                                    <option th:if="${journal.fullnameCourse} != 'Physics'"
-                                            th:value="'Physics'" th:text="'Physics'"></option>
-                                    <option th:if="${journal.fullnameCourse} != 'Algebra'"
-                                            th:value="'Algebra'" th:text="'Algebra'"></option>
+                                        onchange="shortname_classname_schoolbuilding_cours();"
+                                        placeholder="Full name course" >
+
+                                    <option value=""> -- select an option --</option>
+
+                                    <option th:each="tempCourse : ${courseList}"
+                                            th:attr="value = ${tempCourse.courseName}"
+                                            th:text="${tempCourse.courseName}"
+                                            th:selected="${tempCourse.courseName.equals(journal.fullnameCourse)}">
+                                    </option>
+
 
                                 </select>
 
 
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label for="shortnameCourse" class="control-label col-md-7
-                             text-danger">Short name course :</label>
+                            <label for="shortnameCourse" class="control-label col-md-7 text-danger">Short name course :</label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control-md input-md" id="shortnameCourse"
                                        th:field="*{shortnameCourse}"
                                        placeholder="Short name course" readonly>
-                                <script type="text/javascript">
-                                    function shortnamecours() {
-                                        var shortnamecs = document.getElementById("fullnameCourse").value;
-                                        if(shortnamecs == 'English language') {
-                                            document.getElementById("shortnameCourse").value = "English";
+
+                                <script th:inline="javascript">
+                                    /*<![CDATA[*/
+                                    function shortname_classname_schoolbuilding_cours() {
+                                        var temp_fullnamecs = document.getElementById("fullnameCourse").value;
+
+                                        /*[# th:each="tempCourse : ${courseList}"]*/
+                                        var temp_name =  [[${tempCourse.courseName}]];
+
+                                        if(temp_fullnamecs == temp_name){
+                                          var short_name = [[${tempCourse.courseShortName}]];
+                                          var class_name = [[${tempCourse.className}]];
+                                          var school_building = [[${tempCourse.schoolBuilding}]];
+                                         document.getElementById('shortnameCourse').value = short_name;
+                                         document.getElementById('className').value = class_name;
+                                         document.getElementById('schoolBuilding').value = school_building;
                                         }
-                                        if(shortnamecs == 'Literature') {
-                                            document.getElementById("shortnameCourse").value = "Literature";
+                                        if(temp_fullnamecs == ""){
+                                            var short_name = "";
+                                            var class_name = "";
+                                            var school_building = "";
+                                            document.getElementById('shortnameCourse').value = short_name;
+                                            document.getElementById('className').value = class_name;
+                                            document.getElementById('schoolBuilding').value = school_building;
                                         }
-                                        if(shortnamecs == 'Сomputer science') {
-                                            document.getElementById("shortnameCourse").value = "Сomputer science";
-                                        }
-                                        if(shortnamecs == 'Physics') {
-                                            document.getElementById("shortnameCourse").value = "Physics";
-                                        }
-                                        if(shortnamecs == 'Algebra') {
-                                            document.getElementById("shortnameCourse").value = "Algebra";
-                                        }
+
+                                        /*[/]*/
+                                    /*]]>*/
                                     };
                                 </script>
 
+
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="className" class="control-label col-md-7 text-danger">Room :</label>
                             <div class="col-md-5">
@@ -169,40 +166,15 @@
                                        th:field="*{className}"
                                        placeholder="Room" readonly>
 
-                                <script type="text/javascript">
-                                    function classname() {
-                                        var classnam = document.getElementById("fullnameCourse").value;
-                                        if(classnam == 'English language') {
-                                            document.getElementById("className").value = "room 115";
-                                        }
-                                        if(classnam == 'Literature') {
-                                            document.getElementById("className").value = "room 201";
-                                        }
-                                        if(classnam == 'Сomputer science') {
-                                            document.getElementById("className").value = "room 221";
-                                        }
-                                        if(classnam == 'Physics') {
-                                            document.getElementById("className").value = "room 305";
-                                        }
-                                        if(classnam == 'Algebra') {
-                                            document.getElementById("className").value = "room 315";
-                                        }
-                                    };
-                                </script>
-
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="schoolBuilding" class="control-label col-md-7 text-danger">School building
-                                :</label>
+                            <label for="schoolBuilding" class="control-label col-md-7 text-danger">School building :</label>
                             <div class="col-md-5">
-                                <select class="form-control-md input-md" id="schoolBuilding"
-                                        th:field="*{schoolBuilding}"
-                                        placeholder="School Building">
-                                    <option th:value="'Building №1'" th:text="1"></option>
-                                    <option th:value="'Building №2'" th:text="2"></option>
+                                <input type="text" class="form-control-md input-md" id="schoolBuilding"
+                                       th:field="*{schoolBuilding}"
+                                       placeholder="School building" readonly>
 
-                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -213,17 +185,27 @@
                                        placeholder="Homework">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="classnameStudent" class="control-label col-md-7
                              text-danger">Class name Student :</label>
                             <div class="col-md-5">
+
                                 <select class="form-control-md input-md" id="classnameStudent"
-                                        th:field="*{classnameStudent}"
-                                        placeholder="Class name Student">
-                                    <option th:value="'11A'" th:text="'11A'"></option>
-                                    <option th:value="'11B'" th:text="'11B'"></option>
-                                    <option th:value="'11E'" th:text="'11E'"></option>
+                                        name="classnameStudent"
+                                        placeholder="Class name Student" >
+
+                                    <option value=""> -- select an option --</option>
+
+                                    <option th:each="tempclassnameStudent : ${classnameStudentList}"
+                                            th:attr="value = ${tempclassnameStudent}"
+                                            th:text="${tempclassnameStudent}"
+                                            th:selected="${tempclassnameStudent.equals(journal.classnameStudent)}">
+                                    </option>
+
+
                                 </select>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -232,38 +214,20 @@
                                 <input type="text" class="form-control-md input-md" id="timeBreak"
                                        th:field="*{timeBreak}" placeholder="Time break" readonly/>
 
-                                <script type="text/javascript">
-                                    function timebreak() {
-                                        var joinedvalues = document.getElementById("timeLesson").value;
-                                        if(joinedvalues == '12:45 - 13:30' || joinedvalues == '14:30 - 15:10') {
-                                            document.getElementById("timeBreak").value = "Break 5 min";
-                                        }
-                                        if(joinedvalues == '09:00 - 09:45' || joinedvalues == '09:55 - 10:40'
-                                            || joinedvalues == '11:50 - 12:35') {
-                                            document.getElementById("timeBreak").value = "Break 10 min";
-                                        }
-                                        if(joinedvalues == '10:50 - 11:35' || joinedvalues == '13:35 - 14:15') {
-                                            document.getElementById("timeBreak").value = "Break 15 min";
-                                        }
-                                        if(joinedvalues == '15:15 - 15:55') {
-                                            document.getElementById("timeBreak").value = "";
-                                        }
-                                    };
-                                </script>
                             </div>
                         </div>
 
 
                         <div class="form-group" th:name="${tempStudentName}" th:if="${tempStudentName} != null">
-                        <select th:id="id_sc"  th:name="id_sc">
+                            <select th:id="id_sc" th:name="id_sc">
 
 
-                            <option  value="">-- select score --</option>
+                                <option value="">-- select score --</option>
 
-                            <option  th:each="tempScore : ${scoreList}" th:attr="value = ${tempScore.id_sc}"
-                                     th:text="${tempScore.overallScore}"
-                                    th:selected="${tempScore.overallScore.equals(score.overallScore)}">
-                            </option>
+                                <option th:each="tempScore : ${scoreList}" th:attr="value = ${tempScore.id_sc}"
+                                        th:text="${tempScore.overallScore}"
+                                        th:selected="${tempScore.overallScore.equals(score.overallScore)}">
+                                </option>
 
                             </select>
 
@@ -292,5 +256,6 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 <!--kkk-->
+
+<!--bbhj-->
 </body>
-</html>

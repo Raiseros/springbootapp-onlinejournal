@@ -15,7 +15,7 @@ public interface CourseRepository  extends JpaRepository<Course, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "SELECT * FROM study_course",
+    @Query(value = "SELECT * FROM study_course ORDER BY course_name",
             nativeQuery=true)
     public List<Course> getcourseList();
 

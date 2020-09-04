@@ -66,7 +66,7 @@
 
         <option value="">-- select date --</option>
         <option th:each="date : ${dateLessonList}" th:value="${date}"
-                th:text="${date}" th:selected="${date.equals(dateLesson)}">
+                th:text="${date}" th:selected="${date.equals(datLesson)}">
 
         </option>
     </select>
@@ -76,7 +76,7 @@
             var date = document.getElementById("id_dateId").value;
             var classNameStudent = document.getElementById("id_instId").value;
             var studentName = document.getElementById("id_studentName").value;
-            window.location = 'journal?dateLesson=' + date + '&className=' + classNameStudent + '&studentName='
+            window.location = 'journal?datLesson=' + date + '&clName=' + classNameStudent + '&studentName='
                 + studentName;
         }
     </script>
@@ -100,7 +100,7 @@
 
 <div style="text-align: center; padding-bottom: 20px;">
 
-    <select id="id_studentName" onchange="date_class_student()">
+    <select id="id_studentName" name="id_studentName" onchange="date_class_student()">
 
         <option value="">---------- select student ----------</option>
         <option th:each="tempStudent : ${studentList}" th:value="${tempStudent.id}"
@@ -147,13 +147,13 @@
 
 
                 <a th:href="@{/formForUpdate(journalId=${tempJournal.id}, studName=${tempStudentName},
-                   idScore=${tempJournal.getId_sc()})}"
+                   idScore=${tempJournal.getId_sc()}, datLesson=${datLesson})}"
                    class="btn btn-primary btn-sm"
                    role="button">Update</a>
 
 
-                <a th:href="@{/delete(journalId=${tempJournal.id})}" class="btn btn-danger btn-sm"
-                   role="button">Delete</a>
+                <a th:href="@{/deleteScore(journalId=${tempJournal.id}, idStudName=${tempStudentName}, datLesson=${datLesson})}" class="btn btn-danger btn-sm"
+                   role="button">Delete Score</a>
 
             </td>
 
@@ -186,12 +186,12 @@
 
 
 
-                <a th:href="@{/formForUpdate(journalId=${tempJournals.id})}"
+                <a th:href="@{/formForUpdate(journalId=${tempJournals.id}, datLesson=${datLesson}, clName=${classNameStudent})}"
                    class="btn btn-primary btn-sm"
                    role="button">Update</a>
 
 
-                <a th:href="@{/delete(journalId=${tempJournals.id})}" class="btn btn-danger btn-sm"
+                <a th:href="@{/delete(journalId=${tempJournals.id}, datLesson=${datLesson}, clName=${classNameStudent})}" class="btn btn-danger btn-sm"
                    role="button">Delete</a>
 
             </td>
@@ -213,6 +213,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+
+<!--vbhh-->
 
 </body>
 </html>

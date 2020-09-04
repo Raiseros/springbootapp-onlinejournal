@@ -43,6 +43,17 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
             "'%d %b'))  FROM journal ORDER BY date_lesson , number_lesson", nativeQuery=true)
     public List<String> getListDateLesson();
 
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT DISTINCT DATE_FORMAT(date_lesson,'%M') FROM journal" +
+            " ORDER BY date_lesson , number_lesson", nativeQuery=true)
+    public List<String> getDateLessonMonthList();
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT journal.* FROM journal GROUP BY date_lesson ORDER BY date_lesson", nativeQuery=true)
+    public List<Journal> getListFullFormatDateLesson();
+
 
     @Transactional
     @Modifying
@@ -51,6 +62,8 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
             " - MOD(TO_DAYS(date_lesson) -2, 7) + 4 )),'%d %b')) = :dateLesson " +
             " ORDER BY date_lesson , number_lesson", nativeQuery=true)
     public List<Journal> getListByDateLesson(String dateLesson);
+
+
 
     @Transactional
     @Modifying

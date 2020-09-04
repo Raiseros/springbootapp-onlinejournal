@@ -61,9 +61,20 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
+    public List<String> getDateLessonMonthList() {
+        return journalRepository.getDateLessonMonthList();
+    }
+
+    @Override
+    public List<Journal> getListFullFormatDateLesson() {
+        return journalRepository.getListFullFormatDateLesson();
+    }
+
+    @Override
     public List<Journal> getListByDateLesson(String dateLesson) {
         return journalRepository.getListByDateLesson(dateLesson);
     }
+
 
     @Override
     public List<Journal> getListByClassnameStudentAndByDateLesson(String classNameStudent, String dateLesson) {
