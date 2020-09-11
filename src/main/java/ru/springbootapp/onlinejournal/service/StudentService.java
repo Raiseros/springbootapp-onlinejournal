@@ -11,5 +11,17 @@ public interface StudentService {
 
     public List<Student> getListStudent();
 
-    /*vbbh*/
+    public List<Student> getFullListStudent();
+
+    public List<Student> getAllStudentsByClassName(String className);
+
+    public void updateStudent(Student theStudent, String className);
+
+    public Student getStudent(long theId);
+
+    public void deleteStudent(long theId);
+
+    public void deleteJournalScoreByStudentId(long theId);
+
+    public void deleteJournalStudentsByStudentId(long theId);
 }

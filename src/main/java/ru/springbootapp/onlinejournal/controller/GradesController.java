@@ -15,7 +15,6 @@ import java.util.List;
 
 
 @Controller
-
 public class GradesController {
     @Autowired
     private StudentService studentService;
@@ -158,11 +157,6 @@ public class GradesController {
     public List<ClassSchedule> getClassScheduleList() {
         return classScheduleService.getClassScheduleList();
     }
-
-
-
-
-
 
 
 }
