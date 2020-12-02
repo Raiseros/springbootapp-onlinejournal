@@ -37,6 +37,20 @@
 </div>
 </form>
 
+    <div class="table-warning text-center col-4">
+        <div th:each="tempStudentLogin : ${studentLogin}">
+
+        <a th:href="@{/journal(studentName=${studentLogin.id})}" class="btn btn-primary btn-sm"
+           role="button">Journal</a>
+        </div>
+
+
+        <a th:href="@{/grades}" class="btn btn-danger btn-sm"
+           role="button">Grades</a>
+
+
+    </div>
+
 
 </div>
 

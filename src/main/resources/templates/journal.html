@@ -53,15 +53,45 @@
 </div>
 
 
+<div sec:authorize="hasRole('student')">
+    <p>Welcome to online journal!</p>
+    <div class="user">
+        User: <span sec:authentication="principal.username"></span>
+    </div>
+    </br>
+
+    <br>
+    <div class="role">
+        Role: <span sec:authentication="principal.authorities"></span>
+    </div>
+
+    <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
+          method="POST">
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-success">Logout</button>
+        </div>
+    </form>
+    <div class="table-warning text-center col-4">
+
+        <a th:href="@{/journal}" class="btn btn-primary btn-sm"
+           role="button">Journal</a>
+
+
+        <a th:href="@{/grades}" class="btn btn-danger btn-sm"
+           role="button">Grades</a>
+
+
+    </div>
+
+</div>
+
+
 <p></p>
 <form action="#" th:action="@{/registry-lesson}">
     <input type="submit" class="btn btn-success" value="New lesson">
 </form>
 <p></p>
-
-
-
-
 
 <div style="text-align: center; padding-bottom: 20px;">
 
@@ -73,6 +103,12 @@
 
         </option>
     </select>
+</div>
+
+
+
+
+<div sec:authorize="hasRole('teacher')">
 
     <script>
         function date_class_student() {
@@ -84,8 +120,9 @@
         }
     </script>
 
-</div>
+
 <p></p>
+
 
 <div style="text-align: center; padding-bottom: 20px;">
 
@@ -98,6 +135,7 @@
     </select>
 
 </div>
+
 <p></p>
 
 
@@ -111,6 +149,36 @@
                 th:selected="${tempStudent.id.equals(tempStudentName)}" >
         </option>
     </select>
+
+
+</div>
+</div>
+
+
+
+<div sec:authorize="hasRole('student')">
+
+    <script>
+        function date_class_student() {
+            var date = document.getElementById("id_dateId").value;
+            var studentName = document.getElementById("id_studentName").value;
+            window.location = 'journal?datLesson=' + date + '&studentName=' + studentName;
+        }
+    </script>
+
+    <div style="text-align: center; padding-bottom: 20px;">
+
+        <select id="id_studentName" name="id_studentName">
+
+            <option disabled value="">---------- select student ----------</option>
+            <option th:each="tempStudent : ${studentList}" th:value="${tempStudent.id}"
+                    th:text="${tempStudent.lastName} + ' ' + ${tempStudent.firstName}  + ' ' + ${tempStudent.middleName}"
+                    th:selected="${tempStudent.id.equals(tempStudentName)}" disabled>
+            </option>
+        </select>
+
+
+    </div>
 
 
 </div>
@@ -162,6 +230,7 @@
 
         </tr>
 
+        <div sec:authorize="hasRole('teacher')">
         <tr th:name="${tempStudentName}"
             th:if="${tempStudentName} == null" class="d-flex" th:each="tempJournals : ${journals}">
 
@@ -200,7 +269,7 @@
             </td>
 
         </tr>
-
+        </div>
         </tbody>
 
     </table>

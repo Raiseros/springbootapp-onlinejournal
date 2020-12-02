@@ -2,6 +2,9 @@ package ru.springbootapp.onlinejournal.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +45,14 @@ public class HelloController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getHelloPage() {
+    public String getHelloPage(Model model) {
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String email = loggedInUser.getName();
+
+        Student student = studentService.findByEmail(email);
+
+        model.addAttribute("studentLogin", student);
+
         return "hello-page";
     }
 
@@ -90,6 +100,17 @@ public class HelloController {
     public String getJournal(@RequestParam(required = false) String clName,
                              @RequestParam(required = false) String datLesson, @RequestParam(required = false)
                                      Long studentName, Model model) {
+
+       /* Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String email = loggedInUser.getName();
+
+        Student student = studentService.findByEmail(email);
+      //  String firstname = student.getFirstName();
+
+        model.addAttribute("studentLogin", student);*/
+
+
+
         if ((null != clName && "" != clName) && ((null == datLesson || "" == datLesson) && (null == studentName))) {
             model.addAttribute("classNameStudent", clName);
             model.addAttribute("journals", journalService.getJournalClassNameStudentList(clName));
@@ -111,7 +132,10 @@ public class HelloController {
         } else {
             List<Journal> theJournals = journalService.getJournals();
             model.addAttribute("journals", theJournals);
+
         }
+
+
         return "journal";
     }
 

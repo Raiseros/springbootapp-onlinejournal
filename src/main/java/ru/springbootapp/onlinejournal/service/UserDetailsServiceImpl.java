@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import ru.springbootapp.onlinejournal.entity.MyUserDetails;
 import ru.springbootapp.onlinejournal.entity.Student;
 import ru.springbootapp.onlinejournal.entity.Teacher;
 
@@ -30,7 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
+
+
         Student student = studentService.findByEmail(email);
+       // final MyUserDetails user = studentService.findByEmail(email);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         if (student == null){
             Teacher teacher = teacherService.findByEmail(email);
@@ -44,7 +48,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + roleStudent));
 
             return new org.springframework.security.core.userdetails.User(student.getEmail(),
-                    passwordEncoder.encode(student.getPassword()), grantedAuthorities);}
+                passwordEncoder.encode(student.getPassword()), grantedAuthorities);
+            }
+
+          //  return student;
+
 
     }
 
