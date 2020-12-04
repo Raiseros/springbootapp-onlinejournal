@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.springbootapp.onlinejournal.entity.Student;
+import ru.springbootapp.onlinejournal.entity.Teacher;
 import ru.springbootapp.onlinejournal.service.*;
 
 import java.sql.SQLException;
@@ -22,10 +23,14 @@ public class StudentsController {
     @Autowired
     private JournalService journalService;
 
+    @Autowired
+    private TeacherService teacherService;
+
 
 
     @RequestMapping(value = "students", method = RequestMethod.GET)
-    public String getJournal(@RequestParam(required = false) String clName, Model model) {
+    public String getJournal(@RequestParam(required = false) String clName, @RequestParam(required = false)
+            Long teacherName, Model model) {
 
 
         if (null != clName && "" != clName) {
@@ -36,6 +41,8 @@ public class StudentsController {
             model.addAttribute("students", studentService.getFullListStudent());
         }
 
+        model.addAttribute("tempTeacherName", teacherName);
+
         return "students";
 
     }
@@ -44,6 +51,11 @@ public class StudentsController {
     @ModelAttribute("classnameStudentList")
     public List<String> getClassnameStudentList() {
         return journalService.getListClassnameStudent();
+    }
+
+    @ModelAttribute("teacherList")
+    public List<Teacher> getTeacherList() {
+        return teacherService.getListTeacher();
     }
 
     @RequestMapping(value = "registry-student-list", method = RequestMethod.GET)

@@ -50,8 +50,10 @@ public class HelloController {
         String email = loggedInUser.getName();
 
         Student student = studentService.findByEmail(email);
+        Teacher teacher = teacherService.findByEmail(email);
 
         model.addAttribute("studentLogin", student);
+        model.addAttribute("teacherLogin", teacher);
 
         return "hello-page";
     }
@@ -95,19 +97,17 @@ public class HelloController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "procedurePage", method = RequestMethod.GET)
+    public String procedurePage() {
+        return "procedure-page";
+    }
+
 
     @RequestMapping(value = "journal", method = RequestMethod.GET)
     public String getJournal(@RequestParam(required = false) String clName,
                              @RequestParam(required = false) String datLesson, @RequestParam(required = false)
-                                     Long studentName, Model model) {
-
-       /* Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String email = loggedInUser.getName();
-
-        Student student = studentService.findByEmail(email);
-      //  String firstname = student.getFirstName();
-
-        model.addAttribute("studentLogin", student);*/
+                                     Long studentName, @RequestParam(required = false)
+                                         Long teacherName, Model model) {
 
 
 
@@ -135,6 +135,7 @@ public class HelloController {
 
         }
 
+        model.addAttribute("tempTeacherName", teacherName);
 
         return "journal";
     }
@@ -158,6 +159,11 @@ public class HelloController {
     @ModelAttribute("studentList")
     public List<Student> getStudentList() {
         return studentService.getListStudent();
+    }
+
+    @ModelAttribute("teacherList")
+    public List<Teacher> getTeacherList() {
+        return teacherService.getListTeacher();
     }
 
 

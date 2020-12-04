@@ -18,7 +18,7 @@
 
 
 <div sec:authorize="hasRole('teacher')">
-    <p>Welcome to online journal!</p>
+    <p>Welcome <td th:each="tempTeacher : ${teacherList}" th:if="${tempTeacher.id.equals(tempTeacherName)}" th:text="${tempTeacher.firstName}"/> to online journal!</p>
     <div class="user">
         User: <span sec:authentication="principal.username"></span>
     </div>
@@ -38,18 +38,62 @@
     </form>
     <div class="table-warning text-center col-6">
 
-        <a th:href="@{/journal}" class="btn btn-primary btn-sm"
+        <a th:href="@{/journal(teacherName=${tempTeacherName})}" class="btn btn-primary btn-sm"
            role="button">Journal</a>
 
 
-        <a th:href="@{/grades}" class="btn btn-danger btn-sm"
+        <a th:href="@{/grades(teacherName=${tempTeacherName})}" class="btn btn-danger btn-sm"
            role="button">Grades</a>
 
 
-        <a th:href="@{/students}" class="btn btn-warning btn-sm"
+        <a th:href="@{/students(teacherName=${tempTeacherName})}" class="btn btn-warning btn-sm"
            role="button">Students</a>
 
+        <a th:href="@{/news(teacherName=${tempTeacherName})}" class="btn btn-success btn-sm"
+           role="button">News</a>
+
     </div>
+
+</div>
+
+
+<div sec:authorize="hasRole('student')">
+    <p>Welcome <td th:each="tempStudent : ${studentList}" th:if="${tempStudent.id.equals(tempStudentName)}"
+                   th:text="${tempStudent.firstName}" /> to online journal!</p>
+    <div class="user">
+        User: <span sec:authentication="principal.username"></span>
+    </div>
+    </br>
+
+    <br>
+    <div class="role">
+        Role: <span sec:authentication="principal.authorities"></span>
+    </div>
+
+    <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
+          method="POST">
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-success">Logout</button>
+        </div>
+    </form>
+    <div class="table-warning text-center col-4">
+
+        <a th:href="@{/journal(studentName=${tempStudentName})}" class="btn btn-primary btn-sm"
+           role="button">Journal</a>
+
+
+        <a th:href="@{/grades(studentName=${tempStudentName})}" class="btn btn-danger btn-sm"
+           role="button">Grades</a>
+
+        <a th:href="@{/news(studentName=${tempStudentName})}" class="btn btn-success btn-sm"
+           role="button">News</a>
+
+
+    </div>
+
+</div>
+
 
     <p></p>
 
@@ -65,16 +109,6 @@
             </option>
         </select>
 
-        <script>
-            function date_class_student() {
-                var date = document.getElementById("id_dateId").value;
-                var classNameStudent = document.getElementById("id_instId").value;
-                var courseNameStudent = document.getElementById("id_courseId").value;
-                var studentName = document.getElementById("id_studentName").value;
-                window.location = 'grades?datLesson=' + date + '&courseName=' + courseNameStudent + '&clName=' + classNameStudent + '&studentName='
-                    + studentName;
-            }
-        </script>
 
     </div>
     <p></p>
@@ -94,6 +128,20 @@
     </div>
     <p></p>
 
+<div sec:authorize="hasRole('teacher')">
+
+    <script>
+        function date_class_student() {
+            var date = document.getElementById("id_dateId").value;
+            var classNameStudent = document.getElementById("id_instId").value;
+            var courseNameStudent = document.getElementById("id_courseId").value;
+            var studentName = document.getElementById("id_studentName").value;
+            var teacherName = [[${tempTeacherName}]];
+            window.location = 'grades?datLesson=' + date + '&courseName=' + courseNameStudent + '&clName=' + classNameStudent + '&studentName='
+                + studentName + '&teacherName=' + teacherName;
+        }
+    </script>
+
 
     <div style="text-align: center; padding-bottom: 20px;">
 
@@ -106,8 +154,8 @@
         </select>
 
     </div>
-    <p></p>
 
+    <p></p>
 
     <div style="text-align: center; padding-bottom: 20px;">
 
@@ -122,6 +170,37 @@
 
 
     </div>
+</div>
+
+<div sec:authorize="hasRole('student')">
+<script>
+    function date_class_student() {
+        var date = document.getElementById("id_dateId").value;
+        var courseNameStudent = document.getElementById("id_courseId").value;
+        var studentName = document.getElementById("id_studentName").value;
+        window.location = 'grades?datLesson=' + date + '&courseName=' + courseNameStudent  + '&studentName='
+            + studentName;
+    }
+</script>
+
+    <div style="text-align: center; padding-bottom: 20px;">
+
+        <select id="id_studentName" name="id_studentName">
+
+            <option disabled value="">---------- select student ----------</option>
+            <option th:each="tempStudent : ${studentList}" th:value="${tempStudent.id}"
+                    th:text="${tempStudent.lastName} + ' ' + ${tempStudent.firstName}  + ' ' + ${tempStudent.middleName}"
+                    th:selected="${tempStudent.id.equals(tempStudentName)}" disabled>
+            </option>
+        </select>
+
+
+    </div>
+</div>
+
+    <p></p>
+
+
 
     <div th:each="tempCourseList : ${courseList}">
     <div class="table-responsive">

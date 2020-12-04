@@ -45,7 +45,8 @@ public class GradesController {
     public String getJournal(@RequestParam(required = false) String clName,
                              @RequestParam(required = false) String datLesson,
                              @RequestParam(required = false) String courseName,
-                             @RequestParam(required = false) Long studentName, Model model) {
+                             @RequestParam(required = false) Long studentName, @RequestParam(required = false)
+                                         Long teacherName, Model model) {
 
 
         if ((null != clName && "" != clName) && ((null == datLesson || "" == datLesson) && (null == studentName)
@@ -113,6 +114,8 @@ public class GradesController {
             model.addAttribute("grades", theGradesDto);
         }
 
+        model.addAttribute("tempTeacherName", teacherName);
+
         return "grades";
 
     }
@@ -145,6 +148,11 @@ public class GradesController {
     @ModelAttribute("studentList")
     public List<Student> getStudentList() {
         return studentService.getListStudent();
+    }
+
+    @ModelAttribute("teacherList")
+    public List<Teacher> getTeacherList() {
+        return teacherService.getListTeacher();
     }
 
 

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import ru.springbootapp.onlinejournal.entity.Teacher;
 import ru.springbootapp.onlinejournal.repository.TeacherRepository;
 
+import java.util.List;
+
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
@@ -21,6 +23,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher findByEmail(String email) {
         return teacherRepository.findTeacherByEmail(email);
+    }
+
+    @Override
+    public List<Teacher> getListTeacher() {
+        return teacherRepository.getListTeacher();
     }
 
     /*vbbh*/
