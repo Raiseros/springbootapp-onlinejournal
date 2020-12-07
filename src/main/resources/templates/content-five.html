@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
+    <title>News1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -94,70 +94,31 @@
 <p></p>
 
 <div class="container">
-    <h3 class="text-muted">St. Petersburg education news</h3>
+    <h3 class="text-muted"> The September period of State final certification has started in St. Petersburg</h3>
     <hr class="my-4">
 
 </div>
 
 <p></p>
 
+<div class="container-text">
+    <h4 class="text-warning">3 September 2019</h4>
+    <h4 class="text-info"><br>
+        An additional period of State final certification has started. Today, September 3, graduates of the 9th and
+        11th grades of the city's schools passed the Russian language exams. To pass the test, children need to score
+        at least 36 points.<br>
+        <br>During the September period, the GIA registered 262 eleventh-graders and 1,161 ninth-graders.
+        The final wave is attended by students who did not pass the certification in the main and reserve terms
+        for a good reason or received an unsatisfactory result earlier. Exams will be held both on the basis of General
+        education institutions in the city and at home. This opportunity is provided for children with disabilities.<br>
+        <br>The next exam – in mathematics-will be held on September 6. Unlike eleventh-graders, ninth-graders will
+        not be limited to two compulsory subjects. They will be tested in history, biology, physics, geography,
+        social studies and other disciplines. The additional period ends on September 20.<br>
 
-<div sec:authorize="hasRole('teacher')">
-    <div class="container-text">
-        <h4 class="text-warning">July 13, 2020<br><u><a th:href="@{/news/content-one(teacherName=${tempTeacherName})}" class="text-info">
-            Dear parents and legal representatives!</a><br></u></h4>
-        <p></p>
+    </h4>
+    <p></p>
 
-        <h4 class="text-warning">April 26, 2020<br><u><a th:href="@{/news/content-two(teacherName=${tempTeacherName})}" class="text-info">
-            St. Petersburg international salon of education 2020</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">December 12, 2019<br><u><a th:href="@{/news/content-three(teacherName=${tempTeacherName})}" class="text-info">
-            There are two days left before children start enrolling in the first classes</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">October 7, 2019<br><u><a th:href="@{/news/content-four(teacherName=${tempTeacherName})}" class="text-info">
-            Presentation of an interactive tour dedicated to the 75th anniversary of the Palace of students
-            of St. Petersburg</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">September 3, 2019<br><u><a th:href="@{/news/content-five(teacherName=${tempTeacherName})}" class="text-info">
-            The September period of State final certification has started in St. Petersburg</a><br></u></h4>
-
-
-    </div>
 </div>
-
-
-<div sec:authorize="hasRole('student')">
-    <div class="container-text">
-        <h4 class="text-warning">July 13, 2020<br><u><a th:href="@{/news/content-one(studentName=${tempStudentName})}" class="text-info">
-            Dear parents and legal representatives!</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">April 26, 2020<br><u><a th:href="@{/news/content-two(studentName=${tempStudentName})}" class="text-info">
-            St. Petersburg international salon of education 2020</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">December 12, 2019<br><u><a th:href="@{/news/content-three(studentName=${tempStudentName})}" class="text-info">
-            There are two days left before children start enrolling in the first classes</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">October 7, 2019<br><u><a th:href="@{/news/content-four(studentName=${tempStudentName})}" class="text-info">
-            Presentation of an interactive tour dedicated to the 75th anniversary of the Palace of students
-            of St. Petersburg</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">September 3, 2019<br><u><a th:href="@{/news/content-five(studentName=${tempStudentName})}" class="text-info">
-            The September period of State final certification has started in St. Petersburg</a><br></u></h4>
-
-
-    </div>
-</div>
-
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -168,6 +129,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+
+
 
 </body>
 </html>

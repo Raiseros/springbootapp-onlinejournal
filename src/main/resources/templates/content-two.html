@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
+    <title>News2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -94,70 +94,39 @@
 <p></p>
 
 <div class="container">
-    <h3 class="text-muted">St. Petersburg education news</h3>
+    <h3 class="text-muted">St. Petersburg international salon of education 2020</h3>
     <hr class="my-4">
 
 </div>
 
 <p></p>
 
+<div class="container-text">
+    <h4 class="text-warning">26 April 2020</h4>
+    <h4 class="text-info"><br>
+        In 2020, as part of the St. Petersburg international salon of education, the St. Petersburg education Committee will
+        take part in the MMSO 2020 exhibition in the Public policy cluster.<br>
+        <br>The stand will be organized by:<br>
+        <ul type="disc">
+            <br><li>exhibition area (for presentation by educational institutions of joint educational projects,
+        including methodological developments created by St. Petersburg manufacturers, as well as their social
+            partners, as well as for conducting master classes);</li><br>
+            <br><li>conference area (for events in various formats (experience presentations, case studies, practice
+        presentations, panel discussions, round tables, master classes) with representatives of the St. Petersburg
+        education system);</li><br>
+        <br><li>lounge area (for free communication between representatives of the St. Petersburg education system and
+        regional delegations);</li><br>
+        <br><li>meeting room (for the heads of the Committee and educational institutions to meet with MSO
+            exhibitors).</li><br>
+        </ul>
 
-<div sec:authorize="hasRole('teacher')">
-    <div class="container-text">
-        <h4 class="text-warning">July 13, 2020<br><u><a th:href="@{/news/content-one(teacherName=${tempTeacherName})}" class="text-info">
-            Dear parents and legal representatives!</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">April 26, 2020<br><u><a th:href="@{/news/content-two(teacherName=${tempTeacherName})}" class="text-info">
-            St. Petersburg international salon of education 2020</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">December 12, 2019<br><u><a th:href="@{/news/content-three(teacherName=${tempTeacherName})}" class="text-info">
-            There are two days left before children start enrolling in the first classes</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">October 7, 2019<br><u><a th:href="@{/news/content-four(teacherName=${tempTeacherName})}" class="text-info">
-            Presentation of an interactive tour dedicated to the 75th anniversary of the Palace of students
-            of St. Petersburg</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">September 3, 2019<br><u><a th:href="@{/news/content-five(teacherName=${tempTeacherName})}" class="text-info">
-            The September period of State final certification has started in St. Petersburg</a><br></u></h4>
+       </h4>
+    <p></p>
 
 
-    </div>
+
+
 </div>
-
-
-<div sec:authorize="hasRole('student')">
-    <div class="container-text">
-        <h4 class="text-warning">July 13, 2020<br><u><a th:href="@{/news/content-one(studentName=${tempStudentName})}" class="text-info">
-            Dear parents and legal representatives!</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">April 26, 2020<br><u><a th:href="@{/news/content-two(studentName=${tempStudentName})}" class="text-info">
-            St. Petersburg international salon of education 2020</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">December 12, 2019<br><u><a th:href="@{/news/content-three(studentName=${tempStudentName})}" class="text-info">
-            There are two days left before children start enrolling in the first classes</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">October 7, 2019<br><u><a th:href="@{/news/content-four(studentName=${tempStudentName})}" class="text-info">
-            Presentation of an interactive tour dedicated to the 75th anniversary of the Palace of students
-            of St. Petersburg</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">September 3, 2019<br><u><a th:href="@{/news/content-five(studentName=${tempStudentName})}" class="text-info">
-            The September period of State final certification has started in St. Petersburg</a><br></u></h4>
-
-
-    </div>
-</div>
-
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

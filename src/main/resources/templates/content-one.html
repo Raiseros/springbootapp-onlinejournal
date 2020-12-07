@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
+    <title>News1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -94,70 +94,39 @@
 <p></p>
 
 <div class="container">
-    <h3 class="text-muted">St. Petersburg education news</h3>
+    <h3 class="text-muted">Dear parents and legal representatives!</h3>
     <hr class="my-4">
 
 </div>
 
 <p></p>
 
+<div class="container-text">
+    <h4 class="text-warning">13 July 2020</h4>
+    <h4 class="text-info"><br>
+        In connection with the cancellation of a number of restrictive measures related to the introduction of
+        a high-alert regime on the territory of St. Petersburg, in order to further ensure the sanitary and
+        epidemiological well-being of the population, the education Committee will resume personal reception
+        of citizens and acceptance of applications from July 13.<br>
 
-<div sec:authorize="hasRole('teacher')">
-    <div class="container-text">
-        <h4 class="text-warning">July 13, 2020<br><u><a th:href="@{/news/content-one(teacherName=${tempTeacherName})}" class="text-info">
-            Dear parents and legal representatives!</a><br></u></h4>
-        <p></p>
+        <br><b>Attention of parents and legal representatives!</b>
+        July 13 is the last day when an application to the Commission for the settlement of disputes in the
+        implementation of the right to receive General education in St. Petersburg can be submitted electronically
+        through the portal "Petersburg education". Further, starting <b>from July 20, applications will be accepted
+        at the education Committee (Antonenko lane, 8, room 343) on Mondays from 9.30 to 12.00.</b> We remind you that
+        the Commission considers applications from parents when they receive a refusal to enter the first classes of
+        educational institutions under the jurisdiction of the education Committee (Academic gymnasium No. 56 of
+        St. Petersburg, Second St. Petersburg Gymnasium, Engineering and technology No. 777 of St. Petersburg).<br>
 
-        <h4 class="text-warning">April 26, 2020<br><u><a th:href="@{/news/content-two(teacherName=${tempTeacherName})}" class="text-info">
-            St. Petersburg international salon of education 2020</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">December 12, 2019<br><u><a th:href="@{/news/content-three(teacherName=${tempTeacherName})}" class="text-info">
-            There are two days left before children start enrolling in the first classes</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">October 7, 2019<br><u><a th:href="@{/news/content-four(teacherName=${tempTeacherName})}" class="text-info">
-            Presentation of an interactive tour dedicated to the 75th anniversary of the Palace of students
-            of St. Petersburg</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">September 3, 2019<br><u><a th:href="@{/news/content-five(teacherName=${tempTeacherName})}" class="text-info">
-            The September period of State final certification has started in St. Petersburg</a><br></u></h4>
+        <br>In order to prevent the risks of infection with a new coronavirus infection (COVID-19), applicants using
+        personal respiratory and hand protection equipment are allowed to the education Committee, with a social
+        distance of at least 1.5 meters.<br></h4>
+    <p></p>
 
 
-    </div>
+
+
 </div>
-
-
-<div sec:authorize="hasRole('student')">
-    <div class="container-text">
-        <h4 class="text-warning">July 13, 2020<br><u><a th:href="@{/news/content-one(studentName=${tempStudentName})}" class="text-info">
-            Dear parents and legal representatives!</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">April 26, 2020<br><u><a th:href="@{/news/content-two(studentName=${tempStudentName})}" class="text-info">
-            St. Petersburg international salon of education 2020</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">December 12, 2019<br><u><a th:href="@{/news/content-three(studentName=${tempStudentName})}" class="text-info">
-            There are two days left before children start enrolling in the first classes</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">October 7, 2019<br><u><a th:href="@{/news/content-four(studentName=${tempStudentName})}" class="text-info">
-            Presentation of an interactive tour dedicated to the 75th anniversary of the Palace of students
-            of St. Petersburg</a><br></u></h4>
-        <p></p>
-
-        <h4 class="text-warning">September 3, 2019<br><u><a th:href="@{/news/content-five(studentName=${tempStudentName})}" class="text-info">
-            The September period of State final certification has started in St. Petersburg</a><br></u></h4>
-
-
-    </div>
-</div>
-
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -171,3 +140,5 @@
 
 </body>
 </html>
+
+
