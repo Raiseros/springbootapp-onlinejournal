@@ -31,7 +31,7 @@ public class SecurityConfigTeacher extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeRequests()
-                .antMatchers("/","/procedurePage", "/showTeacherLoginPage/**").permitAll()
+                .antMatchers("/", "/procedurePage", "/showTeacherLoginPage/**", "/css/*.css", "/images/*.jpg").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

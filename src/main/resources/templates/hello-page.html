@@ -3,88 +3,164 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Hello!</title>
+    <title>Welcome!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet"/>
+
+
 </head>
 <body>
 
+
 <div sec:authorize="isAnonymous()">
-    <div class="container">
-        <h3 class="text-muted">Journal Directory</h3>
+    <header id="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-11 ml-auto">
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="navbar-nav mr-auto ml-auto mb-2 mb-lg-0 col-sm-4">
+                            <div class="nav-it col-sm-0 ml-auto">
+                                <img th:src="@{/images/logo.jpg}" alt="Logo" style="width:50px;">
+                            </div>
+                            <div class="nav-it col-sm-6 mr-auto">
+                                <h5 class="text-dark">JOURNAL DIRECTORY</h5>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav mr-auto  mb-2 mb-lg-2 col-sm-6">
+                            <li class="nav-item col-sm-0">
+                                <form action="1" class="nav-link active" aria-current="page"
+                                      th:action="@{/showMyLoginPage}">
+                                    <input type="submit" class="btn btn-success" value="LOGIN FOR STUDENTS AND PARENTS">
+                                </form>
+                            </li>
+                            <li class="nav-item col-sm-0">
+                                <form action="2" class="nav-link active" aria-current="page"
+                                      th:action="@{/showTeacherLoginPage}">
+                                    <input type="submit" class="btn btn-warning" value="LOGIN FOR TEACHEARS">
+                                </form>
+                            </li>
+                        </ul>
+                    </nav>
 
-    </div>
+                </div>
+            </div>
 
-<form action="1" th:action="@{/showMyLoginPage}">
-    <input type="submit" class="btn btn-success" value="LOGIN FOR STUDENTS AND PARENTS ">
-</form>
-<p></p><p></p>
-    <form action="2" th:action="@{/showTeacherLoginPage}">
-        <input type="submit" class="btn btn-warning" value="LOGIN FOR TEACHEARS">
-    </form>
-    <p></p><p></p>
-    <form action="3" th:action="@{/procedurePage}">
-        <input type="submit" class="btn btn-success" value="Entering the Journal for the first time? Here you go">
-    </form>
+        </div>
+    </header>
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="rules col-lg-12">
+                    <h5 class="text-white text-center">Entering the Journal for the first time? <a
+                            th:href="@{/procedurePage}" class="text-white"><u>Here you go</u></a></h5>
 
-    <p></p><p></p>
+                </div>
 
-    <div class="container-text">
-        <h4 class="text-muted">Dear users! Since March 21, Russian schoolchildren have switched to distance learning.
-            "Saint Petersburg e-school" is one of the main electronic support systems for online classes in
-            Saint Petersburg. we will help children keep up with the school curriculum, and teachers will be able to
-            make remote lessons more interesting and informative with the help of unique educational materials.</h4>
+            </div>
+        </div>
+    </section>
 
-    </div>
+    <section>
 
+        <div class="container">
+            <div class="row">
+                <div class="text-center col-lg-12">
+                    <img class="tablesc" th:src="@{/images/tablesc.jpg}" alt="Table" style="width:935px;">
+                </div>
+            </div>
+        </div>
 
+    </section>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="container-text bg-white col-lg-12">
+                    <div class="text-right col-lg-8">
+                        <h3 class="text-muted">About the journal</h3>
+                        <h6 class="main-text text-muted"><br>SES electronic magazine and diary is one of the key
+                            services of the
+                            Saint-Petersburg electronic school project. It combines advanced innovative solutions and
+                            familiar
+                            technical tools.<br>
+                            <br>The electronic journal and diary of SES helps to ensure a high level of quality of
+                            education
+                            in every school, in every class, in every lesson. With the help of the SES diary and
+                            journal,
+                            the school administration effectively manages the educational process, determines the
+                            certification
+                            periods, forms of intermediate certification, and also provides automatic generation of
+                            reports on
+                            academic performance. Teachers form a calendar and thematic plan and make time-based
+                            planning,
+                            distribute content elements in lessons, link them to textbooks and lesson scenarios, and
+                            conduct
+                            intermediate certification. Parents also have full information about the progress and
+                            results of
+                            their children's education.<br>
+                            <br>The SES diary and journal is also a communication tool between the class teacher and
+                            parents.
+                            The educational process becomes transparent for all participants – parents, teachers, and
+                            students.
+                            The electronic diary and magazine, as well as the SES Library, are educational services of
+                            the
+                            Saint-Petersburg Electronic School – a modern school of the XXI century that provides a high
+                            level of
+                            quality education to every student and provides new modern tools to every teacher in Saint
+                            Petersburg.<br>
+
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
-
-
 
 
 <div sec:authorize="hasRole('student')">
 
 
-    <p>  Welcome <td th:text="${studentLogin.firstName}"/> to online journal!</p>
+    <p> Welcome
+    <td th:text="${studentLogin.firstName}"/>
+    to online journal!</p>
 
     <div class="user">
         User: <span sec:authentication="principal.username"></span>
 
-    </br>
+        </br>
 
-    <br>
-    <div class="role">
-        Role: <span sec:authentication="principal.authorities"></span>
-    </div>
+        <br>
+        <div class="role">
+            Role: <span sec:authentication="principal.authorities"></span>
+        </div>
 
-    <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
-          method="POST">
+        <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
+              method="POST">
 
-<div class="col-md-12">
-    <button type="submit" class="btn btn-success">Logout</button>
-</div>
-</form>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-success">Logout</button>
+            </div>
+        </form>
 
-    <div class="table-warning text-center col-4">
-
-
-        <a th:href="@{/journal(studentName=${studentLogin.id})}" class="btn btn-primary btn-sm"
-           role="button">Journal</a>
+        <div class="table-warning text-center col-4">
 
 
-        <a th:href="@{/grades(studentName=${studentLogin.id})}" class="btn btn-danger btn-sm"
-           role="button">Grades</a>
-
-        <a th:href="@{/news(studentName=${studentLogin.id})}" class="btn btn-success btn-sm"
-           role="button">News</a>
-
-    </div>
+            <a th:href="@{/journal(studentName=${studentLogin.id})}" class="btn btn-primary btn-sm"
+               role="button">Journal</a>
 
 
+            <a th:href="@{/grades(studentName=${studentLogin.id})}" class="btn btn-danger btn-sm"
+               role="button">Grades</a>
 
+            <a th:href="@{/news(studentName=${studentLogin.id})}" class="btn btn-success btn-sm"
+               role="button">News</a>
+
+        </div>
 
 
     </div>
@@ -93,7 +169,9 @@
 
 <div sec:authorize="hasRole('teacher')">
 
-    <p>Welcome <td th:text="${teacherLogin.firstName}"/> to online journal!</p>
+    <p>Welcome
+    <td th:text="${teacherLogin.firstName}"/>
+    to online journal!</p>
 
     <div class="user">
         User: <span sec:authentication="principal.username"></span>
