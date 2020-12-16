@@ -4,71 +4,208 @@
 <head>
     <meta charset="UTF-8">
     <title>Registry Teacher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link th:href="@{/css/registry-teach.css}" type="text/css" rel="stylesheet"/>
 </head>
 
 <body>
-<form role="form" class="form-horizontal" action="#" th:action="@{/showTeacherLoginPage/saveTeacher}"
-      th:object="${teacher}" method="POST">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">
+            <nav class="navbar navbar-expand-lg">
+                <div class="navbar-nav mr-auto ml-auto mt-5 mt-lg-5 col-lg-9">
+                    <div class="nav-it">
+                        <img th:src="@{/images/new-logo.jpg}" alt="Logo" style="width:100px;">
+                    </div>
+                    <div class="nav-it mt-2">
+                        <h3 class="text-dark">Teacher registration</h3>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
 
 
-    <input type="hidden" th:field="*{id}"/>
-    <input type="hidden" th:name="role" th:value="teacher"/>
+<div class="container pb-5">
+    <div class="row">
+        <div class="card mb-5">
+            <div class="card-body">
+                <form role="form" class="form-horizontal" action="#" th:action="@{/showTeacherLoginPage/saveTeacher}"
+                      th:object="${teacher}" method="POST">
 
-    <div class="form-group">
-        <label for="lastName" class="control-label col-md-7 text-danger">Last name :</label>
-        <div class="col-md-5">
-            <input type="text" class="form-control-md input-md" id="lastName"
-                   th:field="*{lastName}"
-                   placeholder="Last name">
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:name="role" th:value="teacher"/>
+
+                    <div class="ml-4 mt-5">
+                        <h5>Personal information</h5>
+                    </div>
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="lastName" class="control-label col-lg-12 text-danger">Last name :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="lastName" th:field="*{lastName}"
+                                               placeholder="Last name">
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="firstName" class="control-label col-lg-12 text-danger">First name :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="firstName" th:field="*{firstName}"
+                                               placeholder="First name">
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="middle_name" class="control-label col-lg-12 text-danger">Middle name :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="middle_name" th:field="*{middleName}"
+                                               placeholder="Middle name">
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="email" class="control-label col-lg-12 text-danger">Email :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="email" th:field="*{email}"
+                                               placeholder="Email">
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">It is not recommended to specify</h8>
+                                        <h8 class="text-break text-nowrap">someone else's email address.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="password" class="control-label col-lg-12 text-danger">Password :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="password" class="form-control-lg input-lg" id="password" th:field="*{password}"
+                                               placeholder="Password">
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <p class="text-break text-nowrap mb-lg-n2"><h8>This field is required.</h8></p>
+                                        <p></p>
+                                        <p><h8 class="text-break text-nowrap">Create a password</h8></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row col-lg-12">
+                        <div class="form-group col-lg-12">
+                            <label for="confirm_password" class="control-label col-lg-12 text-danger">Confirm password :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="password" class="form-control-lg input-lg" id="confirm_password" th:field="*{password}"
+                                               placeholder="Confirm password">
+                                    </div>
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">Repeat the password, so as not to make a mistake</h8>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-12 mb-4 text-center">
+                        <button type="submit" class="btn btn-success btn-md">Save Teacher</button>
+                    </div>
+
+
+                </form>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="firstName" class="control-label col-md-7 text-danger">First name :</label>
-        <div class="col-md-5">
-            <input type="text" class="form-control-md input-md" id="firstName" th:field="*{firstName}"
-                   placeholder="First name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="middle_name" class="control-label col-md-7 text-danger">Middle name :</label>
-        <div class="col-md-5">
-            <input type="text" class="form-control-md input-md" id="middle_name" th:field="*{middleName}"
-                   placeholder="Middle name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="email" class="control-label col-md-7 text-danger">Email :</label>
-        <div class="col-md-5">
-            <input type="text" class="form-control-md input-md" id="email" th:field="*{email}"
-                   placeholder="Email">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password" class="control-label col-md-7 text-danger">Password :</label>
-        <div class="col-md-5">
-            <input type="password" class="form-control-md input-md" id="password"
-                   th:field="*{password}"
-                   placeholder="Password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="confirm_password" class="control-label col-md-7 text-danger">Confirm password :</label>
-        <div class="col-md-5">
-            <input type="password" class="form-control-md input-md" id="confirm_password"
-                   th:field="*{confirmPassword}"
-                   placeholder="Confirm password">
-        </div>
-
-    </div>
-    <div class="col-md-12">
-        <button type="submit" class="btn btn-success">Save Teacher</button>
-    </div>
+</div>
 
 
-</form>
-<!--/fgf-->
 
-<!--vbbh-->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
 </body>
 </html>

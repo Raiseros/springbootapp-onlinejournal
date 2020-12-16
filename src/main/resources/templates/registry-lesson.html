@@ -3,16 +3,361 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Save Lesson</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link th:href="@{/css/registry-lesson.css}" type="text/css" rel="stylesheet"/>
 
 
 </head>
 <body>
-
 <div class="container">
+    <div class="row">
+        <div class="col-lg-10">
+            <nav class="navbar navbar-expand-lg">
+                <div class="navbar-nav mr-auto ml-auto mt-5 mt-lg-5 col-lg-9">
+                    <div class="nav-it">
+                        <img th:src="@{/images/new-logo.jpg}" alt="Logo" style="width:100px;">
+                    </div>
+                    <div class="nav-it mt-2">
+                        <h3 class="text-dark">User registration</h3>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="card mb-5">
+            <div class="card-body">
+                <form role="form" class="form-horizontal" action="#"
+                      th:action="@{/saveLesson(studentId=${tempStudentName}, overallScore=${score.overallScore}, datLesson=${datLesson}, clName=${clName})}"
+                      th:object="${journal}" method="POST">
+
+                    <input type="hidden" th:field="*{id}"/>
+
+                    <div class="ml-4 mt-5">
+                        <h5>Lesson information</h5>
+                    </div>
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="dateLesson" class="control-label col-lg-12 text-danger">Date lesson :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="date" class="form-control-lg input-lg" id="dateLesson" th:field="*{dateLesson}"
+                                               placeholder="Date lesson">
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="numberLesson" class="control-label col-lg-12 text-danger">Number lesson :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="numberLesson" th:field="*{numberLesson}"
+                                               placeholder="Number lesson" readonly/>
+
+                                        <script th:inline="javascript">
+                                            /*<![CDATA[*/
+                                            function numberlesson_timebreak() {
+                                                var temp_timelesson = document.getElementById("timeLesson").value;
+
+                                                /*[# th:each="ClassSchedule : ${ClassScheduleList}"]*/
+                                                var temp_timeles =  [[${ClassSchedule.timeLessonClShedule}]];
+
+                                                if(temp_timelesson == temp_timeles){
+                                                    var number_lesson = [[${ClassSchedule.numberLessonClShedule}]];
+                                                    var time_break = [[${ClassSchedule.timeBreakClShedule}]];
+
+                                                    document.getElementById('numberLesson').value = number_lesson;
+                                                    document.getElementById('timeBreak').value = time_break;
+
+                                                }
+                                                if(temp_timelesson == ""){
+                                                    var number_lesson = "";
+                                                    var time_break = "";
+
+                                                    document.getElementById('numberLesson').value = number_lesson;
+                                                    document.getElementById('timeBreak').value = time_break;
+
+                                                }
+
+                                                /*[/]*/
+                                                /*]]>*/
+                                            };
+                                        </script>
+
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="timeLesson" class="control-label col-lg-12 text-danger">Time lesson :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <select class="form-control-lg input-lg" id="timeLesson" name="timeLesson"
+                                                onchange="numberlesson_timebreak();"
+                                                placeholder="Time lesson">
+                                            <option value=""> &#45;&#45; select an option &#45;&#45;</option>
+
+                                            <option th:each="ClassSchedule : ${ClassScheduleList}"
+                                                    th:attr="value = ${ClassSchedule.timeLessonClShedule}"
+                                                    th:text="${ClassSchedule.timeLessonClShedule}"
+                                                    th:selected="${ClassSchedule.timeLessonClShedule.equals(journal.timeLesson)}">
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="fullnameCourse" class="control-label col-lg-12
+                             text-danger">Full name course :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <select class="form-control-lg input-lg" id="fullnameCourse"
+                                                name="fullnameCourse"
+                                                onchange="shortname_classname_schoolbuilding_cours();"
+                                                placeholder="Full name course" >
+
+                                            <option value=""> &#45;&#45; select an option &#45;&#45;</option>
+
+                                            <option th:each="tempCourse : ${courseList}"
+                                                    th:attr="value = ${tempCourse.courseName}"
+                                                    th:text="${tempCourse.courseName}"
+                                                    th:selected="${tempCourse.courseName.equals(journal.fullnameCourse)}">
+                                            </option>
+
+
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="shortnameCourse" class="control-label col-lg-12 text-danger">Short name course :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="shortnameCourse"
+                                               th:field="*{shortnameCourse}"
+                                               placeholder="Short name course" readonly>
+
+                                        <script th:inline="javascript">
+                                            /*<![CDATA[*/
+                                            function shortname_classname_schoolbuilding_cours() {
+                                                var temp_fullnamecs = document.getElementById("fullnameCourse").value;
+
+                                                /*[# th:each="tempCourse : ${courseList}"]*/
+                                                var temp_name =  [[${tempCourse.courseName}]];
+
+                                                if(temp_fullnamecs == temp_name){
+                                                    var short_name = [[${tempCourse.courseShortName}]];
+                                                    var class_name = [[${tempCourse.className}]];
+                                                    var school_building = [[${tempCourse.schoolBuilding}]];
+                                                    document.getElementById('shortnameCourse').value = short_name;
+                                                    document.getElementById('className').value = class_name;
+                                                    document.getElementById('schoolBuilding').value = school_building;
+                                                }
+                                                if(temp_fullnamecs == ""){
+                                                    var short_name = "";
+                                                    var class_name = "";
+                                                    var school_building = "";
+                                                    document.getElementById('shortnameCourse').value = short_name;
+                                                    document.getElementById('className').value = class_name;
+                                                    document.getElementById('schoolBuilding').value = school_building;
+                                                }
+
+                                                /*[/]*/
+                                                /*]]>*/
+                                            };
+                                        </script>
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">It is not recommended to specify</h8>
+                                        <h8 class="text-break text-nowrap">someone else's email address.</h8>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <div class="form-row col-lg-12 mb-n4">
+                        <div class="form-group col-lg-12">
+                            <label for="className" class="control-label col-lg-12 text-danger">Room :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="className"
+                                               th:field="*{className}"
+                                               placeholder="Room" readonly>
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <p class="text-break text-nowrap mb-lg-n2"><h8>This field is required.</h8></p>
+                                        <p></p>
+                                        <p><h8 class="text-break text-nowrap">Create a password</h8></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row col-lg-12">
+                        <div class="form-group col-lg-12">
+                            <label for="schoolBuilding" class="control-label col-lg-12 text-danger">School building :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="schoolBuilding"
+                                               th:field="*{schoolBuilding}"
+                                               placeholder="School building" readonly>
+                                    </div>
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">Repeat the password, so as not to make a mistake</h8>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row col-lg-12">
+                        <div class="form-group col-lg-12">
+                            <label for="homework" class="control-label col-lg-12 text-danger">Homework :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="homework"
+                                               th:field="*{homework}"
+                                               placeholder="Homework">
+                                    </div>
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">Repeat the password, so as not to make a mistake</h8>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row col-lg-12">
+                        <div class="form-group col-lg-12">
+                            <label for="homework" class="control-label col-lg-12 text-danger">Homework :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="homework"
+                                               th:field="*{homework}"
+                                               placeholder="Homework">
+                                    </div>
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">Repeat the password, so as not to make a mistake</h8>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-12 mb-4 text-center">
+                        <button type="submit" class="btn btn-success btn-md">Save Student</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--<div class="container">
     <div class="row">
         <div class="col-xs-4">
             <div class="card">
@@ -81,7 +426,7 @@
                                         onchange="numberlesson_timebreak();"
                                         placeholder="Time lesson">
 
-                                    <option value=""> -- select an option --</option>
+                                    <option value=""> &#45;&#45; select an option &#45;&#45;</option>
 
                                     <option th:each="ClassSchedule : ${ClassScheduleList}"
                                             th:attr="value = ${ClassSchedule.timeLessonClShedule}"
@@ -104,7 +449,7 @@
                                         onchange="shortname_classname_schoolbuilding_cours();"
                                         placeholder="Full name course" >
 
-                                    <option value=""> -- select an option --</option>
+                                    <option value=""> &#45;&#45; select an option &#45;&#45;</option>
 
                                     <option th:each="tempCourse : ${courseList}"
                                             th:attr="value = ${tempCourse.courseName}"
@@ -195,7 +540,7 @@
                                         name="classnameStudent"
                                         placeholder="Class name Student" >
 
-                                    <option value=""> -- select an option --</option>
+                                    <option value=""> &#45;&#45; select an option &#45;&#45;</option>
 
                                     <option th:each="tempclassnameStudent : ${classnameStudentList}"
                                             th:attr="value = ${tempclassnameStudent}"
@@ -222,7 +567,7 @@
                             <select th:id="id_sc" th:name="id_sc">
 
 
-                                <option value="">-- select score --</option>
+                                <option value="">&#45;&#45; select score &#45;&#45;</option>
 
                                 <option th:each="tempScore : ${scoreList}" th:attr="value = ${tempScore.id_sc}"
                                         th:text="${tempScore.overallScore}"
@@ -244,7 +589,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -255,7 +600,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<!--kkk-->
 
-<!--bbhj-->
+
 </body>

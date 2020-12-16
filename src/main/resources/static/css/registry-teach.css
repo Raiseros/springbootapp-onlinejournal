@@ -13,7 +13,7 @@ body{
 
 .card-body{
     background: #f4f7f8;
-    height: 1050px;
+    height: 950px;
     width:  880px;
 }
 
@@ -30,7 +30,7 @@ h3, .navbar-nav {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     text-shadow: lightgray 0.1em 0.1em 0.2em;
     margin-bottom: -150px;
- }
+}
 
 h4, p, h8{
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
