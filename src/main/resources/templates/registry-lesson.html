@@ -22,7 +22,7 @@
                         <img th:src="@{/images/new-logo.jpg}" alt="Logo" style="width:100px;">
                     </div>
                     <div class="nav-it mt-2">
-                        <h3 class="text-dark">User registration</h3>
+                        <h3 class="text-dark">Creating a lesson</h3>
                     </div>
                 </div>
             </nav>
@@ -58,8 +58,9 @@
 
 
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">This field is required.</h8>
-                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                        <p class="text-break"><h8>This field is required.</h8></p>
+                                        <p></p>
+                                        <p><h8 class="text-break text-nowrap">Select a date</h8></p>
                                     </div>
                                 </div>
                             </div>
@@ -112,8 +113,7 @@
 
 
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">This field is required.</h8>
-                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                        <h8 class="text-break">The field will be filled in automatically.</h8>
                                     </div>
                                 </div>
                             </div>
@@ -147,8 +147,9 @@
 
 
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">This field is required.</h8>
-                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                        <p class="text-break"><h8>This field is required.</h8></p>
+                                        <p></p>
+                                        <p><h8 class="text-break text-nowrap">Select an option.</h8></p>
                                     </div>
                                 </div>
                             </div>
@@ -185,8 +186,9 @@
 
 
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">This field is required.</h8>
-                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
+                                        <p class="text-break"><h8>This field is required.</h8></p>
+                                        <p></p>
+                                        <p><h8 class="text-break text-nowrap">Select an option.</h8></p>
                                     </div>
                                 </div>
                             </div>
@@ -241,8 +243,7 @@
 
 
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">It is not recommended to specify</h8>
-                                        <h8 class="text-break text-nowrap">someone else's email address.</h8>
+                                        <h8 class="text-break">The field will be filled in automatically.</h8>
                                     </div>
                                 </div>
                             </div>
@@ -268,9 +269,7 @@
 
 
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <p class="text-break text-nowrap mb-lg-n2"><h8>This field is required.</h8></p>
-                                        <p></p>
-                                        <p><h8 class="text-break text-nowrap">Create a password</h8></p>
+                                        <h8 class="text-break">The field will be filled in automatically.</h8>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +289,7 @@
                                                placeholder="School building" readonly>
                                     </div>
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">Repeat the password, so as not to make a mistake</h8>
+                                        <h8 class="text-break">The field will be filled in automatically.</h8>
                                     </div>
 
                                 </div>
@@ -312,7 +311,8 @@
                                                placeholder="Homework">
                                     </div>
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">Repeat the password, so as not to make a mistake</h8>
+                                        <h8 class="text-break">This field is required.</h8>
+                                        <h8 class="text-break text-nowrap">Use the letters of the English alphabet.</h8>
                                     </div>
 
                                 </div>
@@ -323,17 +323,31 @@
 
                     <div class="form-row col-lg-12">
                         <div class="form-group col-lg-12">
-                            <label for="homework" class="control-label col-lg-12 text-danger">Homework :</label>
+                            <label for="classnameStudent" class="control-label col-lg-12
+                             text-danger">Class name Student :</label>
 
                             <div class="col-lg-12">
                                 <div class="form-row">
                                     <div class="form-group col-lg-6">
-                                        <input type="text" class="form-control-lg input-lg" id="homework"
-                                               th:field="*{homework}"
-                                               placeholder="Homework">
+                                        <select class="form-control-lg input-lg" id="classnameStudent"
+                                                name="classnameStudent"
+                                                placeholder="Class name Student" >
+
+                                            <option value=""> &#45;&#45; select an option &#45;&#45;</option>
+
+                                            <option th:each="tempclassnameStudent : ${classnameStudentList}"
+                                                    th:attr="value = ${tempclassnameStudent}"
+                                                    th:text="${tempclassnameStudent}"
+                                                    th:selected="${tempclassnameStudent.equals(journal.classnameStudent)}">
+                                            </option>
+
+
+                                        </select>
                                     </div>
                                     <div class="form-group col-lg-6 text-wrap">
-                                        <h8 class="text-break">Repeat the password, so as not to make a mistake</h8>
+                                        <p class="text-break"><h8>This field is required.</h8></p>
+                                        <p></p>
+                                        <p><h8 class="text-break text-nowrap">Select an option.</h8></p>
                                     </div>
 
                                 </div>
@@ -341,10 +355,62 @@
                         </div>
 
                     </div>
+
+
+                    <div class="form-row col-lg-12">
+                        <div class="form-group col-lg-12">
+                            <label for="timeBreak" class="control-label col-lg-12 text-danger">Time break :</label>
+
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" class="form-control-lg input-lg" id="timeBreak"
+                                               th:field="*{timeBreak}" placeholder="Time break" readonly/>
+                                    </div>
+                                    <div class="form-group col-lg-6 text-wrap">
+                                        <h8 class="text-break">The field will be filled in automatically.</h8>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-row col-lg-12">
+                            <div class="form-group col-lg-12">
+
+                                <div class="col-lg-12">
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6"
+                                            th:name="${tempStudentName}" th:if="${tempStudentName} != null">
+                                                <select th:id="id_sc" th:name="id_sc">
+
+
+                                                    <option value="">&#45;&#45; select score &#45;&#45;</option>
+
+                                                    <option th:each="tempScore : ${scoreList}" th:attr="value = ${tempScore.id_sc}"
+                                                            th:text="${tempScore.overallScore}"
+                                                            th:selected="${tempScore.overallScore.equals(score.overallScore)}">
+                                                    </option>
+
+                                                </select>
+                                        </div>
+                                        <div class="form-group col-lg-6 text-wrap">
+                                            <p class="text-break"><h8>This field is required.</h8></p>
+                                            <p></p>
+                                            <p><h8 class="text-break text-nowrap">Select a rating.</h8></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
 
 
                     <div class="col-lg-12 mb-4 text-center">
-                        <button type="submit" class="btn btn-success btn-md">Save Student</button>
+                        <button type="submit" class="btn btn-success btn-md">Save Lesson</button>
                     </div>
 
 
