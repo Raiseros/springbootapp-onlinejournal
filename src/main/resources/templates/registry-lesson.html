@@ -45,7 +45,7 @@
                         <h5>Lesson information</h5>
                     </div>
 
-                    <div class="form-row col-lg-12 mb-n4">
+                    <div class="form-row col-lg-12 mb-n5">
                         <div class="form-group col-lg-12">
                             <label for="dateLesson" class="control-label col-lg-12 text-danger">Date lesson :</label>
 
@@ -123,7 +123,7 @@
 
 
 
-                    <div class="form-row col-lg-12 mb-n4">
+                    <div class="form-row col-lg-12 mb-n5">
                         <div class="form-group col-lg-12">
                             <label for="timeLesson" class="control-label col-lg-12 text-danger">Time lesson :</label>
 
@@ -133,7 +133,7 @@
                                         <select class="form-control-lg input-lg" id="timeLesson" name="timeLesson"
                                                 onchange="numberlesson_timebreak();"
                                                 placeholder="Time lesson">
-                                            <option value=""> &#45;&#45; select an option &#45;&#45;</option>
+                                            <option value=""> &#45;&#45;&#45;&nbsp; select an option &#45;&#45;&#45;</option>
 
                                             <option th:each="ClassSchedule : ${ClassScheduleList}"
                                                     th:attr="value = ${ClassSchedule.timeLessonClShedule}"
@@ -159,7 +159,7 @@
 
 
 
-                    <div class="form-row col-lg-12 mb-n4">
+                    <div class="form-row col-lg-12 mb-n5">
                         <div class="form-group col-lg-12">
                             <label for="fullnameCourse" class="control-label col-lg-12
                              text-danger">Full name course :</label>
@@ -172,7 +172,7 @@
                                                 onchange="shortname_classname_schoolbuilding_cours();"
                                                 placeholder="Full name course" >
 
-                                            <option value=""> &#45;&#45; select an option &#45;&#45;</option>
+                                            <option value=""> &#45;&#45;&#45;&nbsp; select an option &#45;&#45;&#45;</option>
 
                                             <option th:each="tempCourse : ${courseList}"
                                                     th:attr="value = ${tempCourse.courseName}"
@@ -277,7 +277,7 @@
 
                     </div>
 
-                    <div class="form-row col-lg-12">
+                    <div class="form-row col-lg-12 mb-n4">
                         <div class="form-group col-lg-12">
                             <label for="schoolBuilding" class="control-label col-lg-12 text-danger">School building :</label>
 
@@ -299,7 +299,7 @@
                     </div>
 
 
-                    <div class="form-row col-lg-12">
+                    <div class="form-row col-lg-12 mb-n4">
                         <div class="form-group col-lg-12">
                             <label for="homework" class="control-label col-lg-12 text-danger">Homework :</label>
 
@@ -321,7 +321,7 @@
 
                     </div>
 
-                    <div class="form-row col-lg-12">
+                    <div class="form-row col-lg-12 mb-n5">
                         <div class="form-group col-lg-12">
                             <label for="classnameStudent" class="control-label col-lg-12
                              text-danger">Class name Student :</label>
@@ -333,7 +333,7 @@
                                                 name="classnameStudent"
                                                 placeholder="Class name Student" >
 
-                                            <option value=""> &#45;&#45; select an option &#45;&#45;</option>
+                                            <option value=""> &#45;&#45;&#45;&nbsp; select an option &#45;&#45;&#45;</option>
 
                                             <option th:each="tempclassnameStudent : ${classnameStudentList}"
                                                     th:attr="value = ${tempclassnameStudent}"
@@ -357,7 +357,7 @@
                     </div>
 
 
-                    <div class="form-row col-lg-12">
+                    <div class="form-row col-lg-12 mb-n4">
                         <div class="form-group col-lg-12">
                             <label for="timeBreak" class="control-label col-lg-12 text-danger">Time break :</label>
 
@@ -377,13 +377,12 @@
 
 
 
-                        <div class="form-row col-lg-12">
+                        <div class="form-row col-lg-12 mb-n4" th:name="${tempStudentName}" th:if="${tempStudentName} != null">
                             <div class="form-group col-lg-12">
 
                                 <div class="col-lg-12">
                                     <div class="form-row">
                                         <div class="form-group col-lg-6"
-                                            th:name="${tempStudentName}" th:if="${tempStudentName} != null">
                                                 <select th:id="id_sc" th:name="id_sc">
 
 
