@@ -20,7 +20,7 @@ body {
 .rules {
     padding-top: 15px;
     padding-bottom: 5px;
-    background-color: #936fff;
+    background-color: #7B68EE;
 }
 
 .container-text {
@@ -54,9 +54,24 @@ ul, li {
 }
 
 
-.container-fluid {
-    margin-bottom: 10px;
+
+.welcome, .user, .role {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-shadow: lightgray 0.1em 0.1em 0.2em;
 }
+
+.nav-panel {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 30px;
+}
+
+.panel{
+    height: 100px;
+    background-color: #7B68EE;
+
+}
+
+
 
 
 

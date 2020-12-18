@@ -124,77 +124,37 @@
 
 <div sec:authorize="hasRole('student')">
 
-
-    <p> Welcome
-    <td th:text="${studentLogin.firstName}"/>
-    to online journal!</p>
-
-    <div class="user">
-        User: <span sec:authentication="principal.username"></span>
-
-        </br>
-
-        <br>
-        <div class="role">
-            Role: <span sec:authentication="principal.authorities"></span>
-        </div>
-
-        <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
-              method="POST">
-
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-success">Logout</button>
-            </div>
-        </form>
-
-        <div class="table-warning text-center col-4">
-
-
-            <a th:href="@{/journal(studentName=${studentLogin.id})}" class="btn btn-primary btn-sm"
-               role="button">Journal</a>
-
-
-            <a th:href="@{/grades(studentName=${studentLogin.id})}" class="btn btn-danger btn-sm"
-               role="button">Grades</a>
-
-            <a th:href="@{/news(studentName=${studentLogin.id})}" class="btn btn-success btn-sm"
-               role="button">News</a>
-
-        </div>
-
-
-    </div>
-</div>
-
-
-<div sec:authorize="hasRole('teacher')">
-
-    <header id="header-teach">
+    <header id="header-stud">
         <div class="container-fluid table-warning">
             <div class="row">
                 <div class="col-lg-12">
 
                     <nav class="navbar navbar-expand-lg">
-                        <ul class="navbar-nav col-lg-12 text-nowrap mt-1">
-                            <li class="text-center text-nowrap mr-4">Welcome
-                                <td th:text="${teacherLogin.firstName}"/>
+                        <ul class="navbar-nav col-lg-12 text-nowrap">
+                            <li class="welcome text-center text-nowrap mr-4 mt-3">Welcome
+                                <td th:text="${studentLogin.firstName}"/>
                                 to online journal!
                             </li>
 
-                            <li class="user mr-4">
+                            <li class="nav-image">
+                                <img th:src="@{/images/profile.jpg}" alt="Profile" style="width:75px;">
+                            </li>
+
+                            <li class="user mr-4 mt-3 text-info">
                                 User: <span sec:authentication="principal.username"></span>
                             </li>
 
-                            <li class="role">
+                            <li class="role mt-3 text-info">
                                 Role: <span sec:authentication="principal.authorities"></span>
                             </li>
                             <li>
 
                                 <form role="form" class="form-horizontal col-lg-12 text-center" action="#"
-                                      th:action="@{/showTeacherLoginPage/logout}"
+                                      th:action="@{/showMyLoginPage/logout}"
                                       method="POST">
 
-                                    <div class="col-lg-12 mt-n1">
+
+                                    <div class="col-lg-12 mt-2">
                                         <button type="submit" class="btn btn-success">Logout</button>
                                     </div>
                                 </form>
@@ -208,28 +168,180 @@
         </div>
     </header>
 
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 panel">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav col-lg-8 ml-auto text-nowrap mt-3">
+                            <li class="nav-panel col-lg-2 ml-4">
+                                <a th:href="@{/journal(studentName=${studentLogin.id})}" class="text-light">Journal</a>
+                            </li>
+                            <li class="nav-panel col-lg-2">
+                                <a th:href="@{/grades(studentName=${studentLogin.id})}" class="text-danger">Grades</a>
+                            </li>
+                            <li class="nav-panel col-lg-2">
+                                <a th:href="@{/news(studentName=${studentLogin.id})}" class="text-success">News</a>
+                            </li>
 
-    <div class="table-warning text-center col-4">
-
-        <a th:href="@{/journal(teacherName=${teacherLogin.id})}" class="btn btn-primary btn-sm"
-           role="button">Journal</a>
+                        </ul>
 
 
-        <a th:href="@{/grades(teacherName=${teacherLogin.id})}" class="btn btn-danger btn-sm"
-           role="button">Grades</a>
+                    </nav>
 
-        <a th:href="@{/students(teacherName=${teacherLogin.id})}" class="btn btn-warning btn-sm"
-           role="button">Students</a>
+                </div>
 
-        <a th:href="@{/news(teacherName=${teacherLogin.id})}" class="btn btn-success btn-sm"
-           role="button">News</a>
+            </div>
+        </div>
+    </section>
 
-    </div>
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="text-center col-lg-12">
+                    <img class="tablesc" th:src="@{/images/tablesc.jpg}" alt="Table" style="width:935px;">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+    <!-- <p> Welcome
+     <td th:text="${studentLogin.firstName}"/>
+     to online journal!</p>
+
+     <div class="user">
+         User: <span sec:authentication="principal.username"></span>
+
+         </br>
+
+         <br>
+         <div class="role">
+             Role: <span sec:authentication="principal.authorities"></span>
+         </div>
+
+         <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
+               method="POST">
+
+             <div class="col-md-12">
+                 <button type="submit" class="btn btn-success">Logout</button>
+             </div>
+         </form>
+
+         <div class="table-warning text-center col-4">
+
+
+             <a th:href="@{/journal(studentName=${studentLogin.id})}" class="btn btn-primary btn-sm"
+                role="button">Journal</a>
+
+
+             <a th:href="@{/grades(studentName=${studentLogin.id})}" class="btn btn-danger btn-sm"
+                role="button">Grades</a>
+
+             <a th:href="@{/news(studentName=${studentLogin.id})}" class="btn btn-success btn-sm"
+                role="button">News</a>
+
+         </div>
+
+
+     </div>-->
+</div>
+
+
+<div sec:authorize="hasRole('teacher')">
+
+    <header id="header-teach">
+        <div class="container-fluid table-warning">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav col-lg-12 text-nowrap">
+                            <li class="welcome text-center text-nowrap mr-4 mt-3">Welcome
+                                <td th:text="${teacherLogin.firstName}"/>
+                                to online journal!
+                            </li>
+
+                            <li class="nav-image">
+                                <img th:src="@{/images/profile.jpg}" alt="Profile" style="width:75px;">
+                            </li>
+
+                            <li class="user mr-4 mt-3 text-info">
+                                User: <span sec:authentication="principal.username"></span>
+                            </li>
+
+                            <li class="role mt-3 text-info">
+                                Role: <span sec:authentication="principal.authorities"></span>
+                            </li>
+                            <li>
+
+                                <form role="form" class="form-horizontal col-lg-12 text-center" action="#"
+                                      th:action="@{/showTeacherLoginPage/logout}"
+                                      method="POST">
+
+                                    <div class="col-lg-12 mt-2">
+                                        <button type="submit" class="btn btn-success">Logout</button>
+                                    </div>
+                                </form>
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 panel">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav col-lg-9 ml-auto text-nowrap mt-3">
+                            <li class="nav-panel col-lg-2 ml-5">
+                                <a th:href="@{/journal(teacherName=${teacherLogin.id})}" class="text-light">Journal</a>
+                            </li>
+                            <li class="nav-panel col-lg-2">
+                                <a th:href="@{/grades(teacherName=${teacherLogin.id})}" class="text-danger">Grades</a>
+                            </li>
+                            <li class="nav-panel col-lg-2">
+                                <a th:href="@{/students(teacherName=${teacherLogin.id})}" class="text-warning">Students</a>
+                            </li>
+                            <li class="nav-panel col-lg-2">
+                                <a th:href="@{/news(teacherName=${teacherLogin.id})}" class="text-success">News</a>
+                            </li>
+
+                        </ul>
+
+
+                    </nav>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="text-center col-lg-12">
+                    <img class="tablesc" th:src="@{/images/tablesc.jpg}" alt="Table" style="width:935px;">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
 
 </div>
 
 
-<!--bnm-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
