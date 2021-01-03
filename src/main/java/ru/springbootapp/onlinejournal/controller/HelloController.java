@@ -177,6 +177,12 @@ public class HelloController {
         return classScheduleService.getClassScheduleList();
     }
 
+    @ModelAttribute("dateFullFormatLessonList")
+    public List<Journal> getFullFormatDateLessonList() {
+        return journalService.getListFullFormatDateLesson();
+    }
+
+
 
     @RequestMapping(value = "registry-lesson", method = RequestMethod.GET)
     public String registryLesson(Model model) {

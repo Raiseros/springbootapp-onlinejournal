@@ -1,5 +1,5 @@
 body {
-    height: 1041px;
+    height: 2400px;
     background: linear-gradient(to top left, powderblue, pink);
 }
 
@@ -67,3 +67,27 @@ ul, li {
     background-color: #7B68EE;
 
 }
+
+
+.btn-group {
+    margin-top: -127px;
+}
+
+.tab{
+    margin-top: -100px;
+}
+
+.disabled{
+    pointer-events: none;
+    text-decoration: underline;
+    color:#D3D3D3;
+}
+
+
+.table-hover .no-hover:hover {
+    background-color: none !important;
+}
+
+
+
+
