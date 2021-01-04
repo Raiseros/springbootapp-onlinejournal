@@ -33,7 +33,7 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
     public List<String> getListClassnameStudent();
 
 
-    public List<Journal> findAllByClassnameStudent(String classNameStudent);
+    public List<Journal> findAllByClassnameStudentOrderByDateLessonAscNumberLessonAsc(String classNameStudent);
 
 
     @Transactional

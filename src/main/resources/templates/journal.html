@@ -18,7 +18,6 @@
 <body>
 
 
-
 <div sec:authorize="hasRole('teacher')">
 
 
@@ -106,55 +105,98 @@
 
 
 <div sec:authorize="hasRole('student')">
-    <p>Welcome
-    <td th:each="tempStudent : ${studentList}" th:if="${tempStudent.id.equals(tempStudentName)}"
-        th:text="${tempStudent.firstName}"/>
-    to online journal!</p>
-    <div class="user">
-        User: <span sec:authentication="principal.username"></span>
-    </div>
-    </br>
 
-    <br>
-    <div class="role">
-        Role: <span sec:authentication="principal.authorities"></span>
-    </div>
+    <header id="header-stud">
+        <div class="container-fluid table-warning">
+            <div class="row">
+                <div class="col-lg-12">
 
-    <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
-          method="POST">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav col-lg-12 text-nowrap">
+                            <li class="welcome text-center text-nowrap mr-4 mt-3">
+                                <p>Welcome
+                                <td th:each="tempStudent : ${studentList}"
+                                    th:if="${tempStudent.id.equals(tempStudentName)}"
+                                    th:text="${tempStudent.firstName}"/>
+                                to online journal!</p>
 
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-success">Logout</button>
+                            </li>
+
+                            <li class="nav-image">
+                                <img th:src="@{/images/profile.jpg}" alt="Profile" style="width:75px;">
+                            </li>
+
+                            <li class="user mr-4 mt-3 text-info">
+                                User: <span sec:authentication="principal.username"></span>
+                            </li>
+
+                            <li class="role mt-3 text-info">
+                                Role: <span sec:authentication="principal.authorities"></span>
+                            </li>
+                            <li>
+
+                                <form role="form" class="form-horizontal col-lg-12 text-center" action="#"
+                                      th:action="@{/showMyLoginPage/logout}"
+                                      method="POST">
+
+                                    <div class="col-lg-12 mt-2">
+                                        <button type="submit" class="btn btn-success">Logout</button>
+                                    </div>
+                                </form>
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
         </div>
-    </form>
-    <div class="table-warning text-center col-4">
+    </header>
 
-        <a th:href="@{/journal(studentName=${tempStudentName})}" class="btn btn-primary btn-sm"
-           role="button">Journal</a>
+    <section>
+        <div class="container-fluid mb-5">
+            <div class="row">
+                <div class="col-lg-12 panel">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav col-lg-9 ml-auto text-nowrap mt-3">
+                            <li class="nav-panel col-lg-2 ml-5">
+                                <a th:href="@{/journal(studentName=${tempStudentName})}"
+                                   class="disabled" aria-disabled="true">Journal</a>
+                            </li>
+                            <li class="nav-panel col-lg-2">
+                                <a th:href="@{/grades(studentName=${tempStudentName})}" class="text-light">Grades</a>
+                            </li>
+
+                            <li class="nav-panel col-lg-2">
+                                <a th:href="@{/news(studentName=${tempStudentName})}" class="text-light">News</a>
+                            </li>
+
+                        </ul>
 
 
-        <a th:href="@{/grades(studentName=${tempStudentName})}" class="btn btn-danger btn-sm"
-           role="button">Grades</a>
+                    </nav>
 
-        <a th:href="@{/news(studentName=${tempStudentName})}" class="btn btn-success btn-sm"
-           role="button">News</a>
+                </div>
 
-
-    </div>
+            </div>
+        </div>
+    </section>
 
 
 </div>
 
-<div class="container-fluid">
-    <div class="row col-lg-6">
-        <div class="text-left ml-auto mr-4  mt-2 col-lg-9">
-            <form action="#" th:action="@{/registry-lesson}">
-                <input type="submit" class="btn btn-primary" value="New lesson">
-            </form>
+
+<div sec:authorize="hasRole('teacher')">
+    <div class="container-fluid">
+        <div class="row col-lg-6">
+            <div class="text-left ml-auto mr-4  mt-2 col-lg-9">
+                <form action="#" th:action="@{/registry-lesson}">
+                    <input type="submit" class="btn btn-primary" value="New lesson">
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
 
 <div class="container mt-2">
     <div class="row">
@@ -258,306 +300,318 @@
         }
     </script>
 
-    <div style="text-align: center; padding-bottom: 20px;">
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="btn-group ml-auto col-lg-8">
 
-        <select id="id_studentName" name="id_studentName">
+                <div class="col-lg-7 mr-auto ml-1">
+                    <div style="text-align: center; padding-bottom: 20px;">
 
-            <option disabled value="">---------- select student ----------</option>
-            <option th:each="tempStudent : ${studentList}" th:value="${tempStudent.id}"
-                    th:text="${tempStudent.lastName} + ' ' + ${tempStudent.firstName}  + ' ' + ${tempStudent.middleName}"
-                    th:selected="${tempStudent.id.equals(tempStudentName)}" disabled>
-            </option>
-        </select>
+                        <select class="selectpicker" id="id_studentName" name="id_studentName"
+                                data-style="btn-success text-light" data-width="350px" title="select student">
 
+                            <div class="dropdown-menu">
+                                <option class="dropdown-item" value="" disabled>None</option>
+                                <option class="dropdown-item" th:each="tempStudent : ${studentList}"
+                                        th:value="${tempStudent.id}"
+                                        th:text="${tempStudent.lastName} + ' ' + ${tempStudent.firstName}  + ' ' + ${tempStudent.middleName}"
+                                        th:selected="${tempStudent.id.equals(tempStudentName)}" disabled>
+                                </option>
+                            </div>
+                        </select>
+                    </div>
 
+                </div>
+            </div>
+        </div>
     </div>
 
 
 </div>
 
 <div th:name="${tempStudentName}"
-     th:if="${tempStudentName} != null" class="d-flex" th:each="tempJournal,journalCount : ${journal}">
-    <p></p>
+     th:if="${tempStudentName} != null">
+
     <div class="container-fluid tab">
         <div class="row">
             <div class="col-lg-12">
 
-                <div class="mt-5" th:if="${journalCount.first}"
-                     th:each="tempDataRow, dataFirst : ${dateFullFormatLessonList}">
+
+                <table border="1" table style="width: 1900px;"
+                       class="table-hover table-bordered border-0">
+                    <thead>
+                    <tr class="d-flex col-lg-11 ml-auto justify-content-center">
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1">
+                            № lesson
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap col-1">
+                            Time lesson
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap  col-sm-1">
+                            Course
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
+                            Class
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                            School building
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-2">
+                            Homework
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
+                            Time Break
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
+                            Score
+                        </th>
+                        <div sec:authorize="hasRole('teacher')">
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                                Action
+                            </th>
+                        </div>
+                    </tr>
+                    </thead>
 
 
-                    <div th:each="JournalsTem,countJournal : ${journal.?[date_lesson == #root.tempDataRow.dateLesson]}">
+                    <div class="d-flex" th:each="tempJournal,journalCount : ${journal}">
 
-                        <table border="1" table style="width: 1900px;"
-                               class="table-hover table-bordered border-0">
-                            <thead>
-                            <tr class="d-flex col-lg-11 ml-auto justify-content-center mt-3"
-                                th:if="${dataFirst.first and countJournal.first}">
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1">
-                                    № lesson
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap col-1">
-                                    Time lesson
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap  col-sm-1">
-                                    Course
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
-                                    Class
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
-                                    School building
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-2">
-                                    Homework
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
-                                    Time Break
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
-                                    Score
-                                </th>
-                                <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
-                                    Action
-                                </th>
-                            </tr>
-
+                        <thead>
+                        <div sec:authorize="hasRole('teacher')">
                             <th class="d-flex border-0"
 
-                                th:if="${countJournal.first}">
+                                th:if="${journalCount.first}">
                                 <div class="d-flex col-lg-10">
                                     <div class="col-lg-2 ml-5 text-center"
-                                         th:text="${#dates.format(JournalsTem.date_lesson, 'EE, dd')}"></div>
+                                         th:text="${#dates.format(tempJournal.date_lesson, 'EE, dd')}"></div>
                                 </div>
                             </th>
-                            </thead>
-                            <thead>
-                            <tr class="d-flex col-lg-11 ml-auto justify-content-center border-0"
-                                th:if="${countJournal.first}"
-                                th:each="JournalTemp,countJournals : ${journal.?[date_lesson == #root.tempDataRow.dateLesson]}">
+                        </div>
+                        <div sec:authorize="hasRole('student')">
+                            <th class="d-flex border-0"
+
+                                th:if="${journalCount.first}">
+                                <div class="d-flex col-lg-10">
+                                    <div class="col-lg-5 ml-2  text-center"
+                                         th:text="${#dates.format(tempJournal.date_lesson, 'EE, dd')}"></div>
+                                </div>
+                            </th>
+                        </div>
+                        </thead>
 
 
-                                <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                                    th:text="${JournalTemp.number_lesson}"/>
-                                <td class="table-warning d-inline-flex justify-content-center align-items-center text-nowrap col-1"
-                                    th:text="${JournalTemp.time_lesson}"/>
-                                <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
-                                    th:text="${JournalTemp.fullname_course}"/>
-                                <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                                    th:text="${JournalTemp.class_name}"/>
-                                <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
-                                    th:text="${JournalTemp.school_building}"/>
-                                <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-sm-2"
-                                    th:text="${JournalTemp.homework}"/>
-                                <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-1"
-                                    th:text="${JournalTemp.time_break}"/>
-                                <td class="table-warning  d-inline-flex justify-content-center align-items-center col-1"
-                                    th:text="${JournalTemp.overall_score}"/>
+                        <div th:if="${journalCount.first}"
+                             th:each="dataRowTemp, firstData : ${dateFullFormatLessonList}">
 
+
+                            <div th:each="journalTem,journalCoun : ${journal.?[date_lesson == #root.dataRowTemp.dateLesson]}">
+
+                                <thead>
                                 <div sec:authorize="hasRole('teacher')">
-                                <td class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                                <th class="d-flex border-0 mt-5"
 
-                                    <div class="justify-content-center mr-4 col-4">
-                                        <a th:href="@{/formForUpdate(journalId=${tempJournal.id}, studName=${tempStudentName},
-                   idScore=${tempJournal.getId_sc()}, datLesson=${datLesson})}"
-                                           class="btn btn-primary btn-sm"
-                                           role="button">Update</a>
+                                    th:if="${journalTem.date_lesson != tempJournal.date_lesson}">
+                                    <div class="d-flex col-lg-10">
+                                        <div class="col-lg-2 ml-5 text-center"
+                                             th:text="${#dates.format(journalTem.date_lesson, 'EE, dd')}"></div>
                                     </div>
-
-                                    <div class="justify-content-center mr-2  col-4">
-                                        <a th:href="@{/deleteScore(journalId=${tempJournal.id}, idStudName=${tempStudentName},
-                 datLesson=${datLesson})}" class="btn btn-danger btn-sm" style="width: 80px;"
-                                           role="button">Delete</a>
-                                    </div>
-
-                                </td>
+                                </th>
                                 </div>
 
-                            </tr>
-                            </thead>
-                        </table>
+                                <div sec:authorize="hasRole('student')">
+                                    <th class="d-flex border-0 mt-5"
 
+                                        th:if="${journalTem.date_lesson != tempJournal.date_lesson}">
+                                        <div class="d-flex col-lg-10">
+                                            <div class="col-lg-5 ml-2 text-center"
+                                                 th:text="${#dates.format(journalTem.date_lesson, 'EE, dd')}"></div>
+                                        </div>
+                                    </th>
+                                </div>
+                                </thead>
+
+
+                                <thead>
+                                <tr class="d-flex col-lg-11 ml-auto justify-content-center border-0"
+                                    th:if="${journalCoun.first}"
+                                    th:each="journalTemp,journalCo : ${journal.?[date_lesson == #root.dataRowTemp.dateLesson]}">
+
+
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
+                                        th:text="${journalTemp.number_lesson}"/>
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center text-nowrap col-1"
+                                        th:text="${journalTemp.time_lesson}"/>
+                                    <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
+                                        th:text="${journalTemp.fullname_course}"/>
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
+                                        th:text="${journalTemp.class_name}"/>
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
+                                        th:text="${journalTemp.school_building}"/>
+                                    <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-sm-2"
+                                        th:text="${journalTemp.homework}"/>
+                                    <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-1"
+                                        th:text="${journalTemp.time_break}"/>
+                                    <td class="table-warning  d-inline-flex justify-content-center align-items-center col-1"
+                                        th:text="${journalTemp.overall_score}"/>
+
+                                    <div sec:authorize="hasRole('teacher')">
+                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+
+                                            <div class="justify-content-center mr-4 col-4">
+                                                <a th:href="@{/formForUpdate(journalId=${journalTemp.id}, studName=${tempStudentName},
+                   idScore=${journalTemp.getId_sc()}, datLesson=${datLesson})}"
+                                                   class="btn btn-primary btn-sm"
+                                                   role="button">Update</a>
+                                            </div>
+
+                                            <div class="justify-content-center mr-2  col-4">
+                                                <a th:href="@{/deleteScore(journalId=${journalTemp.id}, idStudName=${tempStudentName},
+                 datLesson=${datLesson})}" class="btn btn-danger btn-sm" style="width: 80px;"
+                                                   role="button">Delete</a>
+                                            </div>
+
+                                        </td>
+                                    </div>
+
+                                </tr>
+                                </thead>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </table>
             </div>
         </div>
     </div>
 </div>
-</div>
 
 </tbody>
 
-</table>
+</div>
 </div>
 
 
+<div sec:authorize="hasRole('teacher')">
+
+    <div th:name="${tempStudentName}"
+         th:if="${tempStudentName} == null">
+
+        <div class="container-fluid tab">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table border="1" table style="width: 1900px;"
+                           class="table-hover table-bordered border-0">
+                        <thead>
+                        <tr class="d-flex col-lg-11 ml-auto justify-content-center">
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1">
+                                № lesson
+                            </th>
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap col-1">
+                                Time lesson
+                            </th>
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap  col-sm-1">
+                                Course
+                            </th>
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
+                                Class
+                            </th>
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                                School building
+                            </th>
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-2">
+                                Homework
+                            </th>
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
+                                Time Break
+                            </th>
+                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                                Action
+                            </th>
+                        </tr>
+                        </thead>
 
 
+                        <div th:each="tempJournals,journalsCount : ${journals}">
 
-<!--<div class="table-responsive">
-    <table border="1" class="table table-striped table-hover table-bordered">
+                            <thead>
+                            <th class="d-flex border-0"
 
-        <tbody>
+                                th:if="${journalsCount.first}">
+                                <div class="d-flex col-lg-12">
+                                    <div class="col-lg-3 ml-4 text-center"
+                                         th:text="${#dates.format(tempJournals.dateLesson, 'EE, dd')}"></div>
+                                </div>
+                            </th>
+                            </thead>
 
-
-        <tr th:name="${tempStudentName}"
-            th:if="${tempStudentName} != null" class="d-flex" th:each="tempJournal : ${journal}">
-
-            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
-                th:text="${#dates.format(tempJournal.date_lesson, 'EE, dd')}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                th:text="${tempJournal.number_lesson}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.time_lesson}"/>
-            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
-                th:text="${tempJournal.fullname_course}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                th:text="${tempJournal.shortname_course}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.class_name}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.school_building}"/>
-            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-1"
-                th:text="${tempJournal.homework}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                th:text="${tempJournal.classname_student}"/>
-            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.time_break}"/>
-            <td class="table-warning  d-inline-flex justify-content-center align-items-center col-1"
-                th:text="${tempJournal.overall_score}"/>
-
-
-            <div sec:authorize="hasRole('teacher')">
-
-                <td class="table-warning text-center col-1">
-
-
-                    <a th:href="@{/formForUpdate(journalId=${tempJournal.id}, studName=${tempStudentName},
-                   idScore=${tempJournal.getId_sc()}, datLesson=${datLesson})}"
-                       class="btn btn-primary btn-sm"
-                       role="button">Update</a>
-
-
-                    <a th:href="@{/deleteScore(journalId=${tempJournal.id}, idStudName=${tempStudentName},
-                 datLesson=${datLesson})}" class="btn btn-danger btn-sm"
-                       role="button">Delete Score</a>
-
-                </td>
-
-            </div>
-
-        </tr>-->
-
-        <div sec:authorize="hasRole('teacher')">
-
-            <div th:name="${tempStudentName}"
-                 th:if="${tempStudentName} == null"
-                 th:each="tempJournals,journalsCount : ${journals}">
-                <p></p>
-                <div class="container-fluid tab">
-                    <div class="row">
-                        <div class="col-lg-12">
-
-                            <div class="mt-5" th:if="${journalsCount.first}"
+                            <div th:if="${journalsCount.first}"
                                  th:each="tempDataRow, dataFirst : ${dateFullFormatLessonList}">
 
 
                                 <div th:each="JournalsTem,countJournal : ${journals.?[dateLesson == #root.tempDataRow.dateLesson]}">
 
-                                    <table border="1" table style="width: 1900px;"
-                                           class="table-hover table-bordered border-0">
-                                        <thead>
-                                        <tr class="d-flex col-lg-11 ml-auto justify-content-center"
-                                            th:if="${dataFirst.first and countJournal.first}">
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1">
-                                                № lesson
-                                            </th>
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap col-1">
-                                                Time lesson
-                                            </th>
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap  col-sm-1">
-                                                Course
-                                            </th>
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
-                                                Class
-                                            </th>
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
-                                                School building
-                                            </th>
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-2">
-                                                Homework
-                                            </th>
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
-                                                Time Break
-                                            </th>
-                                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
-                                                Action
-                                            </th>
-                                        </tr>
+                                    <thead>
 
-                                        <th class="d-flex border-0"
+                                    <th class="d-flex border-0 mt-5"
 
-                                            th:if="${countJournal.first}">
-                                            <div class="d-flex col-lg-12">
-                                                <div class="col-lg-3 ml-4 text-center"
-                                                     th:text="${#dates.format(JournalsTem.dateLesson, 'EE, dd')}"></div>
-                                            </div>
-                                        </th>
-                                        </thead>
-<thead>
-                                        <tr class="d-flex col-lg-11 ml-auto justify-content-center border-0"
-                                            th:if="${countJournal.first}"
-                                            th:each="JournalsTemp,countJournals : ${journals.?[dateLesson == #root.tempDataRow.dateLesson]}">
-
-
-                                            <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                                                th:text="${JournalsTemp.numberLesson}"/>
-                                            <td class="table-warning d-inline-flex justify-content-center align-items-center text-nowrap col-1"
-                                                th:text="${JournalsTemp.timeLesson}"/>
-                                            <td class="table-warning d-inline-flex justify-content-start align-items-center  col-sm-1"
-                                                th:text="${JournalsTemp.fullnameCourse}"/>
-                                            <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                                                th:text="${JournalsTemp.className}"/>
-                                            <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
-                                                th:text="${JournalsTemp.schoolBuilding}"/>
-                                            <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-2"
-                                                th:text="${JournalsTemp.homework}"/>
-                                            <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-1"
-                                                th:text="${JournalsTemp.timeBreak}"/>
-                                            <td class="table-warning d-inline-flex justify-content-center align-items-center col-2">
-
-                                                <div class="justify-content-center mr-4 col-4">
-                                                    <a th:href="@{/formForUpdate(journalId=${tempJournals.id}, datLesson=${datLesson},
-                 clName=${classNameStudent})}"
-                                                       class="btn btn-primary btn-sm"
-                                                       role="button">Update</a>
-                                                </div>
-
-                                                <div class="justify-content-center mr-2  col-4">
-                                                    <a th:href="@{/delete(journalId=${tempJournals.id}, datLesson=${datLesson},
-                 clName=${classNameStudent})}" class="btn btn-danger btn-sm" style="width: 80px;"
-                                                       role="button">Delete</a>
-                                                </div>
-
-                                            </td>
-
-                                        </tr>
+                                        th:if="${JournalsTem.dateLesson != tempJournals.dateLesson}">
+                                        <div class="d-flex col-lg-12">
+                                            <div class="col-lg-3 ml-4 text-center"
+                                                 th:text="${#dates.format(JournalsTem.dateLesson, 'EE, dd')}"></div>
+                                        </div>
+                                    </th>
                                     </thead>
-                                    </table>
 
+                                    <thead>
+                                    <tr class="d-flex col-lg-11 ml-auto justify-content-center border-0"
+                                        th:if="${countJournal.first}"
+                                        th:each="journalsTemp,countJournals : ${journals.?[dateLesson == #root.tempDataRow.dateLesson]}">
+
+
+                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
+                                            th:text="${journalsTemp.numberLesson}"/>
+                                        <td class="table-warning d-inline-flex justify-content-center align-items-center text-nowrap col-1"
+                                            th:text="${journalsTemp.timeLesson}"/>
+                                        <td class="table-warning d-inline-flex justify-content-start align-items-center  col-sm-1"
+                                            th:text="${journalsTemp.fullnameCourse}"/>
+                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
+                                            th:text="${journalsTemp.className}"/>
+                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
+                                            th:text="${journalsTemp.schoolBuilding}"/>
+                                        <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-2"
+                                            th:text="${journalsTemp.homework}"/>
+                                        <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-1"
+                                            th:text="${journalsTemp.timeBreak}"/>
+                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+
+                                            <div class="justify-content-center mr-4 col-4">
+                                                <a th:href="@{/formForUpdate(journalId=${journalsTemp.id}, datLesson=${datLesson},
+                 clName=${classNameStudent})}"
+                                                   class="btn btn-primary btn-sm"
+                                                   role="button">Update</a>
+                                            </div>
+
+                                            <div class="justify-content-center mr-2  col-4">
+                                                <a th:href="@{/delete(journalId=${journalsTemp.id}, datLesson=${datLesson},
+                 clName=${classNameStudent})}" class="btn btn-danger btn-sm" style="width: 80px;"
+                                                   role="button">Delete</a>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                    </thead>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </table>
                 </div>
             </div>
         </div>
-
-        </tbody>
-
-    </table>
+    </div>
 </div>
-</div>
+
+</tbody>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -52,7 +52,7 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     public List<Journal> getJournalClassNameStudentList(String classNameStudent) {
-        return journalRepository.findAllByClassnameStudent(classNameStudent);
+        return journalRepository.findAllByClassnameStudentOrderByDateLessonAscNumberLessonAsc(classNameStudent);
     }
 
     @Override

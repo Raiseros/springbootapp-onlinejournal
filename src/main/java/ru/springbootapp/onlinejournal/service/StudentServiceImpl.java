@@ -25,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveStudent(Student theStudent) {
         Set<Journal> journal = new HashSet<>();
-        journal.addAll(journalRepository.findAllByClassnameStudent(theStudent.getClassName()));
+        journal.addAll(journalRepository.findAllByClassnameStudentOrderByDateLessonAscNumberLessonAsc(theStudent.getClassName()));
         theStudent.getJournals().addAll(journal);
         studentRepository.save(theStudent);
     }
@@ -60,7 +60,7 @@ public class StudentServiceImpl implements StudentService {
         if(true != className.equalsIgnoreCase(theStudent.getClassName())) {
             studentRepository.deleteStudentClass(theStudent.getId());
             Set<Journal> journal = new HashSet<>();
-            journal.addAll(journalRepository.findAllByClassnameStudent(theStudent.getClassName()));
+            journal.addAll(journalRepository.findAllByClassnameStudentOrderByDateLessonAscNumberLessonAsc(theStudent.getClassName()));
 
             for (Journal theJournal : journal) {
                 studentRepository.updateStudentClass(theJournal.getId(), theStudent.getId());
