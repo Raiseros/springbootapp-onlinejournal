@@ -169,6 +169,5 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     public List<GradesDto> getListGradesDtoCourseNameAndDateAndStudName(String courseName, String dateLesson, long studentName);
 
 
-  /*  bnn*/
 
 }

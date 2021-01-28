@@ -169,7 +169,7 @@ public class HelloController {
 
     @ModelAttribute("courseList")
     public List<Course> getcourseList() {
-        return courseService.getcourseList();
+        return courseService.getCourseList();
     }
 
     @ModelAttribute("ClassScheduleList")

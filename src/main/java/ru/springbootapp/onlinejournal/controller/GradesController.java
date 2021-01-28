@@ -53,48 +53,57 @@ public class GradesController {
                 && (null == courseName || "" == courseName))) {
             model.addAttribute("classNameStudent", clName);
             model.addAttribute("grades",gradesDtoService.getGradesDtoClassNameStudentList(clName));
+            model.addAttribute("courseList", courseService.getCourseClassNameStudentList(clName));
 
        } else if ((null != datLesson && "" != datLesson) && ((null == clName || "" == clName) && (null == studentName)
                 && (null == courseName || "" == courseName))) {
             model.addAttribute("datLesson", datLesson);
             model.addAttribute("grades", gradesDtoService.getListByDateMonthLesson(datLesson));
+            model.addAttribute("courseList", courseService.getCourseByDateMonthLesson(datLesson));
 
        } else if ((null != clName && "" != clName) && ((null != datLesson && "" != datLesson) && (null == studentName)
                 && (null == courseName || "" == courseName))) {
             model.addAttribute("classNameStudent", clName);
             model.addAttribute("datLesson", datLesson);
             model.addAttribute("grades", gradesDtoService.getListByClassnameStudentAndByDateMonthLesson(clName, datLesson));
+            model.addAttribute("courseList", courseService.getCourseByClassnameStudentAndByDateMonthLesson(clName, datLesson));
 
         } else if ((null != studentName) && (null == datLesson || "" == datLesson) && (null == courseName || "" == courseName)) {
             model.addAttribute("tempStudentName", studentName);
             model.addAttribute("grades", gradesDtoService.getListGradesDtoByStudName(studentName));
+            model.addAttribute("courseList", courseService.getCourseByStudName(studentName));
 
         } else if ((null != studentName) && (null != datLesson && "" != datLesson)  && (null == courseName || "" == courseName)) {
             model.addAttribute("tempStudentName", studentName);
             model.addAttribute("datLesson", datLesson);
             model.addAttribute("grades", gradesDtoService.getListGradesDtoStudentNameAndDateMonthLesson(studentName, datLesson));
+            model.addAttribute("courseList", courseService.getCourseStudentNameAndDateMonthLesson(studentName, datLesson));
 
         } else if ((null != courseName && "" != courseName) && ((null == clName || "" == clName)
                 && (null == datLesson || "" == datLesson) && (null == studentName))) {
             model.addAttribute("courseName", courseName);
             model.addAttribute("grades", gradesDtoService.getListByCourseName(courseName));
+            model.addAttribute("courseList", courseService.getCourseByCourseName(courseName));
 
         } else if ((null != courseName && "" != courseName) && ((null != datLesson && "" != datLesson) && (null == studentName)
                 && (null == clName || "" == clName))) {
             model.addAttribute("courseName", courseName);
             model.addAttribute("datLesson", datLesson);
             model.addAttribute("grades", gradesDtoService.getListGradesDtoCourseNameAndDateMonthLesson(courseName, datLesson));
+            model.addAttribute("courseList", courseService.getCourseCourseNameAndDateMonthLesson(courseName, datLesson));
 
         } else if ((null != courseName && "" != courseName) && ((null != clName && "" != clName) && (null == studentName)
                 && (null == datLesson || "" == datLesson))) {
             model.addAttribute("courseName", courseName);
             model.addAttribute("classNameStudent", clName);
             model.addAttribute("grades", gradesDtoService.getListGradesDtoCourseNameAndClassNameStudent(courseName, clName));
+            model.addAttribute("courseList", courseService.getCourseCourseNameAndClassNameStudent(courseName, clName));
 
         } else if ((null != courseName && "" != courseName) && (null != studentName)  && (null == datLesson || "" == datLesson)) {
             model.addAttribute("courseName", courseName);
             model.addAttribute("tempStudentName", studentName);
             model.addAttribute("grades", gradesDtoService.getListGradesDtoCourseNameAndStudName(courseName, studentName));
+            model.addAttribute("courseList", courseService.getCourseCourseNameAndStudName(courseName, studentName));
 
         } else if ((null != courseName && "" != courseName) && ((null != datLesson && "" != datLesson) && (null == studentName))
                 && (null != clName && "" != clName)) {
@@ -102,16 +111,20 @@ public class GradesController {
             model.addAttribute("datLesson", datLesson);
             model.addAttribute("classNameStudent", clName);
             model.addAttribute("grades", gradesDtoService.getListGradesDtoCourseNameAndDateAndClNameStud(courseName, datLesson, clName));
+            model.addAttribute("courseList", courseService.getCourseCourseNameAndDateAndClNameStud(courseName, datLesson, clName));
 
         } else if ((null != courseName && "" != courseName) && (null != datLesson && "" != datLesson) && (null != studentName)) {
             model.addAttribute("courseName", courseName);
             model.addAttribute("datLesson", datLesson);
             model.addAttribute("tempStudentName", studentName);
             model.addAttribute("grades", gradesDtoService.getListGradesDtoCourseNameAndDateAndStudName(courseName, datLesson, studentName));
+            model.addAttribute("courseList", courseService.getCourseCourseNameAndDateAndStudName(courseName, datLesson, studentName));
 
         } else {
             List<GradesDto> theGradesDto = gradesDtoService.getListGradesDto();
+            List<Course> tempCourseList = courseService.getCourseList();
             model.addAttribute("grades", theGradesDto);
+            model.addAttribute("courseList", tempCourseList);
         }
 
         model.addAttribute("tempTeacherName", teacherName);
@@ -156,9 +169,9 @@ public class GradesController {
     }
 
 
-    @ModelAttribute("courseList")
-    public List<Course> getcourseList() {
-        return courseService.getcourseList();
+    @ModelAttribute("courseWholeList")
+    public List<Course> getCourseList() {
+        return courseService.getCourseList();
     }
 
     @ModelAttribute("ClassScheduleList")

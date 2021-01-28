@@ -107,51 +107,51 @@
 <div sec:authorize="hasRole('student')">
 
     <header id="header-stud">
-        <div class="container-fluid table-warning">
-            <div class="row">
-                <div class="col-lg-12">
+    <div class="container-fluid table-warning">
+        <div class="row">
+            <div class="col-lg-12">
 
-                    <nav class="navbar navbar-expand-lg">
-                        <ul class="navbar-nav col-lg-12 text-nowrap">
-                            <li class="welcome text-center text-nowrap mr-4 mt-3">
-                                <p>Welcome
-                                <td th:each="tempStudent : ${studentList}"
-                                    th:if="${tempStudent.id.equals(tempStudentName)}"
-                                    th:text="${tempStudent.firstName}"/>
-                                to online journal!</p>
+                <nav class="navbar navbar-expand-lg">
+                    <ul class="navbar-nav col-lg-12 text-nowrap">
+                        <li class="welcome text-center text-nowrap mr-4 mt-3">
+                            <p>Welcome
+                            <td th:each="tempStudent : ${studentList}"
+                                th:if="${tempStudent.id.equals(tempStudentName)}"
+                                th:text="${tempStudent.firstName}"/>
+                            to online journal!</p>
 
-                            </li>
+                        </li>
 
-                            <li class="nav-image">
-                                <img th:src="@{/images/profile.jpg}" alt="Profile" style="width:75px;">
-                            </li>
+                        <li class="nav-image">
+                            <img th:src="@{/images/profile.jpg}" alt="Profile" style="width:75px;">
+                        </li>
 
-                            <li class="user mr-4 mt-3 text-info">
-                                User: <span sec:authentication="principal.username"></span>
-                            </li>
+                        <li class="user mr-4 mt-3 text-info">
+                            User: <span sec:authentication="principal.username"></span>
+                        </li>
 
-                            <li class="role mt-3 text-info">
-                                Role: <span sec:authentication="principal.authorities"></span>
-                            </li>
-                            <li>
+                        <li class="role mt-3 text-info">
+                            Role: <span sec:authentication="principal.authorities"></span>
+                        </li>
+                        <li>
 
-                                <form role="form" class="form-horizontal col-lg-12 text-center" action="#"
-                                      th:action="@{/showMyLoginPage/logout}"
-                                      method="POST">
+                            <form role="form" class="form-horizontal col-lg-12 text-center" action="#"
+                                  th:action="@{/showMyLoginPage/logout}"
+                                  method="POST">
 
-                                    <div class="col-lg-12 mt-2">
-                                        <button type="submit" class="btn btn-success">Logout</button>
-                                    </div>
-                                </form>
-                            </li>
+                                <div class="col-lg-12 mt-2">
+                                    <button type="submit" class="btn btn-success">Logout</button>
+                                </div>
+                            </form>
+                        </li>
 
-                        </ul>
-                    </nav>
+                    </ul>
+                </nav>
 
-                </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <section>
         <div class="container-fluid mb-5">
