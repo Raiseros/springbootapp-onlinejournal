@@ -17,8 +17,23 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void saveTeacher(Teacher theTeacher) {
+
         teacherRepository.save(theTeacher);
+
     }
+
+    @Override
+    public boolean findTeacher(Teacher theTeacher) {
+        Teacher teacherFromDb = teacherRepository.findTeacherByEmail(theTeacher.getEmail());
+
+        if (teacherFromDb != null) {
+            return false;
+        } else{
+            return true;
+        }
+
+    }
+
 
     @Override
     public Teacher findByEmail(String email) {

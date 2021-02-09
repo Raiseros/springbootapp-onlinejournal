@@ -178,10 +178,10 @@
                                 <a th:href="@{/journal(studentName=${studentLogin.id})}" class="text-light">Journal</a>
                             </li>
                             <li class="nav-panel col-lg-2">
-                                <a th:href="@{/grades(studentName=${studentLogin.id})}" class="text-danger">Grades</a>
+                                <a th:href="@{/grades(studentName=${studentLogin.id})}" class="text-light">Grades</a>
                             </li>
                             <li class="nav-panel col-lg-2">
-                                <a th:href="@{/news(studentName=${studentLogin.id})}" class="text-success">News</a>
+                                <a th:href="@{/news(studentName=${studentLogin.id})}" class="text-light">News</a>
                             </li>
 
                         </ul>
@@ -208,46 +208,6 @@
     </section>
 
 
-
-    <!-- <p> Welcome
-     <td th:text="${studentLogin.firstName}"/>
-     to online journal!</p>
-
-     <div class="user">
-         User: <span sec:authentication="principal.username"></span>
-
-         </br>
-
-         <br>
-         <div class="role">
-             Role: <span sec:authentication="principal.authorities"></span>
-         </div>
-
-         <form role="form" class="form-horizontal" action="#" th:action="@{/showMyLoginPage/logout}"
-               method="POST">
-
-             <div class="col-md-12">
-                 <button type="submit" class="btn btn-success">Logout</button>
-             </div>
-         </form>
-
-         <div class="table-warning text-center col-4">
-
-
-             <a th:href="@{/journal(studentName=${studentLogin.id})}" class="btn btn-primary btn-sm"
-                role="button">Journal</a>
-
-
-             <a th:href="@{/grades(studentName=${studentLogin.id})}" class="btn btn-danger btn-sm"
-                role="button">Grades</a>
-
-             <a th:href="@{/news(studentName=${studentLogin.id})}" class="btn btn-success btn-sm"
-                role="button">News</a>
-
-         </div>
-
-
-     </div>-->
 </div>
 
 
@@ -306,13 +266,13 @@
                                 <a th:href="@{/journal(teacherName=${teacherLogin.id})}" class="text-light">Journal</a>
                             </li>
                             <li class="nav-panel col-lg-2">
-                                <a th:href="@{/grades(teacherName=${teacherLogin.id})}" class="text-danger">Grades</a>
+                                <a th:href="@{/grades(teacherName=${teacherLogin.id})}" class="text-light">Grades</a>
                             </li>
                             <li class="nav-panel col-lg-2">
-                                <a th:href="@{/students(teacherName=${teacherLogin.id})}" class="text-warning">Students</a>
+                                <a th:href="@{/students(teacherName=${teacherLogin.id})}" class="text-light">Students</a>
                             </li>
                             <li class="nav-panel col-lg-2">
-                                <a th:href="@{/news(teacherName=${teacherLogin.id})}" class="text-success">News</a>
+                                <a th:href="@{/news(teacherName=${teacherLogin.id})}" class="text-light">News</a>
                             </li>
 
                         </ul>

@@ -496,117 +496,117 @@
          th:if="${tempStudentName} == null">
 
         <div class="container-fluid tab">
-            <div class="row">
-                <div class="col-lg-12">
-                    <table border="1" table style="width: 1900px;"
-                           class="table-hover table-bordered border-0">
+        <div class="row">
+            <div class="col-lg-12">
+                <table border="1" table style="width: 1900px;"
+                       class="table-hover table-bordered border-0">
+                    <thead>
+                    <tr class="d-flex col-lg-11 ml-auto justify-content-center">
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1">
+                            № lesson
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap col-1">
+                            Time lesson
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap  col-sm-1">
+                            Course
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
+                            Class
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                            School building
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-2">
+                            Homework
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
+                            Time Break
+                        </th>
+                        <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                            Action
+                        </th>
+                    </tr>
+                    </thead>
+
+
+                    <div th:each="tempJournals,journalsCount : ${journals}">
+
                         <thead>
-                        <tr class="d-flex col-lg-11 ml-auto justify-content-center">
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1">
-                                № lesson
-                            </th>
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap col-1">
-                                Time lesson
-                            </th>
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center text-center text-nowrap  col-sm-1">
-                                Course
-                            </th>
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
-                                Class
-                            </th>
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
-                                School building
-                            </th>
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-sm-2">
-                                Homework
-                            </th>
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-1">
-                                Time Break
-                            </th>
-                            <th class="table-warning d-inline-flex justify-content-center align-items-center col-2">
-                                Action
-                            </th>
-                        </tr>
+                        <th class="d-flex border-0"
+
+                            th:if="${journalsCount.first}">
+                            <div class="d-flex col-lg-12">
+                                <div class="col-lg-3 ml-4 text-center"
+                                     th:text="${#dates.format(tempJournals.dateLesson, 'EE, dd')}"></div>
+                            </div>
+                        </th>
                         </thead>
 
-
-                        <div th:each="tempJournals,journalsCount : ${journals}">
-
-                            <thead>
-                            <th class="d-flex border-0"
-
-                                th:if="${journalsCount.first}">
-                                <div class="d-flex col-lg-12">
-                                    <div class="col-lg-3 ml-4 text-center"
-                                         th:text="${#dates.format(tempJournals.dateLesson, 'EE, dd')}"></div>
-                                </div>
-                            </th>
-                            </thead>
-
-                            <div th:if="${journalsCount.first}"
-                                 th:each="tempDataRow, dataFirst : ${dateFullFormatLessonList}">
+                        <div th:if="${journalsCount.first}"
+                             th:each="tempDataRow, dataFirst : ${dateFullFormatLessonList}">
 
 
-                                <div th:each="JournalsTem,countJournal : ${journals.?[dateLesson == #root.tempDataRow.dateLesson]}">
+                            <div th:each="JournalsTem,countJournal : ${journals.?[dateLesson == #root.tempDataRow.dateLesson]}">
 
-                                    <thead>
+                                <thead>
 
-                                    <th class="d-flex border-0 mt-5"
+                                <th class="d-flex border-0 mt-5"
 
-                                        th:if="${JournalsTem.dateLesson != tempJournals.dateLesson}">
-                                        <div class="d-flex col-lg-12">
-                                            <div class="col-lg-3 ml-4 text-center"
-                                                 th:text="${#dates.format(JournalsTem.dateLesson, 'EE, dd')}"></div>
-                                        </div>
-                                    </th>
-                                    </thead>
+                                    th:if="${JournalsTem.dateLesson != tempJournals.dateLesson}">
+                                    <div class="d-flex col-lg-12">
+                                        <div class="col-lg-3 ml-4 text-center"
+                                             th:text="${#dates.format(JournalsTem.dateLesson, 'EE, dd')}"></div>
+                                    </div>
+                                </th>
+                                </thead>
 
-                                    <thead>
-                                    <tr class="d-flex col-lg-11 ml-auto justify-content-center border-0"
-                                        th:if="${countJournal.first}"
-                                        th:each="journalsTemp,countJournals : ${journals.?[dateLesson == #root.tempDataRow.dateLesson]}">
+                                <thead>
+                                <tr class="d-flex col-lg-11 ml-auto justify-content-center border-0"
+                                    th:if="${countJournal.first}"
+                                    th:each="journalsTemp,countJournals : ${journals.?[dateLesson == #root.tempDataRow.dateLesson]}">
 
 
-                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
-                                            th:text="${journalsTemp.numberLesson}"/>
-                                        <td class="table-warning d-inline-flex justify-content-center align-items-center text-nowrap col-1"
-                                            th:text="${journalsTemp.timeLesson}"/>
-                                        <td class="table-warning d-inline-flex justify-content-start align-items-center  col-sm-1"
-                                            th:text="${journalsTemp.fullnameCourse}"/>
-                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
-                                            th:text="${journalsTemp.className}"/>
-                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
-                                            th:text="${journalsTemp.schoolBuilding}"/>
-                                        <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-2"
-                                            th:text="${journalsTemp.homework}"/>
-                                        <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-1"
-                                            th:text="${journalsTemp.timeBreak}"/>
-                                        <td class="table-warning d-inline-flex justify-content-center align-items-center col-2">
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center col-sm-1"
+                                        th:text="${journalsTemp.numberLesson}"/>
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center text-nowrap col-1"
+                                        th:text="${journalsTemp.timeLesson}"/>
+                                    <td class="table-warning d-inline-flex justify-content-start align-items-center  col-sm-1"
+                                        th:text="${journalsTemp.fullnameCourse}"/>
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center col-1"
+                                        th:text="${journalsTemp.className}"/>
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center col-2"
+                                        th:text="${journalsTemp.schoolBuilding}"/>
+                                    <td class="table-warning d-inline-flex justify-content-start align-items-center col-sm-2"
+                                        th:text="${journalsTemp.homework}"/>
+                                    <td class="table-warning d-inline-flex justify-content-start align-items-center text-nowrap col-1"
+                                        th:text="${journalsTemp.timeBreak}"/>
+                                    <td class="table-warning d-inline-flex justify-content-center align-items-center col-2">
 
-                                            <div class="justify-content-center mr-4 col-4">
-                                                <a th:href="@{/formForUpdate(journalId=${journalsTemp.id}, datLesson=${datLesson},
+                                        <div class="justify-content-center mr-4 col-4">
+                                            <a th:href="@{/formForUpdate(journalId=${journalsTemp.id}, datLesson=${datLesson},
                  clName=${classNameStudent})}"
-                                                   class="btn btn-primary btn-sm"
-                                                   role="button">Update</a>
-                                            </div>
+                                               class="btn btn-primary btn-sm"
+                                               role="button">Update</a>
+                                        </div>
 
-                                            <div class="justify-content-center mr-2  col-4">
-                                                <a th:href="@{/delete(journalId=${journalsTemp.id}, datLesson=${datLesson},
+                                        <div class="justify-content-center mr-2  col-4">
+                                            <a th:href="@{/delete(journalId=${journalsTemp.id}, datLesson=${datLesson},
                  clName=${classNameStudent})}" class="btn btn-danger btn-sm" style="width: 80px;"
-                                                   role="button">Delete</a>
-                                            </div>
+                                               role="button">Delete</a>
+                                        </div>
 
-                                        </td>
+                                    </td>
 
-                                    </tr>
-                                    </thead>
-                                </div>
+                                </tr>
+                                </thead>
                             </div>
                         </div>
-                    </table>
-                </div>
+                    </div>
+                </table>
             </div>
         </div>
+    </div>
     </div>
 </div>
 

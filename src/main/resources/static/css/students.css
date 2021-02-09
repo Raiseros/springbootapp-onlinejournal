@@ -1,0 +1,86 @@
+body {
+    height: 2400px;
+    background: linear-gradient(to top left, powderblue, pink);
+}
+
+
+
+
+#header {
+    background-color: #20B2AA;
+}
+
+.tablesc {
+    padding-top: 152px;
+}
+
+.rules {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    background-color: #7B68EE;
+}
+
+.container-text {
+    margin-top: -25px;
+    z-index: 2;
+    width: 2500px;
+    height: 800px;
+    padding-top: -100px;
+    padding-bottom: 100px;
+    border-top-right-radius: 1200px 400px;
+    border-top-left-radius: 800px 150px;
+
+
+}
+
+h3 {
+    margin-top: 150px;
+    margin-left: 550px;
+    text-align: center;
+}
+
+.main-text {
+    margin-top: 50px;
+    text-align: left;
+    margin-left: 550px;
+}
+
+ul, li {
+    display: block;
+
+}
+
+
+
+.welcome, .user, .role {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-shadow: lightgray 0.1em 0.1em 0.2em;
+}
+
+.nav-panel {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 30px;
+}
+
+.panel{
+    height: 100px;
+    background-color: #7B68EE;
+
+}
+
+
+.btn-group {
+    margin-top: -127px;
+}
+
+
+.disabled{
+    pointer-events: none;
+    text-decoration: underline;
+    color:#D3D3D3;
+}
+
+
+.table-hover .no-hover:hover {
+    background-color: none !important;
+}

@@ -7,13 +7,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.springbootapp.onlinejournal.entity.*;
 import ru.springbootapp.onlinejournal.service.*;
 
 
-
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -92,7 +93,24 @@ public class HelloController {
     }
 
     @PostMapping("/showTeacherLoginPage/saveTeacher")
-    public String addTeacher(@ModelAttribute("teacher") Teacher theTeacher) {
+    public String addTeacher(@ModelAttribute("teacher") @Valid Teacher theTeacher, Errors errors, Model model) {
+
+
+        if (theTeacher.getPassword() != null && !theTeacher.getPassword().equals(theTeacher.getConfirmPassword())) {
+            model.addAttribute("passwordError", "Passwords are different!");
+            return "registry-teacher";
+        }
+
+        if(errors.hasErrors()){
+          return "registry-teacher";
+        }
+
+        if(!teacherService.findTeacher(theTeacher)){
+            model.addAttribute("message", "Teacher already exists!");
+            return "registry-teacher";
+
+        }
+
         teacherService.saveTeacher(theTeacher);
         return "redirect:/";
     }

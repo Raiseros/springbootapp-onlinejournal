@@ -350,7 +350,7 @@
 
 
                 <table border="1" class="table-hover"
-                       th:classappend="${(countCourse.size == 1 ? 'col-lg-' + (countCourse.size + 1) : '') + ((countCourse.size > 1 and countCourse.size < 13) ? 'col-lg-' + countCourse.size : '') + (countCourse.size > 12 ? 'col-lg-12' : '')}"
+                       th:classappend="${(countCourse.size == 1 ? 'col-lg-' + (countCourse.size + 2) : '') + (countCourse.size == 2 ? 'col-lg-' + (countCourse.size + 1) : '') + ((countCourse.size > 2 and countCourse.size < 13) ? 'col-lg-' + countCourse.size : '') + (countCourse.size > 12 ? 'col-lg-12' : '')}"
 
 
                        th:each="tempGrades,countCourse : ${grades.?[shortname_course == #root.tempCourseList.courseShortName]}">
@@ -364,13 +364,13 @@
                             <tr>
 
 
-                                <td class="table-warning col-lg-2"
+                                <td class="table-warning col-lg-2 w-60 font-weight-bold"
                                     rowspan="2">
                                     Student Name
                                 </td>
 
 
-                                <td class="table-warning text-center col-lg-6" th:colspan="${100}"
+                                <td class="table-warning text-center col-lg-6 w-40 font-weight-bold" th:colspan="${100}"
                                     th:text="${tempGrades.shortname_course}">Short Name Course
                                 </td>
 

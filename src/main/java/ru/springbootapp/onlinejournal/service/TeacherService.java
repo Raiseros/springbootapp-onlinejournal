@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface TeacherService {
     public void saveTeacher(Teacher theTeacher);
+    public boolean findTeacher(Teacher theTeacher);
 
     public Teacher findByEmail(String email);
 
     public List<Teacher> getListTeacher();
-
     /*vbh*/
 }
